@@ -31,7 +31,7 @@ namespace CsharpSite
             return Task.FromResult(0);
         }
     }
-
+    /*
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
@@ -86,8 +86,8 @@ namespace CsharpSite
             }
             return manager;
         }
-    }
-
+    }*/
+    /*
     // Configure the application sign-in manager which is used in this application.
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
@@ -105,5 +105,5 @@ namespace CsharpSite
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
-    }
+    }*/
 }
