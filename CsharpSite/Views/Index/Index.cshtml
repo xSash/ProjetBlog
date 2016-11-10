@@ -3,20 +3,28 @@
     ViewBag.Title = "Index";
 }
 
-<h1>CodeShare</h1>
+<h1>CodeCap</h1>
 <h3>Welcome to CodeCap</h3>
 
 @Html.Partial( "../Shared/NavBar" )
 
-<form action="/Session/Register" method="post">
-    <h2>Register</h2>
-    Username: <input type="text" name="username" /><br />
-    Email: <input type="text" name="email" /><br />
-    Password: <input type="password" name="passw"></input><br />
-    Confirm password: <input type="password" name="cpassw"></input><br />
-    <input type="submit" value="Register" /><br />
-</form>
+<a href="/Session/Register">Register</a><br />
+<a href="/Session/Login">Login</a>
 
-@foreach (var user in ViewBag.users) {
-    @user.username @user.Id<br />
-} 
+<h3>List of current users</h3>
+<table class="table table-striped" style="width: 500px;" >
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    @foreach (var user in ViewBag.users) {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.Username</td>
+            <td>@user.Email</td>
+        </tr>
+    } 
+</table>

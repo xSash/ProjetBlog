@@ -10,12 +10,11 @@ namespace CsharpSite.Controllers
 {
     public class IndexController : Controller
     {
+        private DB db = new DB();
         // GET: indexDefault
         public ActionResult Index()
         {
-            D db = new DBEntities();
-            user[] user = db.users.ToArray();
-            ViewBag.users = user;
+            ViewBag.users = db.Users.ToList();
             return View();
         }
     }
