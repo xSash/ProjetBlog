@@ -217,6 +217,30 @@
     <Compile Include="Migrations\201611162359586_0.02.Designer.cs">
       <DependentUpon>201611162359586_0.02.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611170018399_0.03.cs" />
+    <Compile Include="Migrations\201611170018399_0.03.Designer.cs">
+      <DependentUpon>201611170018399_0.03.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611170029089_0.04.cs" />
+    <Compile Include="Migrations\201611170029089_0.04.Designer.cs">
+      <DependentUpon>201611170029089_0.04.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611170046137_0.05.cs" />
+    <Compile Include="Migrations\201611170046137_0.05.Designer.cs">
+      <DependentUpon>201611170046137_0.05.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611170049361_0.06.cs" />
+    <Compile Include="Migrations\201611170049361_0.06.Designer.cs">
+      <DependentUpon>201611170049361_0.06.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611170123565_0.07.cs" />
+    <Compile Include="Migrations\201611170123565_0.07.Designer.cs">
+      <DependentUpon>201611170123565_0.07.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611170143281_0.08.cs" />
+    <Compile Include="Migrations\201611170143281_0.08.Designer.cs">
+      <DependentUpon>201611170143281_0.08.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\user.cs" />
@@ -233,6 +257,7 @@
     <Content Include="App_Data\DB_log.ldf">
       <DependentUpon>DB.mdf</DependentUpon>
     </Content>
+    <Content Include="cleanTable.sql" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -313,6 +338,24 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611162359586_0.02.resx">
       <DependentUpon>201611162359586_0.02.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611170018399_0.03.resx">
+      <DependentUpon>201611170018399_0.03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611170029089_0.04.resx">
+      <DependentUpon>201611170029089_0.04.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611170046137_0.05.resx">
+      <DependentUpon>201611170046137_0.05.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611170049361_0.06.resx">
+      <DependentUpon>201611170049361_0.06.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611170123565_0.07.resx">
+      <DependentUpon>201611170123565_0.07.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611170143281_0.08.resx">
+      <DependentUpon>201611170143281_0.08.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

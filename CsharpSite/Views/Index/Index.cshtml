@@ -56,3 +56,24 @@
     </div>
     <hr />
 }
+
+
+<h3>List of groups and their members</h3>
+@foreach (var group in ViewBag.groups) {
+    <table>
+        <thead>
+            <tr>
+                <td colspan="2"><b>@group.Name</b></td>
+            </tr>
+            <tr>
+                <td colspan="2"><small><i>@group.Description</i></small></td>
+            </tr>
+        </thead>
+        @foreach (var member in group.Members) {
+            <tr>
+                <td>@member.User.Username</td>
+                <td>@member.User.Email</td>
+            </tr>
+        }
+    </table>
+}

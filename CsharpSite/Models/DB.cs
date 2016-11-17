@@ -12,8 +12,11 @@ namespace CsharpSite.Models {
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<UserToGroup> UsersToGroups { get; set; }
 
         protected override void OnModelCreating( DbModelBuilder modelBuilder ) {
+            base.OnModelCreating( modelBuilder );
             modelBuilder.Entity<Comment>()
                 .HasRequired( c => c.User )
                 .WithMany()
@@ -25,17 +28,15 @@ namespace CsharpSite.Models {
 
             modelBuilder.Entity<Post>()
                 .HasRequired( s => s.User );
-            /*modelBuilder.Entity<Post>()
-                .HasMany( c => c.Comments );
-            /*
-            modelBuilder.Entity<User>()
-                .HasOptional( s => s.Posts )
-                .WithMany()
-                .WillCascadeOnDelete( false );
-            modelBuilder.Entity<User>()
-                .HasOptional( c => c.Comments )
-                .WithMany()
-                .WillCascadeOnDelete( false );*/
+
+            modelBuilder.Entity<UserToGroup>()
+               .HasRequired( c => c.Group )
+               .WithMany()
+               .WillCascadeOnDelete( false );
+            modelBuilder.Entity<UserToGroup>()
+               .HasRequired( c => c.User )
+               .WithMany()
+               .WillCascadeOnDelete( false );
 
         }
     }

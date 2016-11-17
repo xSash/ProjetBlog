@@ -6,6 +6,8 @@ namespace CsharpSite.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+
+    //Region entities
     [Table("User")]
     public partial class User
     {
@@ -31,13 +33,16 @@ namespace CsharpSite.Models
 
         //public virtual ICollection<Post> Posts { get; set; }
         //public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<UserToGroup> UserToGroup { get; set; }
 
         public User() {
             IsAdmin = false;
+            UserToGroup = new List<UserToGroup>();
         }
 
         public User(bool isAdmin) {
             IsAdmin = isAdmin;
+            UserToGroup = new List<UserToGroup>();
         } 
 
 
@@ -120,8 +125,56 @@ namespace CsharpSite.Models
 
     }
 
+    
+
+
     [Table("Group")]
     public partial class Group {
+        [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+        [Key]
+        public int GroupId { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Description { get; set; }
+        [Required]
+        public int UserID { get; set; }
+        [ForeignKey( "UserID" )]
+        public virtual User Administrator { get; set; }
+        
+        public virtual ICollection<UserToGroup> Members { get; set; }
+
+        public Group() {
+            Members = new List<UserToGroup>();
+        }
+
 
     }
+
+    //EndRegion entities
+
+
+
+
+
+    //Region relations
+    [Table("UserToGroup")]
+    public partial class UserToGroup {
+        [Key, Column( Order = 0 )]
+        public int UserID { get; set; }
+        [Key, Column( Order = 1 )]
+        public int GroupID { get; set; }
+
+        public virtual Group Group { get; set; }
+        public virtual User User { get; set; }
+
+        public UserToGroup() {
+
+        }
+    }
+
+
+
+    //EndRegion relations
+
 }
