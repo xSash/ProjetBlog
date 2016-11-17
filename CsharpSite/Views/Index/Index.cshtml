@@ -69,10 +69,11 @@
                 <td colspan="2"><small><i>@group.Description</i></small></td>
             </tr>
         </thead>
+        @group.Members
         @foreach (var member in group.Members) {
             <tr>
-                <td>@member.User.Username</td>
-                <td>@member.User.Email</td>
+                <td>@member.Username</td>
+                <td>@member.Email</td>
             </tr>
         }
     </table>

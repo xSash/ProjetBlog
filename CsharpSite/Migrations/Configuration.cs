@@ -48,13 +48,13 @@ namespace CsharpSite.Migrations
                 );
 
             context.Groups.AddOrUpdate(
-                new Group() { GroupId = 0, Name = "teamahuntsic", Description = "The original group. The one to rule them all.", UserID = 0 }
+                new Group() { GroupId = 0, Name = "teamahuntsic", Description = "The original group. The one to rule them all.", AdministratorID = 0 }
                 );
-
+            /*
             foreach( var usr in context.Users.Where( u => u.UserId < 5 ).ToList()) {
-                usr.UserToGroup.Add( new UserToGroup() { UserID = usr.UserId, GroupID = 0 } );
+                usr.Groups.Add( new UserToGroup() { UserID = usr.UserId, GroupID = 0 } );
             }
-            context.SaveChanges();
+            context.SaveChanges();*/
 
         }
     }

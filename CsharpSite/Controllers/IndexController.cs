@@ -17,7 +17,11 @@ namespace CsharpSite.Controllers
             ViewBag.users = db.Users.ToList();
             ViewBag.posts = db.Posts.ToList();
 
+
+            db.Groups.First().Members.Add(db.Users.First());
             ViewBag.groups = db.Groups.ToList();
+
+
 
             return View();
         }

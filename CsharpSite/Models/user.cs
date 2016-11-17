@@ -33,16 +33,16 @@ namespace CsharpSite.Models
 
         //public virtual ICollection<Post> Posts { get; set; }
         //public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<UserToGroup> UserToGroup { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
 
         public User() {
             IsAdmin = false;
-            UserToGroup = new List<UserToGroup>();
+            Groups = new List<Group>();
         }
 
         public User(bool isAdmin) {
             IsAdmin = isAdmin;
-            UserToGroup = new List<UserToGroup>();
+            Groups = new List<Group>();
         } 
 
 
@@ -138,14 +138,12 @@ namespace CsharpSite.Models
         [Required]
         public string Description { get; set; }
         [Required]
-        public int UserID { get; set; }
-        [ForeignKey( "UserID" )]
-        public virtual User Administrator { get; set; }
-        
-        public virtual ICollection<UserToGroup> Members { get; set; }
+        public int AdministratorID { get; set; }
+
+        public virtual ICollection<User> Members { get; set; }
 
         public Group() {
-            Members = new List<UserToGroup>();
+            Members = new List<User>();
         }
 
 
@@ -158,7 +156,7 @@ namespace CsharpSite.Models
 
 
     //Region relations
-    [Table("UserToGroup")]
+    /*[Table("UserToGroup")]
     public partial class UserToGroup {
         [Key, Column( Order = 0 )]
         public int UserID { get; set; }
@@ -175,6 +173,6 @@ namespace CsharpSite.Models
 
 
 
-    //EndRegion relations
+    //EndRegion relations*/
 
 }
