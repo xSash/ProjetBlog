@@ -15,6 +15,7 @@ namespace CsharpSite.Controllers
         public ActionResult Index()
         {
             ViewBag.users = db.Users.ToList();
+            ViewBag.posts = db.Posts.ToList();
             return View();
         }
     }

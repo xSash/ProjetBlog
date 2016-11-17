@@ -173,7 +173,8 @@ C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\bin\M
 C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.Migrations.users.resources
-C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.csproj.GenerateResource.Cache
+C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.csprojResolveAssemblyReference.cache
 C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.dll
 C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.pdb
+C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.Migrations._002.resources
+C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.csproj.GenerateResource.Cache

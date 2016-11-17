@@ -22,9 +22,37 @@
     </thead>
     @foreach (var user in ViewBag.users) {
         <tr>
-            <td>@user.Id</td>
+            <td>@user.UserId</td>
             <td>@user.Username</td>
             <td>@user.Email</td>
         </tr>
     } 
 </table>
+
+<h3>List of current posts</h3>
+@foreach (var post in ViewBag.posts) {
+    <div style="box-sizing: border-box; margin: 0.5em;">
+        <div>
+            @post.PostId 
+            <div style="margin-left: 1em; font-weight: bold; font-size:1.3em; display: inline-block">@post.Title</div>
+            <div style="display: inline-block; margin-left: 0.5em; color: #aaaaaa"><small>by </small> @post.User.Username</div>
+        </div>
+        <div style="margin: 0.5em; margin-left: 1em; box-sizing:border-box; padding: 0.5em; background: #f4f4f4; border: 1px solid #eaeaea; border-radius: 1em; width: 500px; height: 200px;">
+            @post.Contents
+        </div>
+        <div style="margin-left: 3em;">
+            @foreach(var comment in post.Comments) {
+                <div style="border-bottom: 1px solid #dddddd; min-height: 2em; width: 400px;">
+                    <div>
+                        <b>@comment.User.Username</b>
+                    </div>
+                    <div style="padding: 0.5em;">
+                        @comment.Contents
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+    <hr />
+}
