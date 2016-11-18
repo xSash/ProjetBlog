@@ -14,7 +14,10 @@ namespace CsharpSite.Models {
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
-        //public virtual DbSet<UserToGroup> UsersToGroups { get; set; }
+        public virtual DbSet<ReactionType> ReactionTypes { get; set; }
+        public virtual DbSet<PostReaction> PostReactions { get; set; }
+        public virtual DbSet<CommentReaction> CommentReactions { get; set; }
+        
 
         protected override void OnModelCreating( DbModelBuilder modelBuilder ) {
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
@@ -32,14 +35,24 @@ namespace CsharpSite.Models {
             modelBuilder.Entity<Post>()
                 .HasRequired( s => s.User );
 
-            /*modelBuilder.Entity<UserToGroup>()
-               .HasRequired( c => c.Group )
-               .WithMany()
-               .WillCascadeOnDelete( false );
-            modelBuilder.Entity<UserToGroup>()
-               .HasRequired( c => c.User )
-               .WithMany()
-               .WillCascadeOnDelete( false );*/
+            modelBuilder.Entity<PostReaction>()
+                .HasRequired( c => c.Post )
+                .WithMany( p => p.Reactions )
+                .WillCascadeOnDelete( false );
+            modelBuilder.Entity<PostReaction>()
+                .HasRequired( c => c.User )
+                .WithMany()
+                .WillCascadeOnDelete( false );
+
+            modelBuilder.Entity<CommentReaction>()
+                .HasRequired( c => c.Comment )
+                .WithMany( p => p.Reactions )
+                .WillCascadeOnDelete( false );
+            modelBuilder.Entity<CommentReaction>()
+                .HasRequired( c => c.User )
+                .WithMany()
+                .WillCascadeOnDelete( false );
+
             modelBuilder.Entity<Group>()
              .HasMany<User>( x => x.Members )
              .WithMany( x => x.Groups )
@@ -48,6 +61,16 @@ namespace CsharpSite.Models {
                  x.MapRightKey( "UserId" );
                  x.ToTable( "UserGroup" );
              } );
+
+            modelBuilder.Entity<User>()
+             .HasMany<User>( x => x.Following )
+             .WithMany( x => x.Followers )
+             .Map( x => {
+                 x.MapLeftKey( "UserId" );
+                 x.MapRightKey( "UserId" );
+                 x.ToTable( "Follow" );
+             } );
+
 
         }
     }

@@ -28,33 +28,63 @@ namespace CsharpSite.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            
+            context.Database.ExecuteSqlCommand( "delete from [UserGroup]" );
+            context.Database.ExecuteSqlCommand( "delete from [CommentReaction]" );
+            context.Database.ExecuteSqlCommand( "delete from [PostReaction]" );
+            context.Database.ExecuteSqlCommand( "delete from [Comment]" );
+            context.Database.ExecuteSqlCommand( "delete from [Post]" );
+            context.Database.ExecuteSqlCommand( "delete from [Group]" );
+            context.Database.ExecuteSqlCommand( "delete from [User]" );
+            context.Database.ExecuteSqlCommand( "delete from [ReactionType]" );
+
+            context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"CommentReaction\", RESEED, 0);" );
+            context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"PostReaction\", RESEED, 0);" );
+            context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"Comment\", RESEED, 0);" );
+            context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"Post\", RESEED, 0);" );
+            context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"Group\", RESEED, 0);" );
+            context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"User\", RESEED, 0);" );
+            context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"ReactionType\", RESEED, 0);" );
+
             context.Users.AddOrUpdate(
-                new User() { UserId = 0, Username = "CodeCap_Jeremi", Email = "jeremi@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true },
-                new User() { UserId = 1, Username = "CodeCap_Sasha", Email = "sasha@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true },
-                new User() { UserId = 2, Username = "CodeCap_Vincent", Email = "vincent@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true },
-                new User() { UserId = 3, Username = "CodeCap_Adam", Email = "adam@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true }
+                new User() { UserId = 1, Username = "CodeCap_Jeremi", Email = "jeremi@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true },
+                new User() { UserId = 2, Username = "CodeCap_Sasha", Email = "sasha@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true },
+                new User() { UserId = 3, Username = "CodeCap_Vincent", Email = "vincent@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true },
+                new User() { UserId = 4, Username = "CodeCap_Adam", Email = "adam@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true }
                 );
+            context.SaveChanges();
 
             context.Posts.AddOrUpdate(
-                new Post() { PostId = 1, Title = "I Am God", Contents = "this is a test content post", UserID = 0, Publication_date = DateTimeOffset.Parse("10/10/15 11:36 PM") },
-                new Post() { PostId = 2, Title = "Seriously...", Contents = "yeah, well fuck you too!", UserID = 1, Publication_date = DateTimeOffset.Parse( "03/05/16 14:37 PM" ) }
+                new Post() { PostId = 1, Title = "I Am God", Contents = "this is a test content post", UserID = 1, Publication_date = DateTimeOffset.Parse("10/10/15 11:36 PM") },
+                new Post() { PostId = 2, Title = "Seriously...", Contents = "yeah, well fuck you too!", UserID = 2, Publication_date = DateTimeOffset.Parse( "03/05/16 14:37 PM" ) }
                 );
+            context.SaveChanges();
 
             context.Comments.AddOrUpdate(
-                new Models.Comment() { Contents = "Yay", UserID = 1, PostID = 1 },
-                new Models.Comment() { Contents = "So lame...", UserID = 2, PostID = 1 },
-                new Models.Comment() { Contents = "y u do this??", UserID = 3, PostID = 2 }
+                new Models.Comment() { Contents = "Yay", UserID = 2, PostID = 1 },
+                new Models.Comment() { Contents = "So lame...", UserID = 3, PostID = 1 },
+                new Models.Comment() { Contents = "y u do this??", UserID = 4, PostID = 2 }
                 );
 
             context.Groups.AddOrUpdate(
-                new Group() { GroupId = 0, Name = "teamahuntsic", Description = "The original group. The one to rule them all.", AdministratorID = 0 }
+                new Group() { GroupId = 1, Name = "teamahuntsic", Description = "The original group. The one to rule them all.", AdministratorID = 1 }
                 );
-            /*
-            foreach( var usr in context.Users.Where( u => u.UserId < 5 ).ToList()) {
-                usr.Groups.Add( new UserToGroup() { UserID = usr.UserId, GroupID = 0 } );
-            }
-            context.SaveChanges();*/
+            context.SaveChanges();
+
+            context.ReactionTypes.AddOrUpdate(
+                new ReactionType() { ReactionId = 1, Name = "Like", Icon = "likeicon.png" },
+                new ReactionType() { ReactionId = 2, Name = "Love", Icon = "loveicon.png" },
+                new ReactionType() { ReactionId = 3, Name = "Cry", Icon = "cryicon.png" }
+                );
+            context.SaveChanges();
+
+            context.PostReactions.AddOrUpdate(
+                new PostReaction() { PostReactionId = 1, ReactionID = 1, PostID = 1, UserID = 1 },
+                new PostReaction() { PostReactionId = 2, ReactionID = 1, PostID = 1, UserID = 2 },
+                new PostReaction() { PostReactionId = 3, ReactionID = 3, PostID = 1, UserID = 3 }
+                );
+            context.SaveChanges();
+
+            context.
 
         }
     }

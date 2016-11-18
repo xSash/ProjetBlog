@@ -31,19 +31,26 @@ namespace CsharpSite.Models
         [Required]
         public bool IsAdmin { get; set; }
 
-        //public virtual ICollection<Post> Posts { get; set; }
-        //public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<User> Followers { get; set; }
+        public virtual ICollection<User> Following { get; set; }
 
         public User() {
             IsAdmin = false;
             Groups = new List<Group>();
+            Posts = new List<Post>();
+            Followers = new List<User>();
+            Following = new List<User>();
         }
 
         public User(bool isAdmin) {
             IsAdmin = isAdmin;
             Groups = new List<Group>();
-        } 
+            Posts = new List<Post>();
+            Followers = new List<User>();
+            Following = new List<User>();
+        }
 
 
     }
@@ -69,9 +76,11 @@ namespace CsharpSite.Models
 
         public virtual ICollection<Comment> Comments { get; set; }
 
+        public virtual ICollection<PostReaction> Reactions { get; set; }
 
         public Post() {
             Comments = new List<Comment>();
+            Reactions = new List<PostReaction>();
         }
 
         public Post(string title, string contents, int userid) {
@@ -105,9 +114,10 @@ namespace CsharpSite.Models
         [ForeignKey( "PostID" )]
         public virtual Post Post { get; set; }
 
+        public virtual ICollection<CommentReaction> Reactions { get; set; }
 
         public Comment() {
-
+            Reactions = new List<CommentReaction>();
         }
 
         public Comment( string contents, int userid, int postid ) {
@@ -149,30 +159,72 @@ namespace CsharpSite.Models
 
     }
 
-    //EndRegion entities
+    [Table("ReactionType")]
+    public partial class ReactionType {
+        [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+        [Key]
+        public int ReactionId { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Icon { get; set; }
 
-
-
-
-
-    //Region relations
-    /*[Table("UserToGroup")]
-    public partial class UserToGroup {
-        [Key, Column( Order = 0 )]
-        public int UserID { get; set; }
-        [Key, Column( Order = 1 )]
-        public int GroupID { get; set; }
-
-        public virtual Group Group { get; set; }
-        public virtual User User { get; set; }
-
-        public UserToGroup() {
+        public ReactionType() {
 
         }
     }
 
+    [Table("PostReaction")]
+    public partial class PostReaction {
+        [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+        [Key]
+        public int PostReactionId { get; set; }
+        [Required]
+        public int ReactionID { get; set; }
+        [ForeignKey("ReactionID")]
+        public virtual ReactionType Reaction { get; set; }
+        [Required]
+        public int UserID { get; set; }
+        [ForeignKey("UserID")]
+        public virtual User User { get; set; }
+        [Required]
+        public int PostID { get; set; }
+        [ForeignKey("PostID")]
+        public virtual Post Post { get; set; }
+
+        public PostReaction() {
+
+        }
+
+    }
+
+    [Table("CommentReaction")]
+    public partial class CommentReaction {
+        [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+        [Key]
+        public int CommentReactionId { get; set; }
+        [Required]
+        public int ReactionID { get; set; }
+        [ForeignKey( "ReactionID" )]
+        public virtual ReactionType Reaction { get; set; }
+        [Required]
+        public int UserID { get; set; }
+        [ForeignKey( "UserID" )]
+        public virtual User User { get; set; }
+        [Required]
+        public int CommentID { get; set; }
+        [ForeignKey( "CommentID" )]
+        public virtual Comment Comment { get; set; }
+
+        public CommentReaction() {
+
+        }
+
+    }
+
+    //EndRegion entities
 
 
-    //EndRegion relations*/
+
 
 }

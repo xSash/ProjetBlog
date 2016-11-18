@@ -14,9 +14,12 @@ namespace CsharpSite.Controllers
         // GET: indexDefault
         public ActionResult Index()
         {
+            db.Users.First().Followers.Add( db.Users.ToArray()[1] );
+
+
             ViewBag.users = db.Users.ToList();
             ViewBag.posts = db.Posts.ToList();
-
+            Session.Add( "test", "hi!" );
 
             db.Groups.First().Members.Add(db.Users.First());
             ViewBag.groups = db.Groups.ToList();

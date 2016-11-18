@@ -221,6 +221,26 @@
     <Compile Include="Migrations\201611171850469_0.10.Designer.cs">
       <DependentUpon>201611171850469_0.10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611181323109_0.11.cs" />
+    <Compile Include="Migrations\201611181323109_0.11.Designer.cs">
+      <DependentUpon>201611181323109_0.11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611181341352_0.12.cs" />
+    <Compile Include="Migrations\201611181341352_0.12.Designer.cs">
+      <DependentUpon>201611181341352_0.12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611181350178_0.13.cs" />
+    <Compile Include="Migrations\201611181350178_0.13.Designer.cs">
+      <DependentUpon>201611181350178_0.13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611181405401_0.14.cs" />
+    <Compile Include="Migrations\201611181405401_0.14.Designer.cs">
+      <DependentUpon>201611181405401_0.14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611181438514_0.15.cs" />
+    <Compile Include="Migrations\201611181438514_0.15.Designer.cs">
+      <DependentUpon>201611181438514_0.15.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\user.cs" />
@@ -237,7 +257,7 @@
     <Content Include="App_Data\DB_log.ldf">
       <DependentUpon>DB.mdf</DependentUpon>
     </Content>
-    <Content Include="cleanTable.sql" />
+    <Content Include="Schemas\cleanTable.sql" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -250,6 +270,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Schemas\CyrBenjaminLaferiere_schema.vsdx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -321,6 +342,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611171850469_0.10.resx">
       <DependentUpon>201611171850469_0.10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611181323109_0.11.resx">
+      <DependentUpon>201611181323109_0.11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611181341352_0.12.resx">
+      <DependentUpon>201611181341352_0.12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611181350178_0.13.resx">
+      <DependentUpon>201611181350178_0.13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611181405401_0.14.resx">
+      <DependentUpon>201611181405401_0.14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611181438514_0.15.resx">
+      <DependentUpon>201611181438514_0.15.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -179,3 +179,8 @@ C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\D
 C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.Migrations._009.resources
 C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.csproj.GenerateResource.Cache
 C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.Migrations._010.resources
+C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.Migrations._011.resources
+C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.Migrations._012.resources
+C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.Migrations._013.resources
+C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.Migrations._014.resources
+C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.Migrations._015.resources
