@@ -107,3 +107,22 @@
     <br />
 }
 
+<h3>Followers for User @ViewBag.users[0].Username</h3>
+<table class="table table-striped">
+    @foreach (var follower in ViewBag.users[0].Followers) {
+        <tr>
+            <td>@follower.Username</td>
+            <td>@follower.Email</td>
+        </tr>
+    }
+</table>
+
+<h3>Following for User @ViewBag.users[0].Username</h3>
+<table class="table table-striped">
+    @foreach (var follower in ViewBag.users[0].Following) {
+        <tr>
+            <td>@follower.Username</td>
+            <td>@follower.Email</td>
+        </tr>
+    }
+</table>

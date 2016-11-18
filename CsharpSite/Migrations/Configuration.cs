@@ -29,6 +29,7 @@ namespace CsharpSite.Migrations
             //    );
             //
             context.Database.ExecuteSqlCommand( "delete from [UserGroup]" );
+            context.Database.ExecuteSqlCommand( "delete from [UserUser]" );
             context.Database.ExecuteSqlCommand( "delete from [CommentReaction]" );
             context.Database.ExecuteSqlCommand( "delete from [PostReaction]" );
             context.Database.ExecuteSqlCommand( "delete from [Comment]" );
@@ -84,7 +85,9 @@ namespace CsharpSite.Migrations
                 );
             context.SaveChanges();
 
-            context.
+            context.Users.First().Followers.Add( context.Users.ToArray()[1] );
+            context.Users.First().Following.Add( context.Users.ToArray()[2] );
+            context.SaveChanges();
 
         }
     }

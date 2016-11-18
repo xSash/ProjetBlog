@@ -66,9 +66,9 @@ namespace CsharpSite.Models {
              .HasMany<User>( x => x.Following )
              .WithMany( x => x.Followers )
              .Map( x => {
-                 x.MapLeftKey( "UserId" );
-                 x.MapRightKey( "UserId" );
-                 x.ToTable( "Follow" );
+                 x.MapLeftKey( "FollowerId" );
+                 x.MapRightKey( "FollowedId" );
+                 x.ToTable( "UserUser" );
              } );
 
 
