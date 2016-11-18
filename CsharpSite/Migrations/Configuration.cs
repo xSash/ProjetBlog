@@ -56,14 +56,25 @@ namespace CsharpSite.Migrations
 
             context.Posts.AddOrUpdate(
                 new Post() { PostId = 1, Title = "I Am God", Contents = "this is a test content post", UserID = 1, Publication_date = DateTimeOffset.Parse("10/10/15 11:36 PM") },
-                new Post() { PostId = 2, Title = "Seriously...", Contents = "yeah, well fuck you too!", UserID = 2, Publication_date = DateTimeOffset.Parse( "03/05/16 14:37 PM" ) }
+                new Post() { PostId = 2, Title = "Seriously...", Contents = "yeah, well fuck you too!", UserID = 2, Publication_date = DateTimeOffset.Parse( "03/05/16 14:37 PM" ) },
+                new Post() { PostId = 3, Title = "Yay", Contents = "this is a test content post", UserID = 3, Publication_date = DateTimeOffset.Parse( "10/10/15 11:36 PM" ) },
+                new Post() { PostId = 4, Title = "ohhh", Contents = "this is another test content post", UserID = 3, Publication_date = DateTimeOffset.Parse( "10/10/15 11:36 PM" ) },
+                new Post() { PostId = 5, Title = "So funny!", Contents = "Lorem ipsum", UserID = 3, Publication_date = DateTimeOffset.Parse( "10/10/15 11:36 PM" ) }
+
                 );
             context.SaveChanges();
 
             context.Comments.AddOrUpdate(
                 new Models.Comment() { Contents = "Yay", UserID = 2, PostID = 1 },
                 new Models.Comment() { Contents = "So lame...", UserID = 3, PostID = 1 },
-                new Models.Comment() { Contents = "y u do this??", UserID = 4, PostID = 2 }
+                new Models.Comment() { Contents = "y u do this??", UserID = 1, PostID = 2 },
+                new Models.Comment() { Contents = "y u do this??", UserID = 4, PostID = 3 },
+                new Models.Comment() { Contents = "y u do this??", UserID = 3, PostID = 2 },
+                new Models.Comment() { Contents = "y u do this??", UserID = 2, PostID = 4 },
+                new Models.Comment() { Contents = "pouf", UserID = 4, PostID = 2 },
+                new Models.Comment() { Contents = "pouf", UserID = 1, PostID = 3 },
+                new Models.Comment() { Contents = "pouf", UserID = 2, PostID = 2 },
+                new Models.Comment() { Contents = "pouf", UserID = 3, PostID = 4 }
                 );
 
             context.Groups.AddOrUpdate(
@@ -86,7 +97,10 @@ namespace CsharpSite.Migrations
             context.SaveChanges();
 
             context.Users.First().Followers.Add( context.Users.ToArray()[1] );
+            context.Users.First().Following.Add( context.Users.ToArray()[1] );
             context.Users.First().Following.Add( context.Users.ToArray()[2] );
+            context.Users.First().Following.Add( context.Users.ToArray()[3] );
+
             context.SaveChanges();
 
         }
