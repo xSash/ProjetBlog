@@ -25,7 +25,6 @@ namespace CsharpSite.Controllers
 
             return View();
         }
-
         
 
     }

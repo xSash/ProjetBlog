@@ -3,27 +3,7 @@
     ViewBag.Title = "Index";
 }
 Fake connected as @(((CsharpSite.Models.User)Session["ConnUsr"]).Username)
-<div style="display: flex; flex-direction: column;">
 
-</div>
-@foreach(var post in ViewBag.feed) {
-    <div style="margin: 1em; align-items: stretch; min-height: 300px; background: #eaeaea;">
-        <div style="width: 100%">
-            <h2>@post.Title</h2> <span style="font-size: 0.7em; color: #808080; font-style:italic;">by @post.User.Username</span> on @(post.Publication_date.ToString())
-        </div>
-        <div style="margin: 1em;color: crimson;">
-            @post.Contents
-        </div>
-        <div style="padding-left: 1em;">
-            @foreach (var comment in post.Comments) {
-                <div>
-                    <h4>@comment.User.Username</h4>
-                </div>
-                <div style="padding-left: 1em;">
-                    @comment.Contents
-                </div>
-            }
-        </div>
-    </div>
-}
+
+@{Html.RenderPartial( "~/Views/Feed/FeedPartial.cshtml" );}
 

@@ -6,17 +6,104 @@
     <title>@ViewBag.Title - CodeShare</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <!-- Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:url" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="description" content="">
+    <meta property="og:site_name" content="">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta itemprop="name" content="">
+    <meta itemprop="url" content="">
+    <!-- Title -->
+    <title>CodeShare - Home</title>
+    <link rel="icon" href="images/real.png" type="image/x-icon" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    <link href="~/Content/css/toolkit.css" rel="stylesheet">
+
+    <!-- End of Title --> <!-- CSS -->
+    <!--<link rel="icon" href="img/i.png" type="image/x-icon"> -->
+    <link rel="stylesheet" href="~/Content/css2/bootstrap.min.css" />
+    <link rel='stylesheet' href="~/Content/css2/un.css" type='text/css' media='all' />
+    <link rel="stylesheet" href="~/Content/css2/style.css">
+
+    <link rel="stylesheet" id="uncode-woocommerce-css" href="~/Content/css2/woocommerce.css" type="text/css" media="all">
+    <link rel='stylesheet' id='uncode-style-css' href='~/Content/css2/styleNav.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='uncode-custom-style-css' href='~/Content/css2/style-custom-orange-red.css' type='text/css' media='all' />
+
+
+
+    <link rel='stylesheet' id='uncode-icons-css' href='~/Content/font-awesome-4.6.3/css/font-awesome.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='uncode-icons-css' href='~/Content/font-awesome-4.6.3/css/font-awesome.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='uncodefont-google-css' href='https://fonts.googleapis.com/css?family=Poppins%3A300%2Cregular%2C500%2C600%2C700%7CHind%3A300%2Cregular%2C500%2C600%2C700%7CDroid+Serif%3Aregular%2Citalic%2C700%2C700italic%7CDosis%3A200%2C300%2Cregular%2C500%2C600%2C700%2C800%7CPlayfair+Display%3Aregular%2Citalic%2C700%2C700italic%2C900%2C900italic%7COswald%3A300%2Cregular%2C700%7CRoboto%3A100%2C100italic%2C300%2C300italic%2Cregular%2Citalic%2C500%2C500italic%2C700%2C700italic%2C900%2C900italic%7CSource+Sans+Pro%3A200%2C200italic%2C300%2C300italic%2Cregular%2Citalic%2C600%2C600italic%2C700%2C700italic%2C900%2C900italic&#038;subset=devanagari%2Clatin-ext%2Clatin%2Ccyrillic%2Cvietnamese%2Cgreek%2Ccyrillic-ext%2Cgreek-ext&#038;ver=1.0.0' type='text/css' media='all' />
+    <link rel="stylesheet" href="~/Content/css2/style115.css">
+    <style type="text/css">
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        #masthead {
+            display: none;
+        }
+    </style>
+    <!--<link rel="stylesheet" href="~/Content/css2/style(test).css">-->
+
+
+    <!-- JS -->
+    <script type='text/javascript' src='~/Content/js2/jquery.js'></script>
+    <script type='text/javascript' src='~/Content/js2/jquery-migrate.min.js'></script>
+    <script type='text/javascript' src='~/Content/js2/init.js'></script>
+    <script type="text/javascript" src="~/Content/js2/rollup-landing.js"></script>
+
+    <script src="~/Content/js2/minify.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js2/bootstrap.min.js"></script> -->
+
 
 </head>
-<body>
-    
-    <div class="">
-        @RenderBody()
+<body class="page page-id-4935 page-child parent-pageid-43938 page-template-default  style-color-wayh-bg group-blog smooth-scroller hmenu hmenu-position-right header-full-width main-center-align menu-mobile-animated wpb-js-composer js-comp-ver-4.12.1 vc_responsive scroll" style="outline:none;" id="body">
 
+    <div class="box-wrapper-real">
+        <div id="preloader">
+            <div class="spinner">&nbsp;</div>
+        </div>
+                <div class="by amt">
+                    <div class="gc">
+                        @RenderBody()
+
+                    </div>
+                </div>
     </div>
+    
+                @Scripts.Render( "~/bundles/jquery" )
+                @Scripts.Render( "~/bundles/bootstrap" )
+                @RenderSection( "scripts", required: false )
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+                <script src="~/Content/js/chart.js"></script>
+                <script src="~/Content/js/toolkit.js"></script>
+                <script src="~/Content/js/application.js"></script>
+                <script>
+      // execute/clear BS loaders for docs
+      $(function(){
+        if (window.BS&&window.BS.loader&&window.BS.loader.length) {
+          while(BS.loader.length){(BS.loader.pop())()}
+        }
+      })
+                </script>
+                <script> var _wpcf7 = {}; </script>
+                <script type='text/javascript'> var jckqv = {"settings":{"":""}};</script>
+                <script type='text/javascript' src="~/Content/js2/minify2.js"></script>
+                <script type='text/javascript' src='~/Content/js2/plugins.js'></script>
+                <script type='text/javascript' src='~/Content/js2/app.js'></script>
+
+                <script type='text/javascript' src="~/Content/js2/index115.js"></script>
+                <script type='text/javascript' src="~/Content/js2/bootstrap.js"></script>
+                <script type='text/javascript' src='~/Content/js2/jckqv-scripts.min.js'></script>
+
+</body>
 </body>
 </html>
