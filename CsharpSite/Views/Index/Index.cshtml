@@ -9,8 +9,13 @@
 
 @Html.Partial( "../Shared/NavBar" )
 
-<a href="/Session/Register">Register</a><br />
-<a href="/Session/Login">Login</a>
+@if (((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User?.UserId == 0) {
+    <a href="/Session/Register">Register</a><br />
+    <a href="/Session/Login">Login</a>
+} else {
+    <a href="/Session/Logout">Logout</a>
+}
+
 
 <h3>List of current users</h3>
 <table class="table table-striped" style="width: 500px;" >

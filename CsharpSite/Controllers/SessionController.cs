@@ -123,24 +123,7 @@ namespace CsharpSite.Controllers
         }
     }
 
-    public class UserManager {
-        
-        public static bool IsValid( string username, string password ) {
-            using (DB db = new Models.DB())
-            {
-                return db.Users.Any( u => u.Username == username
-                     && u.Password == password );
-            }
-        }
-    }
-
-    public class Auth {
-        public const string REMEMBER_CREDENTIALS_COOKIE_NAME = "crdrmmbr";
-        public const string USRNAME_COOKIE_NAME = "usrNmC";
-        public const string PW_COOKIE_NAME = "usrPwC";
-        public const string AUTH_USER_SESSION_NAME = "AuthUser";
-        public User User;
-    }
+    
 
     
 }
