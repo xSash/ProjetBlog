@@ -15,8 +15,16 @@ namespace CsharpSite {
                 url: "{controller}/{action}",
                 defaults: new { controller = "Index", action = "Index"}
             );
-
-         
+            routes.MapRoute(
+                name: "Unfollow",
+                url: "Follow/Unfollow/{userIdToUnFollow}",
+                defaults: new { controller = "Follow", action = "Unfollow", userIdToUnFollow = -1 }
+            );
+            routes.MapRoute(
+                name: "Follow",
+                url: "Follow/Follow/{userIdToFollow}",
+                defaults: new { controller = "Follow", action = "Follow", userIdToFollow = -1 }
+            );
 
         }
 

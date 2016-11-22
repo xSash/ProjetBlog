@@ -16,7 +16,8 @@ namespace CsharpSite.Controllers
             "Post",
             "Profile",
             "Index",
-            "Chat"
+            "Chat",
+            "Follow"
         };
         private static string[] restricted_actions = new string[] {
             //"Controller/Action"

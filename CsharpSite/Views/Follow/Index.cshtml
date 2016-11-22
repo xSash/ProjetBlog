@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">
+                FOLLOWERS
+            </th>
+        </tr>
+    </thead>
+    @foreach (var follower in ViewBag.followers) {
+        <tr>
+            <td>@follower.UserId</td>
+            <td>@follower.Username</td>
+        </tr>
+    }
+</table>
+<br />
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">
+                FOLLOWING
+            </th>
+        </tr>
+    </thead>
+    @foreach (var following in ViewBag.following) {
+        <tr>
+            <td>@following.UserId</td>
+            <td>@following.Username</td>
+        </tr>
+    }
+</table>
