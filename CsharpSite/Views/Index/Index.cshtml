@@ -1,9 +1,11 @@
-﻿
+﻿@using CsharpSite.Models
+@using CsharpSite.Controllers
 @{
+    
     ViewBag.Title = "Index";
 }
 <h1>CodeCap</h1>
-<h3>Welcome to CodeCap</h3>
+<h3>Welcome to CodeCap, @( ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User?.Username )</h3>
 
 @Html.Partial( "../Shared/NavBar" )
 

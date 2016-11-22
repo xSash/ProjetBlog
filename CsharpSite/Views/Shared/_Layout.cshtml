@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using CsharpSite.Models;
+@using CsharpSite.Controllers;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -71,12 +74,21 @@
         <div id="preloader">
             <div class="spinner">&nbsp;</div>
         </div>
-                <div class="by amt">
-                    <div class="gc">
-                        @RenderBody()
+        <div>
+            @{ 
+                var connectedUser = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+            }
+            @if ( connectedUser == null) {
+                connectedUser = new CsharpSite.Models.User() { Username = "Guest" };
+            }
+            Welcome, @connectedUser.Username
+        </div>
+        <div class="by amt">
+            <div class="gc">
+                @RenderBody()
 
-                    </div>
-                </div>
+            </div>
+        </div>
     </div>
     
                 @Scripts.Render( "~/bundles/jquery" )

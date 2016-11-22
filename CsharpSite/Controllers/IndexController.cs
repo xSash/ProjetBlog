@@ -8,7 +8,7 @@ using CsharpSite.Models;
 
 namespace CsharpSite.Controllers
 {
-    public class IndexController : Controller
+    public class IndexController : BaseController
     {
         private DB db = new DB();
         // GET: indexDefault
@@ -20,7 +20,7 @@ namespace CsharpSite.Controllers
 
             db.Groups.First().Members.Add(db.Users.First());
             ViewBag.groups = db.Groups.ToList();
-
+            
 
 
             return View();

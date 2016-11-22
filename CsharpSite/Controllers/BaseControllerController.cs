@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CsharpSite.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,11 +10,33 @@ namespace CsharpSite.Controllers
 {
     public class BaseController : Controller
     {
-        protected override void OnActionExecuting( ActionExecutingContext filterContext ) {
-            //check for loggedin
-            //string name = FormsAuthentication.Decrypt( Request.Cookies[FormsAuthentication.FormsCookieName].Value ).Name.ToString();
+        protected DB db = new DB();
+        private static string[] restricted_controllers = new string[] {
+            "Feed",
+            "Post",
+            "Profile",
+            "Index",
+            "Chat"
+        };
+        private static string[] restricted_actions = new string[] {
+            //"Controller/Action"
+            
+        };
 
-            //redirect if auth failed to login
+        protected override void OnActionExecuting( ActionExecutingContext filterContext ) {
+            User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+            if( (restricted_controllers.Contains( filterContext.ActionDescriptor.ControllerDescriptor.ControllerName )
+                || restricted_actions.Contains( filterContext.ActionDescriptor.ControllerDescriptor.ControllerName + "/" + filterContext.ActionDescriptor.ActionName ))
+                && ( user == null 
+                || !db.Users.Any(u => u.UserId == user.UserId 
+                    && u.Username == user.Username )) ) {
+
+                filterContext.Result = RedirectToAction("Login", "Session");
+                return;
+
+            }
+
         }
+
     }
 }

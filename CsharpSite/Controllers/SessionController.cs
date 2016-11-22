@@ -9,28 +9,34 @@ using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System.Web.Security;
+using System.Security.Cryptography;
 
 namespace CsharpSite.Controllers
 {
-    public class SessionController : Controller
+    public class SessionController : BaseController
     {
-        private DB db = new DB();
+        
         // GET: Session
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Login", "Session");
         }
 
         [HttpGet]
         [ActionName("Register")]
         public ActionResult RegisterGet() {
-
+            if (Session[Auth.AUTH_USER_SESSION_NAME] != null) {
+                return RedirectToAction("Index", "Feed");
+            }
             return View("Register");
         }
 
         [HttpPost]
         [ActionName("Register")]
         public ActionResult RegisterPost() {
+            if (Session[Auth.AUTH_USER_SESSION_NAME] != null) {
+                RedirectToAction("Index", "Feed");
+            }
             ActionResult result = null;
             string uname = Request.Form["username"];
             string passw = Request.Form["passw"];
@@ -58,38 +64,68 @@ namespace CsharpSite.Controllers
 
         [HttpGet]
         [ActionName("Login")]
-        public ActionResult LoginGet( string username = "CodeCap_Jeremi", string password = "password" ) {
+        public ActionResult LoginGet() {
+            if (Session[Auth.AUTH_USER_SESSION_NAME] != null) {
+                return RedirectToAction("Index", "Feed");
+            }
+            ViewBag.SuccessMessage = TempData["SuccessMessage"]?.ToString();
+            ViewBag.ErrorMessage = TempData["ErrorMessage"]?.ToString();
             return View();
         }
 
         [HttpPost]
         [ActionName("Login")]
-        public ActionResult LoginPost(string username = "CodeCap_Jeremi", string password = "password") {
-            if (new UserManager().IsValid( username, password )) {
-                FormsAuthenticationTicket tkt;
-                string cookiestr;
-                HttpCookie ck;
-                tkt = new FormsAuthenticationTicket( 1, username, DateTime.Now,
-                     DateTime.Now.AddMinutes( 30 ), true, "your custom data" );
-                cookiestr = FormsAuthentication.Encrypt( tkt );
-                ck = new HttpCookie( FormsAuthentication.FormsCookieName, cookiestr );
-                if (true)
-                    ck.Expires = tkt.Expiration;
-                ck.Path = FormsAuthentication.FormsCookiePath;
-                Response.Cookies.Add( ck );
+        public ActionResult LoginPost() {
+            string username = Request.Form["usr"];
+            string password = Request.Form["pw"];
 
-                //FormsAuthentication.SetAuthCookie( username, false );
-
+            if (Session[Auth.AUTH_USER_SESSION_NAME] != null) {
+                return RedirectToAction("Index","Feed");
             }
-            // invalid username or password
-            ModelState.AddModelError( "", "invalid username or password" );
-            return View();
+            bool loginResult = UserManager.IsValid(username, password);
+
+            if ( loginResult ) {
+                User loginUser = db.Users.Where(u => u.Username == username
+                    && u.Password == password).First();
+                bool rememberCred = bool.Parse( Request.Cookies[Auth.REMEMBER_CREDENTIALS_COOKIE_NAME]?.Value ?? "false" );
+                string usr = Request.Cookies[Auth.USRNAME_COOKIE_NAME]?.Value;
+                string pw = Request.Cookies[Auth.PW_COOKIE_NAME]?.Value;
+
+                Session.Add(Auth.AUTH_USER_SESSION_NAME, new Auth { User = loginUser });
+
+                if (rememberCred && (usr == null || pw == null) ) {
+                    Response.SetCookie(new HttpCookie(Auth.USRNAME_COOKIE_NAME, username));
+                    Response.SetCookie(new HttpCookie(Auth.PW_COOKIE_NAME, password));
+                }
+
+            }else {
+                ViewBag.SuccessMessage = TempData["SuccessMessage"]?.ToString();
+                ViewBag.ErrorMessage = "Invalid Password or Username";
+                return View();
+            }
+
+            return RedirectToAction("Index", "Index");
+        }
+
+        [HttpGet]
+        [ActionName("Logout")]
+        public ActionResult LogoutGet() {
+            Session.Remove(Auth.AUTH_USER_SESSION_NAME);
+            TempData["SuccessMessage"] = "Logged out successfully";
+            return RedirectToAction("Login", "Session");
+        }
+        [HttpPost]
+        [ActionName("Logout")]
+        public ActionResult LogoutPost() {
+            Session.Remove(Auth.AUTH_USER_SESSION_NAME);
+            TempData["SuccessMessage"] = "Logged out successfully";
+            return RedirectToAction("Login", "Session");
         }
     }
 
     public class UserManager {
         
-        public bool IsValid( string username, string password ) {
+        public static bool IsValid( string username, string password ) {
             using (DB db = new Models.DB())
             {
                 return db.Users.Any( u => u.Username == username
@@ -97,4 +133,14 @@ namespace CsharpSite.Controllers
             }
         }
     }
+
+    public class Auth {
+        public const string REMEMBER_CREDENTIALS_COOKIE_NAME = "crdrmmbr";
+        public const string USRNAME_COOKIE_NAME = "usrNmC";
+        public const string PW_COOKIE_NAME = "usrPwC";
+        public const string AUTH_USER_SESSION_NAME = "AuthUser";
+        public User User;
+    }
+
+    
 }

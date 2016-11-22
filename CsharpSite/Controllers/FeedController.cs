@@ -14,9 +14,9 @@ namespace CsharpSite.Controllers
         // GET: Feed
         public ActionResult Index()
         {
-            Session.Add( "ConnUsr", db.Users.ToArray()[0] );
+            
 
-            User user = (User)Session["ConnUsr"];
+            User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
             List<Post> posts = new List<Post>();
             foreach(var followed in user.Following) {
                 posts.AddRange( followed.Posts );
