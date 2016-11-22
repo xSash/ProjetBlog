@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 Fake connected as @(((CsharpSite.Models.User)Session["ConnUsr"]).Username)
-
+@(HttpContext.Current.User.Identity.Name)
 
 @{Html.RenderPartial( "~/Views/Feed/FeedPartial.cshtml" );}
 

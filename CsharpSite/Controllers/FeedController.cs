@@ -8,12 +8,14 @@ using System.Web.Security;
 
 namespace CsharpSite.Controllers
 {
-    public class FeedController : Controller
+    public class FeedController : BaseController
     {
         private DB db = new DB();
         // GET: Feed
         public ActionResult Index()
         {
+            Session.Add( "ConnUsr", db.Users.ToArray()[0] );
+
             User user = (User)Session["ConnUsr"];
             List<Post> posts = new List<Post>();
             foreach(var followed in user.Following) {

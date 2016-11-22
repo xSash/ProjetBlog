@@ -208,6 +208,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseControllerController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
@@ -468,6 +469,7 @@
     <Content Include="Views\Session\Register.cshtml" />
     <Content Include="Views\Feed\Index.cshtml" />
     <Content Include="Views\Feed\FeedPartial.cshtml" />
+    <Content Include="Views\Session\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -509,7 +511,9 @@
       <DependentUpon>201611182025029_0.17.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\BaseController\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

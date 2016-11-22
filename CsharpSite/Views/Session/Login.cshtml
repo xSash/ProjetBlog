@@ -1,0 +1,8 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+@FormsAuthentication.Decrypt( Request.Cookies[FormsAuthentication.FormsCookieName].Value ).UserData.ToString();
+
