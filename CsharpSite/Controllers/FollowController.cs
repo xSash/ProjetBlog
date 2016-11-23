@@ -21,6 +21,22 @@ namespace CsharpSite.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult GetListJson() {
+            User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+            List<object> serializedFollowing = new List<object>();
+            List<object> serializedFollower = new List<object>();
+
+            foreach (var followed in user.Following) {
+                serializedFollowing.Add( followed.Serialize() );
+            }
+            foreach (var follower in user.Followers) {
+                serializedFollower.Add( follower.Serialize() );
+            }
+
+            return Json(new { following = serializedFollowing.ToArray(), followers = serializedFollower.ToArray() }, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpPost]
         [ActionName("Follow")]

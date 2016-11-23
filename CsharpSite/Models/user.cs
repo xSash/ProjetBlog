@@ -52,7 +52,9 @@ namespace CsharpSite.Models
             Following = new List<User>();
         }
 
-
+        public object Serialize() {
+            return new { UserId = this.UserId, Username = this.Username, Email = this.Email, Registration_date = this.Registration_date };
+        }
     }
 
     [Table( "Post" )]
