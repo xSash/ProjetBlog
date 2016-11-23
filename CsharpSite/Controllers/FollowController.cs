@@ -35,14 +35,15 @@ namespace CsharpSite.Controllers
             if(followed == null) {
                 json_string = new { state = "error", message = "User to follow does not exist" };
             }
+
+            db.Users.Attach( followed );
             user.Following.Add( followed );
-            followed.Followers.Add( user );
-            db.Entry( user ).State = System.Data.Entity.EntityState.Modified;
-            db.Entry( followed ).State = System.Data.Entity.EntityState.Modified;
+
             db.SaveChanges();
 
             return Json(json_string); 
         }
+
         [HttpPost]
         [ActionName( "Unfollow" )]
         public ActionResult Unfollow( int userIdToUnFollow ) {
@@ -58,11 +59,10 @@ namespace CsharpSite.Controllers
                 json_string = new { state = "error", message = "User to follow does not exist" };
                 return Json( json_string );
             }
-            user.Following.Remove( followed );
-            followed.Followers.Remove( user );
 
-            db.Users.Attach( user );
             db.Users.Attach( followed );
+            user.Following.Remove(followed);
+
             db.SaveChanges();
 
             return Json( json_string );
