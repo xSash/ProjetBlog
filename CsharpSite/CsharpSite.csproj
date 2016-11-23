@@ -472,6 +472,12 @@
     <Content Include="Views\Feed\FeedPartial.cshtml" />
     <Content Include="Views\Session\Login.cshtml" />
     <Content Include="Views\Follow\Index.cshtml" />
+    <Content Include="Views\Shared\CoreLayout_Top.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Shared\WhoToFollow.cshtml" />
+    <Content Include="Views\Shared\Sponsored.cshtml" />
+    <Content Include="Views\Shared\Notif.cshtml" />
+    <Content Include="Views\Shared\CoreLayout_Bottom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

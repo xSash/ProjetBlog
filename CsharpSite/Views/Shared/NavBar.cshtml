@@ -1,10 +1,70 @@
-﻿
+﻿@using CsharpSite.Models;
+@using CsharpSite.Controllers;
 @{
-    ViewBag.Title = "NavBar";
+    var connectedUser = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
 }
+@if (connectedUser == null) {
+    connectedUser = new CsharpSite.Models.User() { Username = "Guest" };
+}
+<!-- TOP MENU BAR -->
+<div class="box-container">
+    <script type="text/javascript">UNCODE.initBox();</script>
+    <div class="menu-wrapper menu-sticky menu-no-arrows">
 
-<nav>
-    
-</nav>
-
-
+        <header id="masthead" class="navbar menu-primary menu-dark submenu-dark menu-transparent menu-add-padding style-dark-original menu-absolute menu-with-logo">
+            <div class="menu-container style-color-wayh-bg menu-borders menu-shadows">
+                <div class="row-menu limit-width">
+                    <div class="row-menu-inner">
+                        <div id="logo-container-mobile" class="col-lg-0 logo-container middle">
+                            <div class="or">
+                                <button type="button" class="ou collapsed" data-toggle="collapse" data-target="#navbar-collapse-main">
+                                    <span class="cv">Toggle navigation</span>
+                                    <span class="ov"></span>
+                                    <span class="ov"></span>
+                                    <span class="ov"></span>
+                                </button>
+                                <a class="e" href="index.html">CodeCap</a>
+                            </div>
+                            <div class="mmb-container">
+                                <div class="mobile-menu-button mobile-menu-button-dark lines-button x2"><span class="lines"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 main-menu-container middle">
+                            <div class="menu-horizontal">
+                                <div class="menu-horizontal-inner">
+                                    <div class="nav navbar-nav navbar-main navbar-nav-first">
+                                        <ul id="menu-menu-creative-artist" class="menu-primary-inner menu-smart sm">
+                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42967 menu-item-link"><a href="index.html">Home</a></li>
+                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42968 menu-item-link"><a href="index.html">Profile</a></li>
+                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42969 menu-item-link"><a data-toggle="modal" href="#msgModal">Messages</a></li>
+                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42969 menu-item-link"><a href="#">Admin Panel</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav navbar-nav navbar-nav-last">
+                                        <ul class="menu-smart sm menu-icons">
+                                            <li class="menu-item-link search-icon style-light dropdown"> <a href="" class="x-btn-navbar-search search-icon" data-area="search" data-container="box-container"> <i class="fa fa-search3"></i><span class="desktop-hidden"><span>Search</span></span><i class="fa fa-angle-down fa-dropdown desktop-hidden"></i> </a> </li>
+                                            <li class="uncode-cart menu-item-link menu-item menu-item-has-children dropdown">
+                                                <a data-toggle="modal" href="#notifModal" style="cursor:pointer;" id="chart"> <span class="cart-icon-container"><i class="h ws"></i><span class="desktop-hidden">Notifications</span><span id="shww" class="badge">1</span><i class="fa fa-angle-down fa-dropdown desktop-hidden"></i> </span> </a>
+                                            </li>
+                                            <li class="uncode-cart menu-item-link menu-item menu-item-has-children dropdown" style="">
+                                                <button class="cg fm ox anl" data-toggle="popover">
+                                                    <img class="cu" src="~/Content/images/@(connectedUser.UserId).jpg">
+                                                </button>
+                                            </li>
+                                        </ul>
+                                        <ul class="nav navbar-nav hidden">
+                                            <li><h3>@(connectedUser.Username)</h3></li>
+                                            <li><a href="#" data-action="growl">Growl</a></li>
+                                            <li><a href="/Session/Logout">Logout</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+</div>
+<!-- END TOP MENU BAR -->

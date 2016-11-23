@@ -1,0 +1,156 @@
+﻿@using CsharpSite.Models;
+@using CsharpSite.Controllers;
+@{
+    var connectedUser = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+}
+@if (connectedUser == null) {
+    connectedUser = new CsharpSite.Models.User() { Username = "Guest" };
+}
+<div class="box-wrapper-real">
+    <div id="preloader">
+        <div class="spinner">&nbsp;</div>
+    </div>
+
+
+    @Html.Partial( "~/Views/Shared/NavBar.cshtml" )
+
+    <div class="cd fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="d">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Users</h4>
+                </div>
+
+                <div class="modal-body amf">
+                    <div class="uq">
+                        <ul class="qo cj ca">
+                            @foreach (var follower in connectedUser.Followers) {
+                                <li class="b">
+                                    <div class="qf">
+                                        <a class="qj" href="#">
+                                            <img class="qh cu" src="~/Content/images/@(follower.UserId).jpg">
+                                        </a>
+                                        <div class="qg">
+                                            <button class="cg fm fx eg">
+                                                <span class="c aol"></span> Follow
+                                            </button>
+                                            <strong>@(follower.Username)</strong>
+                                            <p>&#64;@(follower.Email) - Montreal</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="by amt">
+        <div class="gc">
+            <div class="gn">
+                <div class="qv rc aog alu">
+                    <div class="qx" style="background-image: url(~/Content/images/@(connectedUser.UserId)_profileback.jpg);"></div>
+                    <div class="qw dj">
+                        <a href="profile/index.html">
+                            <img class="aoh"
+                                 src="~/Content/images/@(connectedUser.UserId).jpg">
+                        </a>
+
+                        <h5 class="qy">
+                            <a class="aku" href="profile/index.html">@(connectedUser.Username)</a><img src="~/Content/images/verified.png">
+                        </h5>
+
+                        <p class="alu">God #1 || Web, Game & Mobile App programer (Java, JavaScript, HTML, Bootstrap, CSS, jQuery, C++, C#, PHP, SQL, iOS) || 19yrs || CodeShare CEO & Admin</p>
+
+                        <ul class="aoi">
+                            <li class="aoj">
+                                <a href="#userModal" class="aku" data-toggle="modal">
+                                    Followers
+                                    <h5 class="ali">
+                                        @{ 
+                                            var followers = "";
+                                        }
+                                        @if ( connectedUser.Followers.Count() > 999) {
+                                            followers = (connectedUser.Followers.Count() / 1000) +"K";
+                                        } else {
+                                            followers = connectedUser.Followers.Count() + "";
+                                        }
+                                        @(followers)
+                                    </h5>
+                                </a>
+                            </li>
+                            <li class="aoj">
+                                <a href="#userModal" class="aku" data-toggle="modal">
+                                    Following
+                                    <h5 class="ali">
+                                        @{
+                                            var following = "";
+                                        }
+                                        @if (connectedUser.Following.Count() > 999) {
+                                            following = (connectedUser.Following.Count() / 1000) + "K";
+                                        } else {
+                                            following = connectedUser.Following.Count() + "";
+                                        }
+                                        @(following)
+                                    </h5>
+                                </a>
+                            </li>
+                            <li class="aoj">
+                                <a href="#userModal" class="aku" data-toggle="modal">
+                                    Post
+                                    <h5 class="ali">
+                                        @{
+                                            var posts = "";
+                                        }
+                                        @if (connectedUser.Posts.Count() > 999) {
+                                            posts = (connectedUser.Posts.Count() / 1000) + "K";
+                                        } else {
+                                            posts = connectedUser.Posts.Count() + "";
+                                        }
+                                        @(posts)
+
+                                    </h5>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qv rc sm sp">
+                    <div class="qw">
+                        <h5 class="ald">About <small>· <a href="#">Edit</a></small></h5>
+                        <ul class="eb tb">
+                            <li><i class="fa fa-calendar dp all" aria-hidden="true"></i>Went to <a href="#">Toronto, Canada</a></li>
+                            @if (connectedUser.Following.Count() > 0) {
+                                <li><i class="fa fa-users dp all" aria-hidden="true"></i>Became friends with <a href="#">@(connectedUser.Following.Last().Username)</a></li>
+                            }
+                            <li><i class="fa fa-briefcase dp all" aria-hidden="true"></i>Worked at <a href="#">TeamAhuntsic</a></li>
+                            <li><i class="fa fa-globe dp all" aria-hidden="true"></i>Lives in <a href="#">Montreal, Canada</a></li>
+                            <li><i class="fa fa-map-marker dp all" aria-hidden="true"></i>From <a href="#">Montreal, Canada</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="qv rc sm sp">
+                    <div class="qw">
+                        <h5 class="ald">Trending <small>· <a href="#">Change</a></small></h5>
+                        <ul class="eb tb">
+                            <li><a href="#">#CodeShare</a>
+                            <li><a href="#">TeamAhuntsic</a>
+                            <li><a href="#">#USA</a>
+                            <li><a href="#">#Montreal</a>
+                            <li><a href="#">#LearnToCode</a>
+                            <li><a href="#">#Java</a>
+                            <li><a href="#">#2017</a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- ========================================= END USERS INFO ================================================== -->
+            <!-- ========================================= MIDDLE SECTION ================================================== -->
+            <div class="gz" style="margin-top: -20px;">
+                
+            

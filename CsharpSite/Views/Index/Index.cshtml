@@ -1,21 +1,10 @@
 ﻿@using CsharpSite.Models
 @using CsharpSite.Controllers
-@{
-    
+@{    
     ViewBag.Title = "Index";
 }
-<h1>CodeCap</h1>
-<h3>Welcome to CodeCap, @( ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User?.Username )</h3>
 
-@Html.Partial( "../Shared/NavBar" )
-
-@if (((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User?.UserId == 0) {
-    <a href="/Session/Register">Register</a><br />
-    <a href="/Session/Login">Login</a>
-} else {
-    <a href="/Session/Logout">Logout</a>
-}
-
+@Html.Partial( "~/Views/Shared/CoreLayout_Top.cshtml" )
 
 <h3>List of current users</h3>
 <table class="table table-striped" style="width: 500px;" >
@@ -132,3 +121,5 @@
         </tr>
     }
 </table>
+
+@Html.Partial( "~/Views/Shared/CoreLayout_Bottom.cshtml" )

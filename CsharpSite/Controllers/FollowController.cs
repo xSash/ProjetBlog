@@ -21,7 +21,19 @@ namespace CsharpSite.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpPost]
+        public ActionResult SearchUser() {
+            string searchstring = Request.Form["search"];
+            List<User> match = db.Users.Where( u => u.Username.Contains( searchstring ) || u.Email.Contains( searchstring ) ).ToList();
+            List<object> json = new List<object>();
+            foreach(var u in match) {
+                json.Add( u.Serialize() );
+            }
+
+            return Json(new { searchString = searchstring, data = json }  );
+        }
+
+        [HttpPost]
         public ActionResult GetListJson() {
             User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
             List<object> serializedFollowing = new List<object>();
@@ -34,7 +46,7 @@ namespace CsharpSite.Controllers
                 serializedFollower.Add( follower.Serialize() );
             }
 
-            return Json(new { following = serializedFollowing.ToArray(), followers = serializedFollower.ToArray() }, JsonRequestBehavior.AllowGet);
+            return Json(new { following = serializedFollowing.ToArray(), followers = serializedFollower.ToArray() });
         }
 
 
