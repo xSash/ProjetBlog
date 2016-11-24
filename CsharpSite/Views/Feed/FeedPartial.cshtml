@@ -21,7 +21,7 @@
                         var r = resp;//JSON.parse(resp);
 
                         for (var i = 0; i < r["data"].length ; i++) {
-                            $("#aab").append("<li>" + r["data"][i]["Username"] + " <form method='POST' action='/Follow/Follow/"+r["data"][i]["UserId"]+"'><input type='submit' value='Follow'/> </form></li>");
+                            $("#aab").append("<li>" + r["data"][i]["Username"] + " <form method='POST' action='/Follow/Follow/" + r["data"][i]["UserId"] + "'><input type='submit' value='Follow'/> </form><form method='POST' action='/Follow/Unfollow/" + r["data"][i]["UserId"] + "'><input type='submit' value='Unfollow'/> </form></li>");
 
                         }
                     }

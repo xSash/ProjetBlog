@@ -54,7 +54,8 @@ namespace CsharpSite.Controllers
         [ActionName("Follow")]
         public ActionResult Follow(int userIdToFollow ) {
             Object json_string = new { state = "success", message = "user followed successfully" };
-            User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+            int uid = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User?.UserId ?? -1;
+            User user = db.Users.First( u => u.UserId == uid );
             if(user == null) {
                 json_string = new { state = "error", message = "Not Logged in" };
             }
@@ -64,11 +65,11 @@ namespace CsharpSite.Controllers
                 json_string = new { state = "error", message = "User to follow does not exist" };
             }
 
-            db.Users.Attach( followed );
+            //db.Users.Attach( followed );
             user.Following.Add( followed );
 
             db.SaveChanges();
-
+            ((Auth)Session[Auth.AUTH_USER_SESSION_NAME]).User = user;
             return Json(json_string); 
         }
 
@@ -76,7 +77,8 @@ namespace CsharpSite.Controllers
         [ActionName( "Unfollow" )]
         public ActionResult Unfollow( int userIdToUnFollow ) {
             Object json_string = new { state = "success", message = "user unfollowed successfully" };
-            User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+            int uid = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User?.UserId ?? -1;
+            User user = db.Users.First( u => u.UserId == uid );
             if (user == null) {
                 json_string = new { state = "error", message = "Not Logged in" };
                 return Json( json_string );
@@ -87,12 +89,12 @@ namespace CsharpSite.Controllers
                 json_string = new { state = "error", message = "User to follow does not exist" };
                 return Json( json_string );
             }
-
-            db.Users.Attach( followed );
+            
+            //db.Users.Attach( followed );
             user.Following.Remove(followed);
 
             db.SaveChanges();
-
+            ((Auth)Session[Auth.AUTH_USER_SESSION_NAME]).User = user;
             return Json( json_string );
         }
 
