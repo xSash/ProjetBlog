@@ -52,6 +52,15 @@ namespace CsharpSite.Models
             Following = new List<User>();
         }
 
+        public object serialize() {
+            return new
+            {
+                IsAdmin = this.IsAdmin,
+                Email = this.Email,
+                Username = this.Username,
+                UserId = this.UserId
+            };
+        }
 
     }
 
@@ -89,7 +98,15 @@ namespace CsharpSite.Models
             this.UserID = userid;
             this.Publication_date = DateTimeOffset.Now;
         }
-
+        public object serialize() {
+            return new {
+                Title = this.Title,
+                Contents = this.Contents,
+                Comments = this.Comments,
+                Publication_date = this.Publication_date,
+                User = this.User.serialize()
+            };
+        }
     }
 
     [Table( "Comment" )]
@@ -132,6 +149,16 @@ namespace CsharpSite.Models
             this.PostID = postid;
             this.Publication_date = publicationdate;
         }
+        public object serialize() {
+            return new
+            {
+                CommentId = CommentId,
+                Contents = this.Contents,
+                UserId = this.UserID,
+                PostId = this.PostID,
+                User = User.serialize(),
+            };
+        }
 
     }
 
@@ -172,6 +199,14 @@ namespace CsharpSite.Models
         public ReactionType() {
 
         }
+        public object serialize() {
+            return new
+            {
+                ReactionId = ReactionId,
+                Name = Name,
+                Icon = Icon,
+            };
+        }
     }
 
     [Table("PostReaction")]
@@ -196,6 +231,17 @@ namespace CsharpSite.Models
 
         }
 
+        public object serialize() {
+            return new
+            {
+                PostID = PostID,
+                UserID = UserID,
+                User = User.serialize(),
+                ReactionId = ReactionID,
+                Reaction = Reaction.serialize(),
+                PostReactionId = PostReactionId
+            };
+        }
     }
 
     [Table("CommentReaction")]
