@@ -9,12 +9,13 @@ using System.Web.Mvc;
 using CsharpSite.Models;
 using System.Web.Script.Serialization;
 using System.ComponentModel.DataAnnotations;
+using System.Dynamic;
 
 namespace CsharpSite.Controllers
 {
+
     public class PostsController : BaseController
     {
-        private DB db = new DB();
 
         // GET: Posts
         public ActionResult Index()
@@ -35,11 +36,23 @@ namespace CsharpSite.Controllers
             {
                 return HttpNotFound();
             }
+            Comment comment = new Comment();
+            comment.PostID = post.PostId;
 
+            ViewModel mymodel = new ViewModel();
+            
+            mymodel.post = post;
+            mymodel.comment = comment;
+
+            //ViewBag.comment = comment;
+
+            ViewBag.PostId = post.PostId;
             if (Request?["format"] == "json")
                 return Json(post.Serialize());
 
-            return View(post);
+            ViewBag.reactions = db.ReactionTypes;
+
+            return View(mymodel);
         }
 
         // GET: Posts/Create
@@ -89,12 +102,18 @@ namespace CsharpSite.Controllers
             return View(post);
         }
 
-        [HttpPost]
-        public ActionResult React(int id, [Bind(Include = "ReactionID")] PostReaction reaction) {
+        [HttpPost, ActionName("React")]
+        public ActionResult React(FormCollection collection) {
             User user = getAuthUser();
+            /*[Bind(Include = "ReactionId,PostID")] PostReaction reaction*/
+            PostReaction reaction = new PostReaction();
+            reaction.ReactionID = int.Parse(collection["ReactionId"]);
+            reaction.PostID = int.Parse(collection["PostID"]);
+
             if (user == null)
                 return HttpNotFound();
-            reaction.PostID = id;
+
+            
             reaction.User = user;
             db.PostReactions.Add(reaction);
             db.SaveChanges();
@@ -104,17 +123,16 @@ namespace CsharpSite.Controllers
             if (format == "json")
                 return Json(reaction.Serialize());
 
-            return RedirectToAction("Detail", new { id = id });
+            return RedirectToAction("Detail", new { id = reaction.PostID });
         }
         [HttpPost]
-        public ActionResult Comment(int id, [Bind(Include = "Contents")] Comment comment)
+        public ActionResult Comment([Bind(Include = "Contents,PostID")] Comment comment)
         {
             User user = getAuthUser();
 
             if (user == null)
                 return HttpNotFound();
-
-            comment.CommentId = id;
+            
             comment.Publication_date = new DateTimeOffset();
             db.Comments.Add(comment);
             db.SaveChanges();
@@ -124,7 +142,7 @@ namespace CsharpSite.Controllers
             if (format == "json")
                 return Json(comment.Serialize());
 
-            return RedirectToAction("Detail", new { id = id });
+            return RedirectToAction("Detail", new { id = comment.PostID });
         }
 
         // POST: Posts/Edit/5
@@ -185,13 +203,16 @@ namespace CsharpSite.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Post post = db.Posts.Find(id);
+            
             db.Posts.Remove(post);
             db.SaveChanges();
 
-            if (Request?["format"] == "json") {
-                return Json(new {
+            if (Request?["format"] == "json")
+            {
+                return Json(new
+                {
                     status = "success",
-                    message = "Post deleted successfully"
+                    message = "Post " + id + "deleted successfully"
                 });
             }
 
