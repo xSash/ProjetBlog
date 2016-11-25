@@ -62,7 +62,7 @@
     }
     }
     <h2>Comment</h2>
-    @using (Html.BeginForm("Comment", "posts", FormMethod.Post))
+    @using (Html.BeginForm("Comment", "Posts", FormMethod.Post))
     {
         @Html.HiddenFor(model => model.comment.PostID)
 

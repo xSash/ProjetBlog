@@ -107,6 +107,7 @@ namespace CsharpSite.Controllers
             User user = getAuthUser();
             /*[Bind(Include = "ReactionId,PostID")] PostReaction reaction*/
             PostReaction reaction = new PostReaction();
+            db.PostReactions.Attach( reaction );
             reaction.ReactionID = int.Parse(collection["ReactionId"]);
             reaction.PostID = int.Parse(collection["PostID"]);
 
@@ -114,8 +115,9 @@ namespace CsharpSite.Controllers
                 return HttpNotFound();
 
             
-            reaction.User = user;
+            reaction.UserID = user.UserId;
             db.PostReactions.Add(reaction);
+            
             db.SaveChanges();
 
             String format = Request?["format"];
