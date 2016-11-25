@@ -287,6 +287,7 @@
     <Content Include="Content\css2\un.css" />
     <Content Include="Content\css2\uncode-icons.css" />
     <Content Include="Content\css2\woocommerce.css" />
+    <Content Include="Content\cssLogin\style.css" />
     <Content Include="Content\css\application.css" />
     <Content Include="Content\css\toolkit.css" />
     <Content Include="Sash_Views\feed.html" />
@@ -495,6 +496,7 @@
     <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Posts\Edit.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

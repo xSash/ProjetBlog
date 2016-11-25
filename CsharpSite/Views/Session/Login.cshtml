@@ -1,14 +1,36 @@
 ﻿@using CsharpSite.Controllers;
 @{
     ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
-
+<link rel="stylesheet" href="~/Content/cssLogin/style.css">
 <spam style="color: green">@ViewBag.SuccessMessage</spam>
-
-<h2>Login</h2>
-<form action="/Session/Login" method="post">
-    <input type="text" name="usr" required/>
-    <input type="password" name="pw" required/>
-    <spam style="color: red">@ViewBag.ErrorMessage</spam>
-    <input type="submit" value="Log in" />
-</form>
+<div class="gb ut">
+    <div class="uv">
+        <form method="post" action="/Session/Login" class="alq dj j">
+            <a href="" class="l amb">
+                <img src="~/Content/images/logo.png" alt="brand">
+            </a>
+            <p>Login in to CodeShare</p>
+            <div class="et">
+                <input class="form-control" name="usr" placeholder="Username" id="username">
+            </div>
+            <div class="et alu">
+                <input type="password" name="pw" class="form-control" placeholder="Password" id="password"><br>
+                <input type="checkbox" name="remember" value="Bike"> Remember me
+            </div>
+            <div class="amb">
+                <button type="submit" class="btn fp" id="login">Log In</button>
+                <button class="btn fm" id="sign" data-href="../signUp/index.html">Sign up</button>
+            </div>
+            <p id="verification"></p>
+            <footer class="apd">
+                <a href="resetPassword.html" class="dp">Forgot password</a>
+            </footer>
+        </form>
+    </div>
+</div>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/chart.js"></script>
+<script src="../js/toolkit.js"></script>
+<script src="../js/application.js"></script>
