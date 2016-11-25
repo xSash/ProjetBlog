@@ -108,14 +108,9 @@ namespace CsharpSite.Controllers
             if (user == null)
                 return HttpNotFound();
             /*[Bind(Include = "ReactionId,PostID")] PostReaction reaction*/
-            PostReaction reaction = new PostReaction();
+            PostReaction reaction = new PostReaction() { ReactionID = int.Parse( collection["ReactionId"] ) , PostID = int.Parse( collection["PostID"] ) , UserID = user.UserId , PostReactionId = 0};
             //db.PostReactions.Attach( reaction );
-            reaction.ReactionID = int.Parse(collection["ReactionId"]);
-            reaction.PostID = int.Parse(collection["PostID"]);
-            
-            reaction.UserID = user.UserId;
             db.PostReactions.Add(reaction);
-            
             db.SaveChanges();
 
             String format = Request?["format"];
