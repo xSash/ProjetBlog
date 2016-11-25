@@ -38,15 +38,32 @@ namespace CsharpSite.Controllers
                 RedirectToAction("Index", "Feed");
             }
             ActionResult result = null;
+            string first_name = Request.Form["firstName"];
+            string last_name = Request.Form["lastName"];
             string uname = Request.Form["username"];
-            string passw = Request.Form["passw"];
-            string cpassw= Request.Form["cpassw"];
+            string profile_picture = Request["profilePicture"];
+            string banner_picture = Request["bannerPicture"];
             string email = Request.Form["email"];
+            string mobile_number = Request.Form["mobileNumber"];
+            string passw = Request.Form["password"];
+            string birthday = Request.Form["date"];
+            //int country = Request.Form["country"];
+            //int city = Request.Form["city"];
+            char gender = Request.Form["gender"].ToUpper()[0];
+
 
             User user = new User();
-            user.Password = passw;
+            user.First_name = first_name;
+            user.Last_name = last_name;
             user.Username = uname;
             user.Email = email;
+            user.Phone_number = mobile_number;
+            user.Password = passw;
+            user.Birthday = DateTimeOffset.Parse(birthday);
+            //user.CountryID = country;
+            //user.CityID = city;
+            user.Gender = gender;
+            
             user.Registration_date = DateTimeOffset.Now;
 
             try {
