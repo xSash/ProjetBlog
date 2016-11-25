@@ -194,3 +194,5 @@ C:\Users\jérémi\Source\Repos\ProjetBlog\CsharpSite\obj\Debug\CsharpSite.Migrat
 C:\Users\jérémi\Source\Repos\ProjetBlog\CsharpSite\obj\Debug\CsharpSite.Migrations._015.resources
 C:\Users\jérémi\Source\Repos\ProjetBlog\CsharpSite\obj\Debug\CsharpSite.Migrations._016.resources
 C:\Users\jérémi\Source\Repos\ProjetBlog\CsharpSite\obj\Debug\CsharpSite.Migrations._017.resources
+C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.Migrations._018.resources
+C:\Users\guitp\documents\visual studio 2015\Projects\CsharpSite\CsharpSite\obj\Debug\CsharpSite.Migrations._019.resources

@@ -1,0 +1,11 @@
+﻿delete from [UserGroup];
+delete from [UserUser];
+delete from [CommentReaction];
+delete from [PostReaction];
+delete from [Comment];
+delete from [City];
+delete from [Country];
+delete from [Post];
+delete from [Group];
+delete from [User];
+delete from [ReactionType];

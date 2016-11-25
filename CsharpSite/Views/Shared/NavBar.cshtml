@@ -48,12 +48,12 @@
                                             </li>
                                             <li class="uncode-cart menu-item-link menu-item menu-item-has-children dropdown" style="">
                                                 <button class="cg fm ox anl" data-toggle="popover">
-                                                    <img class="cu" src="~/Content/images/@(connectedUser.UserId).jpg">
+                                                    <img class="cu" src="~/Content/images/@(connectedUser.Picture)">
                                                 </button>
                                             </li>
                                         </ul>
                                         <ul class="nav navbar-nav hidden">
-                                            <li><h3>@(connectedUser.Username)</h3></li>
+                                            <li><h3>@(connectedUser.First_name) @(connectedUser.Last_name)</h3></li>
                                             <li><a href="#" data-action="growl">Growl</a></li>
                                             <li><a href="/Session/Logout">Logout</a></li>
                                         </ul>

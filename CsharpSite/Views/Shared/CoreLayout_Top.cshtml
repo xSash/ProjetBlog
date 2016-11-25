@@ -29,14 +29,14 @@
                                 <li class="b">
                                     <div class="qf">
                                         <a class="qj" href="#">
-                                            <img class="qh cu" src="~/Content/images/@(follower.UserId).jpg">
+                                            <img class="qh cu" src="~/Content/images/@(follower.Picture)">
                                         </a>
                                         <div class="qg">
                                             <button class="cg fm fx eg">
                                                 <span class="c aol"></span> Follow
                                             </button>
-                                            <strong>@(follower.Username)</strong>
-                                            <p>&#64;@(follower.Email) - Montreal</p>
+                                            <strong>@(follower.First_name) @(follower.Last_name)</strong>
+                                            <p>&#64;@(follower.Username) - @(follower.City.Name)</p>
                                         </div>
                                     </div>
                                 </li>
@@ -56,14 +56,14 @@
                     <div class="qw dj">
                         <a href="profile/index.html">
                             <img class="aoh"
-                                 src="~/Content/images/@(connectedUser.UserId).jpg">
+                                 src="~/Content/images/@(connectedUser.Picture)">
                         </a>
 
                         <h5 class="qy">
-                            <a class="aku" href="profile/index.html">@(connectedUser.Username)</a><img src="~/Content/images/verified.png">
+                            <a class="aku" href="profile/index.html">@(connectedUser.First_name) @(connectedUser.Last_name)</a><img src="~/Content/images/verified.png">
                         </h5>
 
-                        <p class="alu">God #1 || Web, Game & Mobile App programer (Java, JavaScript, HTML, Bootstrap, CSS, jQuery, C++, C#, PHP, SQL, iOS) || 19yrs || CodeShare CEO & Admin</p>
+                        <p class="alu">@(connectedUser.Description)</p>
 
                         <ul class="aoi">
                             <li class="aoj">
@@ -123,13 +123,10 @@
                     <div class="qw">
                         <h5 class="ald">About <small>· <a href="#">Edit</a></small></h5>
                         <ul class="eb tb">
-                            <li><i class="fa fa-calendar dp all" aria-hidden="true"></i>Went to <a href="#">Toronto, Canada</a></li>
                             @if (connectedUser.Following.Count() > 0) {
                                 <li><i class="fa fa-users dp all" aria-hidden="true"></i>Became friends with <a href="#">@(connectedUser.Following.Last().Username)</a></li>
                             }
-                            <li><i class="fa fa-briefcase dp all" aria-hidden="true"></i>Worked at <a href="#">TeamAhuntsic</a></li>
-                            <li><i class="fa fa-globe dp all" aria-hidden="true"></i>Lives in <a href="#">Montreal, Canada</a></li>
-                            <li><i class="fa fa-map-marker dp all" aria-hidden="true"></i>From <a href="#">Montreal, Canada</a></li>
+                            <li><i class="fa fa-globe dp all" aria-hidden="true"></i>Lives in <a href="#">@(connectedUser.City.Name), @(connectedUser.Country.Name)</a></li>
                         </ul>
                     </div>
                 </div>

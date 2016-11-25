@@ -9,27 +9,44 @@ namespace CsharpSite.Models
 
     //Region entities
     [Table("User")]
-    public partial class User
-    {
+    public partial class User{
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
-
         [Index("ix_uname_pw",IsUnique = true, Order = 1 )]
         [Required, StringLength(32)]
         public string Username { get; set; }
-
         [Required]
         public string Password { get; set; }
-
         [Index( "ix_uname_pw", IsUnique = true, Order = 2 )]
         [Required, StringLength(255)]
         public string Email { get; set; }
-
         [Required]
         public DateTimeOffset Registration_date { get; set; }
-
         [Required]
         public bool IsAdmin { get; set; }
+        [Required, StringLength( 64 )]
+        public string First_name { get; set; }
+        [Required, StringLength( 64 )]
+        public string Last_name { get; set; }
+        [Required]
+        public string Picture { get; set; }
+
+        [Required, ForeignKey("Country")]
+        public int CountryID { get; set; }
+        public virtual Country Country { get; set; }
+
+        [Required, ForeignKey( "City" )]
+        public int CityID { get; set; }
+        public virtual City City { get; set; }
+
+        [Required]
+        public DateTimeOffset Birthday { get; set; }
+        [Required, StringLength( 10 )]
+        public string Phone_number { get; set; }
+        [Required]
+        public char Gender { get; set; }
+        [Required]
+        public string Description { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
@@ -62,22 +79,17 @@ namespace CsharpSite.Models
         [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
         [Key]
         public int PostId { get; set; }
-
         [Required]
         public string Title { get; set; }
-
         [Required]
         public string Contents { get; set; }
-
         [Required]
         public DateTimeOffset Publication_date { get; set; }
-
         [Required, ForeignKey("User")]
         public int UserID { get; set; }
         public virtual User User { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
-
         public virtual ICollection<PostReaction> Reactions { get; set; }
 
         public Post() {
@@ -136,9 +148,6 @@ namespace CsharpSite.Models
         }
 
     }
-
-    
-
 
     [Table("Group")]
     public partial class Group {
@@ -224,6 +233,40 @@ namespace CsharpSite.Models
 
     }
 
+    [Table("Country")]
+    public partial class Country {
+        [Key, DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+        public int CountryId { get; set; }
+        [Required, StringLength( 32 )]
+        public string Name { get; set; }
+
+        public virtual ICollection<City> Cities { get; set; }
+        public virtual ICollection<User> Residents { get; set; }
+
+        public Country() {
+            Cities = new List<City>();
+        }
+
+
+    }
+
+    [Table("City")]
+    public partial class City {
+        [Key, DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+        public int CityId { get; set; }
+        [Required, StringLength( 32 )]
+        public string Name { get; set; }
+        [Required, ForeignKey("Country")]
+        public int CountryID { get; set; }
+        public virtual Country Country { get; set; }
+
+        public virtual ICollection<User> Residents { get; set; }
+
+        public City() {
+            Residents = new List<User>();
+        }
+
+    }
     //EndRegion entities
 
 

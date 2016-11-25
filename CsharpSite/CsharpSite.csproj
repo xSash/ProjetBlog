@@ -252,6 +252,14 @@
     <Compile Include="Migrations\201611182025029_0.17.Designer.cs">
       <DependentUpon>201611182025029_0.17.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611250222024_0.18.cs" />
+    <Compile Include="Migrations\201611250222024_0.18.Designer.cs">
+      <DependentUpon>201611250222024_0.18.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611250301354_0.19.cs" />
+    <Compile Include="Migrations\201611250301354_0.19.Designer.cs">
+      <DependentUpon>201611250301354_0.19.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\user.cs" />
@@ -431,6 +439,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="SQLQuery1.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -517,6 +526,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611182025029_0.17.resx">
       <DependentUpon>201611182025029_0.17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611250222024_0.18.resx">
+      <DependentUpon>201611250222024_0.18.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611250301354_0.19.resx">
+      <DependentUpon>201611250301354_0.19.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

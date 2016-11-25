@@ -33,11 +33,14 @@ namespace CsharpSite.Migrations
             context.Database.ExecuteSqlCommand( "delete from [CommentReaction]" );
             context.Database.ExecuteSqlCommand( "delete from [PostReaction]" );
             context.Database.ExecuteSqlCommand( "delete from [Comment]" );
+            
             context.Database.ExecuteSqlCommand( "delete from [Post]" );
             context.Database.ExecuteSqlCommand( "delete from [Group]" );
             context.Database.ExecuteSqlCommand( "delete from [User]" );
+            context.Database.ExecuteSqlCommand( "delete from [City]" );
+            context.Database.ExecuteSqlCommand( "delete from [Country]" );
             context.Database.ExecuteSqlCommand( "delete from [ReactionType]" );
-
+          
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"CommentReaction\", RESEED, 0);" );
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"PostReaction\", RESEED, 0);" );
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"Comment\", RESEED, 0);" );
@@ -45,12 +48,30 @@ namespace CsharpSite.Migrations
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"Group\", RESEED, 0);" );
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"User\", RESEED, 0);" );
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"ReactionType\", RESEED, 0);" );
+            context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"Country\", RESEED, 0);" );
+            context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"City\", RESEED, 0);" );
+
+            context.Countries.AddOrUpdate(
+                new Country() { CountryId = 1, Name = "Canada" },
+                new Country() { CountryId = 2, Name = "Sweeden" },
+                new Country() { CountryId = 3, Name = "Norway" },
+                new Country() { CountryId = 4, Name = "Denmark" },
+                new Country() { CountryId = 5, Name = "Japan" }
+                );
+            context.Cities.AddOrUpdate(
+                new City() { CityId = 1, Name = "Montreal", CountryID = 1 },
+                new City() { CityId = 2, Name = "Stockolm", CountryID = 2 },
+                new City() { CityId = 3, Name = "Oslo", CountryID = 3 },
+                new City() { CityId = 4, Name = "Copenhagen", CountryID = 4 },
+                new City() { CityId = 5, Name = "Kyoto", CountryID = 5 }
+                );
+            context.SaveChanges();
 
             context.Users.AddOrUpdate(
-                new User() { UserId = 1, Username = "CodeCap_Jeremi", Email = "jeremi@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true },
-                new User() { UserId = 2, Username = "CodeCap_Sasha", Email = "sasha@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true },
-                new User() { UserId = 3, Username = "CodeCap_Vincent", Email = "vincent@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true },
-                new User() { UserId = 4, Username = "CodeCap_Adam", Email = "adam@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true }
+                new User() { UserId = 1, Username = "CodeCap_Jeremi", Email = "jeremi@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true, CountryID = 4, CityID = 4, First_name = "Jeremi", Last_name = "Cyr", Gender = 'M', Phone_number = "0000000000", Picture = "1.jpg", Birthday = DateTimeOffset.Now, Description = "i am jeremi" },
+                new User() { UserId = 2, Username = "CodeCap_Sasha", Email = "sasha@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true, CountryID = 1, CityID = 1, First_name = "Sasha", Last_name = "Benjamin", Gender = 'M', Phone_number = "1111111111", Picture = "2.jpg", Birthday = DateTimeOffset.Now, Description = "i am sash" },
+                new User() { UserId = 3, Username = "CodeCap_Vincent", Email = "vincent@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true, CountryID = 5, CityID = 5, First_name = "Vincent", Last_name = "Laferriere", Gender = 'M', Phone_number = "2222222222", Picture = "3.jpg", Birthday = DateTimeOffset.Now, Description = "i am vincent" },
+                new User() { UserId = 4, Username = "CodeCap_Adam", Email = "adam@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true, CountryID = 3, CityID = 3, First_name = "Adam", Last_name = "Cherti", Gender = 'M', Phone_number = "3333333333", Picture = "4.jpg", Birthday = DateTimeOffset.Now, Description = "i am adam" }
                 );
             context.SaveChanges();
 
