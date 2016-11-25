@@ -105,15 +105,13 @@ namespace CsharpSite.Controllers
         [HttpPost, ActionName("React")]
         public ActionResult React(FormCollection collection) {
             User user = getAuthUser();
-            /*[Bind(Include = "ReactionId,PostID")] PostReaction reaction*/
-            PostReaction reaction = new PostReaction();
-            db.PostReactions.Attach( reaction );
-            reaction.ReactionID = int.Parse(collection["ReactionId"]);
-            reaction.PostID = int.Parse(collection["PostID"]);
-
             if (user == null)
                 return HttpNotFound();
-
+            /*[Bind(Include = "ReactionId,PostID")] PostReaction reaction*/
+            PostReaction reaction = new PostReaction();
+            //db.PostReactions.Attach( reaction );
+            reaction.ReactionID = int.Parse(collection["ReactionId"]);
+            reaction.PostID = int.Parse(collection["PostID"]);
             
             reaction.UserID = user.UserId;
             db.PostReactions.Add(reaction);
