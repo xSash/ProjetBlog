@@ -10,7 +10,6 @@ namespace CsharpSite.Controllers
 {
     public class FeedController : BaseController
     {
-        private DB db = new DB();
         // GET: Feed
         public ActionResult Index()
         {

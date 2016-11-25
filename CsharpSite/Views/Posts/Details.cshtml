@@ -1,0 +1,87 @@
+﻿@model  CsharpSite.Controllers.ViewModel 
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.post.User.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post.User.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post.Contents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post.Contents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post.Publication_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post.Publication_date)
+        </dd>
+
+    </dl>
+    @foreach (var reactionType in ViewBag.reactions)
+    {
+    using (Html.BeginForm("React", "Posts"))
+    {
+    <input type="hidden"
+           name="ReactionId"
+           value=@reactionType.ReactionId />
+    <input type="hidden"
+           name="PostID"
+           value=@ViewBag.PostId />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit"
+                   value=@reactionType.Name />
+        </div>
+    </div>
+    }
+    }
+    <h2>Comment</h2>
+    @using (Html.BeginForm("Comment", "posts", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.comment.PostID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.comment.Contents, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.comment.Contents, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.comment.Contents, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Comment" class="btn btn-default" />
+        </div>
+    </div>
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = ViewBag.PostId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

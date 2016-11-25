@@ -9,24 +9,25 @@ namespace CsharpSite.Models
 
     //Region entities
     [Table("User")]
-    public partial class User{
+    public partial class User
+    {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
-        [Index("ix_uname_pw",IsUnique = true, Order = 1 )]
+        [Index("ix_uname_pw", IsUnique = true, Order = 1)]
         [Required, StringLength(32)]
         public string Username { get; set; }
         [Required]
         public string Password { get; set; }
-        [Index( "ix_uname_pw", IsUnique = true, Order = 2 )]
+        [Index("ix_uname_pw", IsUnique = true, Order = 2)]
         [Required, StringLength(255)]
         public string Email { get; set; }
         [Required]
         public DateTimeOffset Registration_date { get; set; }
         [Required]
         public bool IsAdmin { get; set; }
-        [Required, StringLength( 64 )]
+        [Required, StringLength(64)]
         public string First_name { get; set; }
-        [Required, StringLength( 64 )]
+        [Required, StringLength(64)]
         public string Last_name { get; set; }
         [Required]
         public string Picture { get; set; }
@@ -35,13 +36,13 @@ namespace CsharpSite.Models
         public int CountryID { get; set; }
         public virtual Country Country { get; set; }
 
-        [Required, ForeignKey( "City" )]
+        [Required, ForeignKey("City")]
         public int CityID { get; set; }
         public virtual City City { get; set; }
 
         [Required]
         public DateTimeOffset Birthday { get; set; }
-        [Required, StringLength( 10 )]
+        [Required, StringLength(10)]
         public string Phone_number { get; set; }
         [Required]
         public char Gender { get; set; }
@@ -53,7 +54,8 @@ namespace CsharpSite.Models
         public virtual ICollection<User> Followers { get; set; }
         public virtual ICollection<User> Following { get; set; }
 
-        public User() {
+        public User()
+        {
             IsAdmin = false;
             Groups = new List<Group>();
             Posts = new List<Post>();
@@ -61,7 +63,8 @@ namespace CsharpSite.Models
             Following = new List<User>();
         }
 
-        public User(bool isAdmin) {
+        public User(bool isAdmin)
+        {
             IsAdmin = isAdmin;
             Groups = new List<Group>();
             Posts = new List<Post>();
@@ -69,14 +72,23 @@ namespace CsharpSite.Models
             Following = new List<User>();
         }
 
-        public object Serialize() {
-            return new { UserId = this.UserId, Username = this.Username, Email = this.Email, Registration_date = this.Registration_date.ToString() };
+        public object Serialize()
+        {
+            return new {
+                UserId = this.UserId,
+                Username = this.Username,
+                Email = this.Email,
+                Registration_date = this.Registration_date.ToString(),
+                Country = this.Country.Serialize(),
+                City = this.City.Serialize(),
+            };
         }
     }
 
-    [Table( "Post" )]
-    public partial class Post {
-        [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+    [Table("Post")]
+    public partial class Post
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int PostId { get; set; }
         [Required]
@@ -92,23 +104,34 @@ namespace CsharpSite.Models
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<PostReaction> Reactions { get; set; }
 
-        public Post() {
+        public Post()
+        {
             Comments = new List<Comment>();
             Reactions = new List<PostReaction>();
         }
 
-        public Post(string title, string contents, int userid) {
+        public Post(string title, string contents, int userid)
+        {
             this.Title = title;
             this.Contents = contents;
             this.UserID = userid;
             this.Publication_date = DateTimeOffset.Now;
         }
-
+        public object Serialize() {
+            return new {
+                Title = this.Title,
+                Contents = this.Contents,
+                Comments = this.Comments,
+                Publication_date = this.Publication_date,
+                User = this.User.Serialize()
+            };
+        }
     }
 
-    [Table( "Comment" )]
-    public partial class Comment {
-        [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+    [Table("Comment")]
+    public partial class Comment
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int CommentId { get; set; }
 
@@ -120,38 +143,55 @@ namespace CsharpSite.Models
 
         [Required]
         public int UserID { get; set; }
-        [ForeignKey( "UserID" )]
+        [ForeignKey("UserID")]
         public virtual User User { get; set; }
 
         [Required]
         public int PostID { get; set; }
-        [ForeignKey( "PostID" )]
+        [ForeignKey("PostID")]
         public virtual Post Post { get; set; }
 
         public virtual ICollection<CommentReaction> Reactions { get; set; }
 
-        public Comment() {
+        public Comment()
+        {
             Reactions = new List<CommentReaction>();
         }
 
-        public Comment( string contents, int userid, int postid ) {
+        public Comment(string contents, int userid, int postid)
+        {
             this.Contents = contents;
             this.UserID = userid;
             this.PostID = postid;
             this.Publication_date = DateTimeOffset.Now;
         }
-        public Comment( string contents, int userid, int postid, DateTimeOffset publicationdate ) {
+        public Comment(string contents, int userid, int postid, DateTimeOffset publicationdate)
+        {
             this.Contents = contents;
             this.UserID = userid;
             this.PostID = postid;
             this.Publication_date = publicationdate;
         }
+        public object Serialize() {
+            return new
+            {
+                CommentId = CommentId,
+                Contents = this.Contents,
+                UserId = this.UserID,
+                PostId = this.PostID,
+                User = User.Serialize(),
+            };
+        }
 
     }
 
+
+
+
     [Table("Group")]
-    public partial class Group {
-        [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+    public partial class Group
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int GroupId { get; set; }
         [Required]
@@ -163,7 +203,8 @@ namespace CsharpSite.Models
 
         public virtual ICollection<User> Members { get; set; }
 
-        public Group() {
+        public Group()
+        {
             Members = new List<User>();
         }
 
@@ -171,8 +212,9 @@ namespace CsharpSite.Models
     }
 
     [Table("ReactionType")]
-    public partial class ReactionType {
-        [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+    public partial class ReactionType
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int ReactionId { get; set; }
         [Required]
@@ -180,14 +222,24 @@ namespace CsharpSite.Models
         [Required]
         public string Icon { get; set; }
 
-        public ReactionType() {
+        public ReactionType()
+        {
 
+        }
+        public object Serialize() {
+            return new
+            {
+                ReactionId = ReactionId,
+                Name = Name,
+                Icon = Icon,
+            };
         }
     }
 
     [Table("PostReaction")]
-    public partial class PostReaction {
-        [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+    public partial class PostReaction
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int PostReactionId { get; set; }
         [Required]
@@ -203,10 +255,21 @@ namespace CsharpSite.Models
         [ForeignKey("PostID")]
         public virtual Post Post { get; set; }
 
-        public PostReaction() {
+        public PostReaction()
+        {
 
         }
-
+        public object Serialize() {
+            return new
+            {
+                PostID = PostID,
+                UserID = UserID,
+                User = User.Serialize(),
+                ReactionId = ReactionID,
+                Reaction = Reaction.Serialize(),
+                PostReactionId = PostReactionId
+            };
+        }
     }
 
     [Table("CommentReaction")]
@@ -231,30 +294,46 @@ namespace CsharpSite.Models
 
         }
 
+        public object Serialize() {
+            return new
+            {
+                CommentID = CommentID,
+                CommentReactionId = CommentReactionId,
+                Reaction = Reaction.Serialize(),
+                User = User.Serialize(),
+                ReactionId = ReactionID
+            };
+        }
+
     }
 
     [Table("Country")]
-    public partial class Country {
-        [Key, DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+    public partial class Country
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CountryId { get; set; }
-        [Required, StringLength( 32 )]
+        [Required, StringLength(32)]
         public string Name { get; set; }
 
         public virtual ICollection<City> Cities { get; set; }
         public virtual ICollection<User> Residents { get; set; }
 
-        public Country() {
+        public Country()
+        {
             Cities = new List<City>();
         }
 
-
+        public object Serialize() {
+            return new { CountryId = CountryId, Name = Name };
+        }
     }
 
     [Table("City")]
-    public partial class City {
-        [Key, DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+    public partial class City
+    {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CityId { get; set; }
-        [Required, StringLength( 32 )]
+        [Required, StringLength(32)]
         public string Name { get; set; }
         [Required, ForeignKey("Country")]
         public int CountryID { get; set; }
@@ -262,10 +341,19 @@ namespace CsharpSite.Models
 
         public virtual ICollection<User> Residents { get; set; }
 
-        public City() {
+        public City()
+        {
             Residents = new List<User>();
         }
 
+        public object Serialize() {
+            return new
+            {
+                Country = Country.Serialize(),
+                CountryID = CountryID,
+                Name = Name,
+            };
+        }
     }
     //EndRegion entities
 

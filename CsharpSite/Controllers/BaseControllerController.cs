@@ -24,6 +24,13 @@ namespace CsharpSite.Controllers
             
         };
 
+        protected User getAuthUser()
+        {
+            User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+            return user;
+        }
+        
+
         protected override void OnActionExecuting( ActionExecutingContext filterContext ) {
             User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
             if( (restricted_controllers.Contains( filterContext.ActionDescriptor.ControllerDescriptor.ControllerName )

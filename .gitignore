@@ -1,1 +1,4 @@
 CsharpSite/bin/*
+CsharpSite/obj/*
+.vs/*
+*.swo

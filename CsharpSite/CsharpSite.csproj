@@ -213,6 +213,9 @@
     <Compile Include="Controllers\FollowController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\JsonErrorModel.cs" />
+    <Compile Include="Controllers\ViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
