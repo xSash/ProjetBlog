@@ -63,6 +63,11 @@
                         <p>
                             @post.Contents
                         </p>
+                        <div>
+                            @foreach(var reactionT in ViewBag.reactionTypes) {
+                                @(post.CountReactionsOfType(reactionT.ReactionId) ) @(reactionT.Name)
+                            }
+                        </div>
                         <ul class="qo alm">
                             @foreach (var comment in post.Comments) {
                                 <li class="qf">

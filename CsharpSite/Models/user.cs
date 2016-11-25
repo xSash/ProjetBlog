@@ -126,6 +126,16 @@ namespace CsharpSite.Models
                 User = this.User.Serialize()
             };
         }
+
+        public int CountReactionsOfType(int typeId ) {
+            int c = 0;
+            foreach(var r in Reactions) {
+                if(r.Reaction.ReactionId == typeId) {
+                    c++;
+                }
+            }
+            return c;
+        }
     }
 
     [Table("Comment")]

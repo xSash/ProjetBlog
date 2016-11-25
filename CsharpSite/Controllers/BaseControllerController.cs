@@ -43,6 +43,7 @@ namespace CsharpSite.Controllers
                 return;
 
             }
+            ViewBag.reactionTypes = db.ReactionTypes.ToArray();
 
         }
 

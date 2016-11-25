@@ -125,18 +125,20 @@ namespace CsharpSite.Controllers
             if (format == "json")
                 return Json(reaction.Serialize());
 
-            return RedirectToAction("Detail", new { id = reaction.PostID });
+            return RedirectToAction("Details", new { id = reaction.PostID });
         }
         [HttpPost]
         public ActionResult Comment([Bind(Include = "Contents,PostID")] Comment comment)
         {
             User user = getAuthUser();
-
             if (user == null)
                 return HttpNotFound();
-            
+
+            Comment c = new Comment() { CommentId = 0, Contents = comment.Contents, PostID = comment.PostID, UserID = user.UserId };
+            //db.Comments.Attach( comment );
+
             comment.Publication_date = new DateTimeOffset();
-            db.Comments.Add(comment);
+            db.Comments.Add(c);
             db.SaveChanges();
 
             String format = Request?["format"];
@@ -144,7 +146,7 @@ namespace CsharpSite.Controllers
             if (format == "json")
                 return Json(comment.Serialize());
 
-            return RedirectToAction("Detail", new { id = comment.PostID });
+            return RedirectToAction("Details", new { id = comment.PostID });
         }
 
         // POST: Posts/Edit/5
