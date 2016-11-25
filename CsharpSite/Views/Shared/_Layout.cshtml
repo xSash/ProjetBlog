@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - CodeShare</title>
+    <title>@ViewBag.Title - CodeCap</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <!-- Tags -->
@@ -69,53 +69,37 @@
 
 </head>
 <body class="page page-id-4935 page-child parent-pageid-43938 page-template-default  style-color-wayh-bg group-blog smooth-scroller hmenu hmenu-position-right header-full-width main-center-align menu-mobile-animated wpb-js-composer js-comp-ver-4.12.1 vc_responsive scroll" style="outline:none;" id="body">
-
-    <div class="box-wrapper-real">
-        <div id="preloader">
-            <div class="spinner">&nbsp;</div>
-        </div>
-        <div>
-            @{ 
-                var connectedUser = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
-            }
-            @if ( connectedUser == null) {
-                connectedUser = new CsharpSite.Models.User() { Username = "Guest" };
-            }
-            Welcome, @connectedUser.Username
-        </div>
-        <div class="by amt">
-            <div class="gc">
-                @RenderBody()
-
-            </div>
-        </div>
-    </div>
+    @{
+        var connectedUser = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+    }
+    @if (connectedUser == null) {
+        connectedUser = new CsharpSite.Models.User() { Username = "Guest" };
+    }
     
-                @Scripts.Render( "~/bundles/jquery" )
-                @Scripts.Render( "~/bundles/bootstrap" )
-                @RenderSection( "scripts", required: false )
+    @RenderBody();
+    
 
-                <script src="~/Content/js/chart.js"></script>
-                <script src="~/Content/js/toolkit.js"></script>
-                <script src="~/Content/js/application.js"></script>
-                <script>
-      // execute/clear BS loaders for docs
-      $(function(){
-        if (window.BS&&window.BS.loader&&window.BS.loader.length) {
-          while(BS.loader.length){(BS.loader.pop())()}
-        }
-      })
-                </script>
-                <script> var _wpcf7 = {}; </script>
-                <script type='text/javascript'> var jckqv = {"settings":{"":""}};</script>
-                <script type='text/javascript' src="~/Content/js2/minify2.js"></script>
-                <script type='text/javascript' src='~/Content/js2/plugins.js'></script>
-                <script type='text/javascript' src='~/Content/js2/app.js'></script>
-
-                <script type='text/javascript' src="~/Content/js2/index115.js"></script>
-                <script type='text/javascript' src="~/Content/js2/bootstrap.js"></script>
-                <script type='text/javascript' src='~/Content/js2/jckqv-scripts.min.js'></script>
-
-</body>
+    @Scripts.Render( "~/bundles/jquery" )
+    @Scripts.Render( "~/bundles/bootstrap" )
+    @RenderSection( "scripts", required: false )
+    <script src="~/Content/js/chart.js"></script>
+    <script src="~/Content/js/toolkit.js"></script>
+    <script src="~/Content/js/application.js"></script>
+    <script>
+        // execute/clear BS loaders for docs
+        $(function () {
+            if (window.BS && window.BS.loader && window.BS.loader.length) {
+                while (BS.loader.length) { (BS.loader.pop())() }
+            }
+        })
+    </script>
+    <script> var _wpcf7 = {}; </script>
+    <script type='text/javascript'> var jckqv = { "settings": { "": "" } };</script>
+    <script type='text/javascript' src="~/Content/js2/minify2.js"></script>
+    <script type='text/javascript' src='~/Content/js2/plugins.js'></script>
+    <script type='text/javascript' src='~/Content/js2/app.js'></script>
+    <script type='text/javascript' src="~/Content/js2/index115.js"></script>
+    <script type='text/javascript' src="~/Content/js2/bootstrap.js"></script>
+    <script type='text/javascript' src='~/Content/js2/jckqv-scripts.min.js'></script>
 </body>
 </html>

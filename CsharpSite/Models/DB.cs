@@ -17,6 +17,8 @@ namespace CsharpSite.Models {
         public virtual DbSet<ReactionType> ReactionTypes { get; set; }
         public virtual DbSet<PostReaction> PostReactions { get; set; }
         public virtual DbSet<CommentReaction> CommentReactions { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
         
 
         protected override void OnModelCreating( DbModelBuilder modelBuilder ) {
@@ -31,6 +33,20 @@ namespace CsharpSite.Models {
                 .HasRequired( c => c.Post )
                 .WithMany(p => p.Comments)
                 .WillCascadeOnDelete( false );
+
+            modelBuilder.Entity<City>()
+                .HasRequired( c => c.Country )
+                .WithMany( p => p.Cities )
+                .WillCascadeOnDelete( false );
+
+            modelBuilder.Entity<User>()
+                .HasRequired( c => c.City )
+                .WithMany( p => p.Residents )
+                .WillCascadeOnDelete( false );
+            modelBuilder.Entity<User>()
+               .HasRequired( c => c.Country )
+               .WithMany( p => p.Residents )
+               .WillCascadeOnDelete( false );
 
             modelBuilder.Entity<Post>()
                 .HasRequired( s => s.User );
@@ -52,6 +68,8 @@ namespace CsharpSite.Models {
                 .HasRequired( c => c.User )
                 .WithMany()
                 .WillCascadeOnDelete( false );
+
+           
 
             modelBuilder.Entity<Group>()
              .HasMany<User>( x => x.Members )

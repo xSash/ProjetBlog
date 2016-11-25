@@ -7,10 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CsharpSite.Models;
+using System.Web.Script.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace CsharpSite.Controllers
 {
-    public class PostsController : Controller
+    public class PostsController : BaseController
     {
         private DB db = new DB();
 
@@ -33,13 +35,19 @@ namespace CsharpSite.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (Request?["format"] == "json")
+                return Json(post.Serialize());
+
             return View(post);
         }
 
         // GET: Posts/Create
         public ActionResult Create()
         {
-            ViewBag.UserID = new SelectList(db.Users, "UserId", "Username");
+            //ViewBag.UserID = new SelectList(db.Users, "UserId", "Username");
+            ViewBag.UserID = getAuthUser();
+
             return View();
         }
 
@@ -54,6 +62,10 @@ namespace CsharpSite.Controllers
             {
                 db.Posts.Add(post);
                 db.SaveChanges();
+
+                if (Request?["format"] == "json")
+                    return Json(post.Serialize());
+
                 return RedirectToAction("Index");
             }
 
@@ -73,13 +85,46 @@ namespace CsharpSite.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UserID = new SelectList(db.Users, "UserId", "Username", post.UserID);
+
             return View(post);
         }
 
         [HttpPost]
-        public ActionResult React(FormCollection collection) {
+        public ActionResult React(int id, [Bind(Include = "ReactionID")] PostReaction reaction) {
+            User user = getAuthUser();
+            if (user == null)
+                return HttpNotFound();
+            reaction.PostID = id;
+            reaction.User = user;
+            db.PostReactions.Add(reaction);
+            db.SaveChanges();
 
+            String format = Request?["format"];
+
+            if (format == "json")
+                return Json(reaction.Serialize());
+
+            return RedirectToAction("Detail", new { id = id });
+        }
+        [HttpPost]
+        public ActionResult Comment(int id, [Bind(Include = "Contents")] Comment comment)
+        {
+            User user = getAuthUser();
+
+            if (user == null)
+                return HttpNotFound();
+
+            comment.CommentId = id;
+            comment.Publication_date = new DateTimeOffset();
+            db.Comments.Add(comment);
+            db.SaveChanges();
+
+            String format = Request?["format"];
+
+            if (format == "json")
+                return Json(comment.Serialize());
+
+            return RedirectToAction("Detail", new { id = id });
         }
 
         // POST: Posts/Edit/5
@@ -93,9 +138,28 @@ namespace CsharpSite.Controllers
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
+
+                if (Request?["format"] == "json")
+                    return Json(post.Serialize());
+
                 return RedirectToAction("Index");
             }
-            ViewBag.UserID = new SelectList(db.Users, "UserId", "Username", post.UserID);
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            dynamic errors = new System.Dynamic.ExpandoObject();
+
+            String[] fields = {"PostId", "Title", "Contents", "Publication_date", "UserID"};
+            foreach (String field in fields)
+            {
+                if (!ModelState.IsValidField(field))
+                    errors.field = "Not valid";
+            }
+
+            if (Request?["format"] == "json")
+                return Json(errors);
+
+            ViewBag.errors = errors;
+                
+            //ViewBag.UserID = new SelectList(db.Users, "UserId", "Username", post.UserID);
             return View(post);
         }
 
@@ -111,6 +175,7 @@ namespace CsharpSite.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(post);
         }
 
@@ -122,6 +187,14 @@ namespace CsharpSite.Controllers
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
+
+            if (Request?["format"] == "json") {
+                return Json(new {
+                    status = "success",
+                    message = "Post deleted successfully"
+                });
+            }
+
             return RedirectToAction("Index");
         }
 

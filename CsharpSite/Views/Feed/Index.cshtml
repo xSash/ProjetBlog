@@ -5,5 +5,6 @@
 
 @(HttpContext.Current.User.Identity.Name)
 
-@{Html.RenderPartial( "~/Views/Feed/FeedPartial.cshtml" );}
-
+@Html.Partial( "~/Views/Shared/CoreLayout_Top.cshtml" )
+@Html.Partial( "~/Views/Feed/FeedPartial.cshtml" )
+@Html.Partial( "~/Views/Shared/CoreLayout_Bottom.cshtml" )
