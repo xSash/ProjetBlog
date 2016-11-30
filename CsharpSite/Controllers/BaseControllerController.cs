@@ -13,11 +13,12 @@ namespace CsharpSite.Controllers
         protected DB db = new DB();
         private static string[] restricted_controllers = new string[] {
             "Feed",
-            "Post",
+            "Posts",
             "Profile",
             "Index",
             "Chat",
-            "Follow"
+            "Follow",
+            "Chat"
         };
         private static string[] restricted_actions = new string[] {
             //"Controller/Action"
@@ -32,7 +33,7 @@ namespace CsharpSite.Controllers
         
 
         protected override void OnActionExecuting( ActionExecutingContext filterContext ) {
-            User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+            User user = getAuthUser();
             if( (restricted_controllers.Contains( filterContext.ActionDescriptor.ControllerDescriptor.ControllerName )
                 || restricted_actions.Contains( filterContext.ActionDescriptor.ControllerDescriptor.ControllerName + "/" + filterContext.ActionDescriptor.ActionName ))
                 && ( user == null 
@@ -43,6 +44,7 @@ namespace CsharpSite.Controllers
                 return;
 
             }
+            ViewBag.connUser = getAuthUser();
             ViewBag.reactionTypes = db.ReactionTypes.ToArray();
 
         }

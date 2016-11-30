@@ -33,14 +33,16 @@ namespace CsharpSite.Migrations
             context.Database.ExecuteSqlCommand( "delete from [CommentReaction]" );
             context.Database.ExecuteSqlCommand( "delete from [PostReaction]" );
             context.Database.ExecuteSqlCommand( "delete from [Comment]" );
-            
+            context.Database.ExecuteSqlCommand( "delete from [ChatMessage]" );
+
             context.Database.ExecuteSqlCommand( "delete from [Post]" );
             context.Database.ExecuteSqlCommand( "delete from [Group]" );
             context.Database.ExecuteSqlCommand( "delete from [User]" );
             context.Database.ExecuteSqlCommand( "delete from [City]" );
             context.Database.ExecuteSqlCommand( "delete from [Country]" );
             context.Database.ExecuteSqlCommand( "delete from [ReactionType]" );
-          
+
+
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"CommentReaction\", RESEED, 0);" );
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"PostReaction\", RESEED, 0);" );
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"Comment\", RESEED, 0);" );
@@ -50,6 +52,7 @@ namespace CsharpSite.Migrations
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"ReactionType\", RESEED, 0);" );
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"Country\", RESEED, 0);" );
             context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"City\", RESEED, 0);" );
+            context.Database.ExecuteSqlCommand( " DBCC CHECKIDENT (\"ChatMessage\", RESEED, 0);" );
 
             context.Countries.AddOrUpdate(
                 new Country() { CountryId = 1, Name = "Canada" },
@@ -82,6 +85,14 @@ namespace CsharpSite.Migrations
                 new Post() { PostId = 4, Title = "ohhh", Contents = "this is another test content post", UserID = 3, Publication_date = DateTimeOffset.Parse( "10/10/15 11:36 PM" ) },
                 new Post() { PostId = 5, Title = "So funny!", Contents = "Lorem ipsum", UserID = 3, Publication_date = DateTimeOffset.Parse( "10/10/15 11:36 PM" ) }
 
+                );
+            context.SaveChanges();
+            
+            context.ChatMessages.AddOrUpdate(
+                new ChatMessage() { MessageId = 1, SenderID = 1, ReceiverID = 3, Message = "yooo", Publication_date = DateTimeOffset.Parse( "10/10/15 11:36 PM" ) },
+                new ChatMessage() { MessageId = 2, SenderID = 3, ReceiverID = 1, Message = "sup", Publication_date = DateTimeOffset.Parse( "10/10/15 11:37 PM" ) },
+                new ChatMessage() { MessageId = 3, SenderID = 3, ReceiverID = 1, Message = "wyd", Publication_date = DateTimeOffset.Parse( "10/10/15 11:38 PM" ) },
+                new ChatMessage() { MessageId = 4, SenderID = 1, ReceiverID = 3, Message = "coding", Publication_date = DateTimeOffset.Parse( "10/10/15 11:40 PM" ) }
                 );
             context.SaveChanges();
 

@@ -19,6 +19,7 @@ namespace CsharpSite.Models {
         public virtual DbSet<CommentReaction> CommentReactions { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<ChatMessage> ChatMessages { get; set; }
         
 
         protected override void OnModelCreating( DbModelBuilder modelBuilder ) {

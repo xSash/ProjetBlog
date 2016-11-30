@@ -1,4 +1,71 @@
-﻿<!-- ========================================= NOTIF ================================================== -->
+﻿<!-- ========================================= MESSAGE POPUP ================================================== -->
+<div class="cd fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="msgModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="d">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="cg fx fp eg k js-newMsg">New message</button>
+                <h4 class="modal-title">Messages</h4>
+            </div>
+
+            <div class="modal-body amf js-modalBody">
+                
+                <div class="uq" id="msgscroller">
+                    <div class="qo cj ca js-msgGroup">
+                        @foreach (var follower in ViewBag.connUser.Following) {
+                            <a href="#" class="b" data-targetid="@(follower.UserId)">
+                                <div class="qf">
+                                    <span class="qj">
+                                        <img class="cu qh" src="~/Content/images/@(follower.UserId).jpg">
+                                    </span>
+                                    <div class="qg">
+                                        <strong>@(follower.First_name)&nbsp;@(follower.Last_name)</strong>
+                                        <div class="aof">
+                                            @{ 
+                                                CsharpSite.Models.ChatMessage cm = ViewBag.connUser.GetLastMessageWith( follower.UserId );
+                                                string message = cm == null ? "No message history" : cm.Message;
+                                                string previewMessage = message.Length > 35 ? message.Substring( 0, 32 ) + "..." : message;
+                                            }
+                                            @if (cm == null) {
+                                                <span style="color: lightgray">@(previewMessage)</span>
+                                            } else {
+                                                <span>@(previewMessage)</span>
+                                                if (cm.Seen == true) {
+                                                    <i class="fa fa-eye" aria-hidden="true" style="margin-left: 0.5em;color: #3097d1;"></i>
+                                                } else {
+                                                    <i class="fa fa-eye" aria-hidden="true" style="margin-left: 0.5em;color: lightgray;"></i>
+                                                }
+                                            }
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        
+                    </div>
+                    
+                    <div class="hide alj js-conversation">
+                        <ul class="qo aob" id="msgbx">
+                           
+                        </ul>
+                    </div>
+                   
+                </div>
+                <div class="modal-body hide" id="msgfrm-container">
+                    <form action="/Chat/SendMessage" method="post" id="msgfrm" data-targetid="">
+                        <input type="text" class="form-control" name="Message" style="width: 84%;display: inline-block; " placeholder="Message">
+                        <input type="hidden" name="targetID" value="" />
+                        <input type="submit" class="form-control" style="width: 15%; display: inline-block; " value="Send" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ========================================= END MESSAGE POPUP ================================================== -->
+
+<!-- ========================================= NOTIF ================================================== -->
 <div class="alert pv alert-dismissible ss" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <a class="pr" href="profile/index.html">Welcome to CodeShare</a> You can customize your profile the way you want. Follow <a href="">xSash_</a> on twitter
@@ -6,3 +73,59 @@
 <!-- ========================================= END NOTIF ================================================== -->
 
 
+<script type="text/javascript">
+
+
+
+    $("#msgfrm").on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            dataType: 'json',
+            data: $(this).serialize(),
+            success: function (resp) {
+                $("#msgfrm input[type='text']").val("");
+                GetChat($("#msgfrm").data("targetid"));
+            }
+        });
+    });
+
+    function GetChat(i) {
+        $.ajax({
+            url: "/Chat/GetChat/"+i,
+            method: "post",
+            success: function (resp) {
+                FillMessageBox(resp);
+            }
+        });
+    }
+
+    function FillMessageBox(data) {
+        var msgs = data["data"];
+        $("#msgbx").empty();
+        msgs.forEach(function (element) {
+            var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            ];
+            var rightc = "";
+            var date = new Date(parseInt(element["Publication_date"].split(/[(|)]/)[1]));
+            var user = "@(ViewBag.connUser.UserId)";
+            if (element["SenderID"] == user) {
+                rightc = "aoe";
+            }
+            $("#msgbx").append('<li class="qf '+rightc+' alu"><div class="qg"><div class="aoc">'
+                    + element["Message"]
+                    + '</div><div class="aod"><small class="dp" style="display: inline-block;float: left; margin: 0;">' + date.getFullYear() + ' ' + monthNames[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getHours() + ':' + date.getMinutes() + '</small>'
+                    + ((element["Seen"] == true && element["SenderID"] == user) ? '<div style="margin-right: 0.5em;float: right; display: inline-block"><i class="fa fa-eye" aria-hidden="true" style="margin-left: 0.5em;color: lightgray;"></i></div>' : '')
+                    + '</div></div></li>');
+
+
+        });
+
+        $("#msgscroller").scrollTop($("#msgbx").height());
+        $("#messagenotif").css("color", "");
+
+
+    }
+</script>

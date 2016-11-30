@@ -5,6 +5,7 @@ namespace CsharpSite.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
 
     //Region entities
@@ -61,6 +62,7 @@ namespace CsharpSite.Models
             Posts = new List<Post>();
             Followers = new List<User>();
             Following = new List<User>();
+
         }
 
         public User(bool isAdmin)
@@ -70,6 +72,33 @@ namespace CsharpSite.Models
             Posts = new List<Post>();
             Followers = new List<User>();
             Following = new List<User>();
+
+        }
+
+        public List<ChatMessage> GetMessagesWith(int userId ) {
+            using (DB db = new DB()) {
+
+                List<ChatMessage> msgs = db.ChatMessages.Where( m => (m.ReceiverID == UserId && m.SenderID == userId) && m.Seen == false ).ToList();
+                foreach(var msg in msgs) {
+                    msg.Seen = true;
+                }
+                db.SaveChanges();
+                return db.ChatMessages.Where( m => (m.ReceiverID == UserId && m.SenderID == userId) || (m.ReceiverID == userId && m.SenderID == UserId) ).OrderBy(u => u.Publication_date).ToList();
+
+            }
+        }
+        public ChatMessage GetLastMessageWith( int userId ) {
+            using (DB db = new DB()) {
+                List<ChatMessage> list = db.ChatMessages.Where( m => (m.ReceiverID == UserId && m.SenderID == userId) || (m.ReceiverID == userId && m.SenderID == UserId) ).OrderByDescending( u => u.Publication_date ).ToList();
+
+                return list.Count() > 0 ? list[0] : null;
+
+            }
+        }
+        public bool HasUnreadMessages() {
+            using (DB db = new DB()) {
+                return db.ChatMessages.Any( m => m.ReceiverID == UserId && m.Seen == false );
+            }
         }
 
         public object Serialize()
@@ -368,6 +397,27 @@ namespace CsharpSite.Models
     //EndRegion entities
 
 
+    [Table("ChatMessage")]
+    public partial class ChatMessage {
+        [Key, DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+        public int MessageId { get; set; }
+        [Required]
+        public int SenderID { get; set; }
+        [Required]
+        public int ReceiverID { get; set; }
+        [Required]
+        public DateTimeOffset Publication_date { get; set; }
+        [Required]
+        public string Message { get; set; }
+
+        public bool Seen { get; set; }
+
+        public ChatMessage() {
+            Seen = false;
+            Publication_date = DateTimeOffset.Now;
+        }
+
+    }
 
 
 }

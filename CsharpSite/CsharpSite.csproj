@@ -265,6 +265,14 @@
     <Compile Include="Migrations\201611250301354_0.19.Designer.cs">
       <DependentUpon>201611250301354_0.19.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611281936269_0.20.cs" />
+    <Compile Include="Migrations\201611281936269_0.20.Designer.cs">
+      <DependentUpon>201611281936269_0.20.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611292159062_0.21.cs" />
+    <Compile Include="Migrations\201611292159062_0.21.Designer.cs">
+      <DependentUpon>201611292159062_0.21.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\user.cs" />
@@ -366,7 +374,6 @@
     <Content Include="Sash_Views\player_api.js" />
     <Content Include="Sash_Views\userProfile.html" />
     <Content Include="Schemas\cleanTable.sql" />
-    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -546,6 +553,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611250301354_0.19.resx">
       <DependentUpon>201611250301354_0.19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611281936269_0.20.resx">
+      <DependentUpon>201611281936269_0.20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611292159062_0.21.resx">
+      <DependentUpon>201611292159062_0.21.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
