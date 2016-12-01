@@ -417,6 +417,17 @@ namespace CsharpSite.Models
             Publication_date = DateTimeOffset.Now;
         }
 
+        public User GetSender() {
+            using (DB db = new DB()) {
+                return db.Users.Single( u => u.UserId == SenderID );
+            }
+        }
+        public User GetReceiver() {
+            using (DB db = new DB()) {
+                return db.Users.Single( u => u.UserId == ReceiverID );
+            }
+        }
+
     }
 
 
