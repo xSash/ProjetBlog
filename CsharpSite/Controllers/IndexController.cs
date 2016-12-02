@@ -14,8 +14,8 @@ namespace CsharpSite.Controllers
         // GET: indexDefault
         public ActionResult Index()
         {
-
-            ViewBag.users = db.Users.ToList();
+            return RedirectToAction( "Index", "Feed" );
+            /*ViewBag.users = db.Users.ToList();
             ViewBag.posts = db.Posts.ToList();
 
             db.Groups.First().Members.Add(db.Users.First());
@@ -23,7 +23,7 @@ namespace CsharpSite.Controllers
             
 
 
-            return View();
+            return View();*/
         }
     }
 }

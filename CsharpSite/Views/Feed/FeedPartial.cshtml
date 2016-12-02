@@ -65,7 +65,8 @@
                         </p>
                         <div>
                             @foreach(var reactionT in ViewBag.reactionTypes) {
-                                @(post.CountReactionsOfType(reactionT.ReactionId) ) @(reactionT.Name)
+                                @(post.CountReactionsOfType(reactionT.ReactionId) )<i class="fa @(reactionT.Icon)" title="@(reactionT.Name)" aria-hidden="true"></i>
+                                
                             }
                         </div>
                         <ul class="qo alm">

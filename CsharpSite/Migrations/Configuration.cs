@@ -72,9 +72,9 @@ namespace CsharpSite.Migrations
 
             context.Users.AddOrUpdate(
                 new User() { UserId = 1, Username = "CodeCap_Jeremi", Email = "jeremi@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true, CountryID = 4, CityID = 4, First_name = "Jeremi", Last_name = "Cyr", Gender = 'M', Phone_number = "0000000000", Picture = "1.jpg", Birthday = DateTimeOffset.Now, Description = "i am jeremi" },
-                new User() { UserId = 2, Username = "CodeCap_Sasha", Email = "sasha@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true, CountryID = 1, CityID = 1, First_name = "Sasha", Last_name = "Benjamin", Gender = 'M', Phone_number = "1111111111", Picture = "2.jpg", Birthday = DateTimeOffset.Now, Description = "i am sash" },
-                new User() { UserId = 3, Username = "CodeCap_Vincent", Email = "vincent@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true, CountryID = 5, CityID = 5, First_name = "Vincent", Last_name = "Laferriere", Gender = 'M', Phone_number = "2222222222", Picture = "3.jpg", Birthday = DateTimeOffset.Now, Description = "i am vincent" },
-                new User() { UserId = 4, Username = "CodeCap_Adam", Email = "adam@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = true, CountryID = 3, CityID = 3, First_name = "Adam", Last_name = "Cherti", Gender = 'M', Phone_number = "3333333333", Picture = "4.jpg", Birthday = DateTimeOffset.Now, Description = "i am adam" }
+                new User() { UserId = 2, Username = "CodeCap_Sasha", Email = "sasha@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = false, CountryID = 1, CityID = 1, First_name = "Sasha", Last_name = "Benjamin", Gender = 'M', Phone_number = "1111111111", Picture = "2.jpg", Birthday = DateTimeOffset.Now, Description = "i am sash" },
+                new User() { UserId = 3, Username = "CodeCap_Vincent", Email = "vincent@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = false, CountryID = 5, CityID = 5, First_name = "Vincent", Last_name = "Laferriere", Gender = 'M', Phone_number = "2222222222", Picture = "3.jpg", Birthday = DateTimeOffset.Now, Description = "i am vincent" },
+                new User() { UserId = 4, Username = "CodeCap_Adam", Email = "adam@codecap.com", Password = "password", Registration_date = DateTimeOffset.Now, IsAdmin = false, CountryID = 3, CityID = 3, First_name = "Adam", Last_name = "Cherti", Gender = 'M', Phone_number = "3333333333", Picture = "4.jpg", Birthday = DateTimeOffset.Now, Description = "i am adam" }
                 );
             context.SaveChanges();
 
@@ -115,9 +115,9 @@ namespace CsharpSite.Migrations
             context.SaveChanges();
 
             context.ReactionTypes.AddOrUpdate(
-                new ReactionType() { ReactionId = 1, Name = "Like", Icon = "likeicon.png" },
-                new ReactionType() { ReactionId = 2, Name = "Love", Icon = "loveicon.png" },
-                new ReactionType() { ReactionId = 3, Name = "Cry", Icon = "cryicon.png" }
+                new ReactionType() { ReactionId = 1, Name = "Like", Icon = "fa-thumbs-o-up" },
+                new ReactionType() { ReactionId = 2, Name = "Love", Icon = "fa-heartbeat" },
+                new ReactionType() { ReactionId = 3, Name = "Cry", Icon = "fa-tint" }
                 );
             context.SaveChanges();
 

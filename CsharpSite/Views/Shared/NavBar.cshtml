@@ -34,10 +34,12 @@
                                 <div class="menu-horizontal-inner">
                                     <div class="nav navbar-nav navbar-main navbar-nav-first">
                                         <ul id="menu-menu-creative-artist" class="menu-primary-inner menu-smart sm">
-                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42967 menu-item-link"><a href="index.html">Home</a></li>
-                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42968 menu-item-link"><a href="index.html">Profile</a></li>
+                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42967 menu-item-link"><a href="/Feed/">Home</a></li>
+                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42968 menu-item-link"><a href="/Profile/">Profile</a></li>
                                             <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42969 menu-item-link"><a data-toggle="modal" id="messagenotif" href="#msgModal" style=" @(ViewBag.connUser.HasUnreadMessages()? "color: #3097d1": "")">Messages</a></li>
-                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42969 menu-item-link"><a href="#">Admin Panel</a></li>
+                                            @if (ViewBag.connUser.IsAdmin) {
+                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42969 menu-item-link"><a href="#">Admin Panel</a></li>
+                                            }
                                         </ul>
                                     </div>
                                     <div class="nav navbar-nav navbar-nav-last">

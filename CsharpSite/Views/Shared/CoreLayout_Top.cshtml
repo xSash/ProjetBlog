@@ -65,26 +65,10 @@
 
                         <p class="alu">@(connectedUser.Description)</p>
 
-                        <ul class="aoi">
+                        <ul class="aoi">                              
                             <li class="aoj">
                                 <a href="#userModal" class="aku" data-toggle="modal">
-                                    Followers
-                                    <h5 class="ali">
-                                        @{ 
-                                            var followers = "";
-                                        }
-                                        @if ( connectedUser.Followers.Count() > 999) {
-                                            followers = (connectedUser.Followers.Count() / 1000) +"K";
-                                        } else {
-                                            followers = connectedUser.Followers.Count() + "";
-                                        }
-                                        @(followers)
-                                    </h5>
-                                </a>
-                            </li>
-                            <li class="aoj">
-                                <a href="#userModal" class="aku" data-toggle="modal">
-                                    Following
+                                    Firends
                                     <h5 class="ali">
                                         @{
                                             var following = "";

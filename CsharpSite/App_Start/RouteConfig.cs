@@ -31,6 +31,11 @@ namespace CsharpSite {
                 defaults: new { controller = "Follow", action = "Follow", userIdToFollow = -1 }
             );
             routes.MapRoute(
+               name: "ViewProfile",
+               url: "Profile/View/{userid}",
+               defaults: new { controller = "Profile", action = "View", userid = -1 }
+           );
+            routes.MapRoute(
                 name: "getchat",
                 url: "Chat/GetChat/{targetUserId}",
                 defaults: new { controller = "Chat", action = "GetChat", targetUserId = -1 }
