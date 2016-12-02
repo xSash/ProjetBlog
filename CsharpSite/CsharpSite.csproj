@@ -300,6 +300,11 @@
     <Content Include="Content\cssLogin\style.css" />
     <Content Include="Content\css\application.css" />
     <Content Include="Content\css\toolkit.css" />
+    <Content Include="Content\signup\css\application.css" />
+    <Content Include="Content\signup\css\form-control.css" />
+    <Content Include="Content\signup\css\test.css" />
+    <Content Include="Content\signup\css\toolkit.css" />
+    <Content Include="Content\signup\js\index.js" />
     <Content Include="Sash_Views\feed.html" />
     <Content Include="Content\font-awesome-4.6.3\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.6.3\css\font-awesome.min.css" />
@@ -372,6 +377,7 @@
     <Content Include="Sash_Views\login\login.html" />
     <Content Include="Sash_Views\main.js" />
     <Content Include="Sash_Views\player_api.js" />
+    <Content Include="Sash_Views\signup%28signup%29.html" />
     <Content Include="Sash_Views\userProfile.html" />
     <Content Include="Schemas\cleanTable.sql" />
     <Content Include="Content\bootstrap.min.css" />
@@ -562,7 +568,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\App_LocalResources\" />
     <Folder Include="Views\BaseController\" />
   </ItemGroup>
   <PropertyGroup>
