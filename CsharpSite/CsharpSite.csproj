@@ -303,6 +303,11 @@
     <Content Include="Content\css\toolkit.css" />
     <Content Include="Content\images\2_background.jpg" />
     <Content Include="Content\images\images.jpg" />
+    <Content Include="Content\signup\css\application.css" />
+    <Content Include="Content\signup\css\form-control.css" />
+    <Content Include="Content\signup\css\test.css" />
+    <Content Include="Content\signup\css\toolkit.css" />
+    <Content Include="Content\signup\js\index.js" />
     <Content Include="Sash_Views\feed.html" />
     <Content Include="Content\font-awesome-4.6.3\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.6.3\css\font-awesome.min.css" />
