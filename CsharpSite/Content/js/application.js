@@ -49,8 +49,89 @@ function refreshActions() {
                 PostID: target
             },
             success: function (resp) {
-                location.reload();
+                feedAutoRefresh();
             }
         });
     });
+}
+
+function feedAutoRefresh() {
+    $.ajax({
+        url: '/Feed/GetFeed',
+        method: 'post',
+        success: function (resp) {
+
+            displayFeed(resp);
+
+        }
+    });
+}
+function displayFeed(feedsjson) {
+    $("#feed").empty();
+    $("#feed").append('<li class="qf b aml">'
+        + '<div class="input-group">'
+            + '<input type="text" class="form-control" placeholder="Write a post">'
+            + '<div class="fj">'
+                + '<button type="button" class="cg fm">'
+                    + '<i class="fa fa-file-text" aria-hidden="true"></i>'
+                + '</button>'
+                + '<button type="button" class="cg fm">'
+                    + '<i class="fa fa-camera" aria-hidden="true"></i>'
+                + '</button>'
+            + '</div>'
+        + '</div>'
+    + '</li>');
+    var element = "";
+    for (var i = 0; i < feedsjson['data'].length; i++) {
+        var post = feedsjson['data'][i];
+        var usr = post['User'];
+        element +=
+        '<li class="qf b aml">'
+            + '<a class="qj" href="#">'
+                + '<img class="qh cu"'
+                     + 'src="/Content/images/' + usr['UserId'] + '.jpg">'
+            + '</a>'
+            + '<div class="qg">'
+                + '<div class="aoc">'
+                    + '<div class="qn">'
+                        + '<small class="eg dp">' + post["Publication_date"] + '</small>'
+                        + '<h5>' + usr["Username"] + '</h5>'
+                    + '</div>'
+                    + '<p>'
+                        + post["Contents"]
+                    + '</p>'
+                    + '<div>';
+        for (var k = 0; k < post['Reactions'].length; k++) {
+            var react = post['Reactions'][k];
+            element += '<span style="margin-right: 0.5em;"><i class="btn-react fa ' + react['icon'] + '" '
+                + 'data-postid="' + post['PostId'] + '" data-reactionid="' + react['reactionid'] + '" title="' + react['name']
+                + '" style="color: gray; cursor: pointer;" aria-hidden="true"></i>' + react['count'] + '</span>';
+
+        }
+        element += '</div>'
+                    + '<ul class="qo alm">';
+        for (var j = 0; j < post['Comments'].length; j++) {
+            var comment = post['Comments'][j];
+            var cusr = comment['User'];
+
+            element += '<li class="qf">'
+                        + '<a class="qj" href="#">'
+                            + '<img class="qh cu" src="/Content/images/' + cusr["UserId"] + '.jpg">'
+                        + '</a>'
+                        + '<div class="qg">'
+                            + '<strong>' + cusr["Username"] + ': </strong>'
+                            + comment['Contents']
+                        + '</div>'
+                    + '</li>';
+        }
+
+        element += '</ul>'
+            + '</div>'
+        + '</div>'
+    + '</li>';
+
+
+    }
+    $("#feed").append(element);
+    refreshActions();
 }

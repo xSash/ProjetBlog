@@ -24,10 +24,6 @@ namespace CsharpSite.Controllers
             return View();*/
         }
 
-        public ActionResult Test() {
-            Thread.Sleep( 5000 );
-            return Json( new { messaage = "Hello" }, JsonRequestBehavior.AllowGet );
-        }
 
     }
 }
