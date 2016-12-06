@@ -1,0 +1,23 @@
+﻿<div class="modal-body amf">
+    <div class="uq">
+        <ul class="qo cj ca">
+            @foreach (var firend in ViewBag.connUser.Following) {
+                <li class="b">
+                    <div class="qf">
+                        <a class="qj" href="#">
+                            <img class="qh cu" src="~/Content/images/@(firend.Picture)">
+                        </a>
+                        <div class="qg">
+                            <button class="cg fm fx eg btn-unfollow" data-targetid="@(firend.UserId)">
+                                 Unfollow
+                            </button>
+                            <strong>@(firend.First_name) @(firend.Last_name)</strong>
+                            <p>&#64;@(firend.Username) - @(firend.City.Name)</p>
+                        </div>
+                    </div>
+                </li>
+            }
+
+        </ul>
+    </div>
+</div>

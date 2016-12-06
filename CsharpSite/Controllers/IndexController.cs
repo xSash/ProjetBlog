@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CsharpSite.Models;
-
+using System.Threading;
 
 namespace CsharpSite.Controllers
 {
@@ -20,10 +20,14 @@ namespace CsharpSite.Controllers
 
             db.Groups.First().Members.Add(db.Users.First());
             ViewBag.groups = db.Groups.ToList();
-            
-
 
             return View();*/
         }
+
+        public ActionResult Test() {
+            Thread.Sleep( 5000 );
+            return Json( new { messaage = "Hello" }, JsonRequestBehavior.AllowGet );
+        }
+
     }
 }

@@ -13,4 +13,44 @@ $(document).on("click", ".js-msgGroup a", function () {
     $("#msgfrm").data("targetid", target);
     $("#msgfrm input[name='targetID']").val(target);
     GetChat(target)
-})
+});
+refreshActions();
+
+function refreshActions() {
+    $('.btn-follow').on('click', function (e) {
+        var target = $(this).data("targetid");
+        $.ajax({
+            url: "/Follow/Follow/" + target,
+            method: "post",
+            success: function (resp) {
+                location.reload();
+            }
+        });
+    });
+    $('.btn-unfollow').on('click', function (e) {
+        var target = $(this).data("targetid");
+        $.ajax({
+            url: "/Follow/Unfollow/" + target,
+            method: "post",
+            success: function (resp) {
+                location.reload();
+            }
+        });
+    });
+    $('.btn-react').on('click', function (e) {
+        var reaction = $(this).data("reactionid");
+        var target = $(this).data("postid");
+        $.ajax({
+            url: "/Posts/React",
+            method: "post",
+            format: 'text/json',
+            data: {
+                ReactionId: reaction,
+                PostID: target
+            },
+            success: function (resp) {
+                location.reload();
+            }
+        });
+    });
+}

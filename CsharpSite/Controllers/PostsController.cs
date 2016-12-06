@@ -102,23 +102,40 @@ namespace CsharpSite.Controllers
             return View(post);
         }
 
+        /*
+            REACT to a post, if you clic on the reaction you already made, will remove it, if you clic on another reaction, will replace it
+         */
         [HttpPost, ActionName("React")]
         public ActionResult React(FormCollection collection) {
             User user = getAuthUser();
             if (user == null)
                 return HttpNotFound();
-            /*[Bind(Include = "ReactionId,PostID")] PostReaction reaction*/
-            PostReaction reaction = new PostReaction() { ReactionID = int.Parse( collection["ReactionId"] ) , PostID = int.Parse( collection["PostID"] ) , UserID = user.UserId , PostReactionId = 0};
-            //db.PostReactions.Attach( reaction );
-            db.PostReactions.Add(reaction);
+            int postid = int.Parse( collection["PostID"]?? Request.Form["PostID"] );
+            int reactionid = int.Parse( collection["ReactionId"] ?? Request.Form["ReactionId"] );
+            PostReaction reaction = null;
+            if (db.PostReactions.Any(p => p.PostID == postid && p.UserID == user.UserId )) {
+                reaction = db.PostReactions.Single( p => p.PostID == postid && p.UserID == user.UserId );
+                if (reaction.ReactionID == reactionid) {
+                    db.PostReactions.Remove(reaction);
+                }else {
+                    return Json( new { status = "error", message = "you already reacted to that post" } );
+
+                }
+            } else {
+                /*[Bind(Include = "ReactionId,PostID")] PostReaction reaction*/
+                reaction = new PostReaction() { ReactionID = reactionid, PostID = postid, UserID = user.UserId, PostReactionId = 0 };
+                //db.PostReactions.Attach( reaction );
+                db.PostReactions.Add( reaction );
+
+            }
             db.SaveChanges();
 
-            String format = Request?["format"];
+            string format = Request?["format"];
 
-            if (format == "json")
+            //if (format == "json")
                 return Json(reaction.Serialize());
 
-            return RedirectToAction("Details", new { id = reaction.PostID });
+            //return RedirectToAction("Details", new { id = reaction.PostID });
         }
         [HttpPost]
         public ActionResult Comment([Bind(Include = "Contents,PostID")] Comment comment)
@@ -224,5 +241,7 @@ namespace CsharpSite.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
+
 }

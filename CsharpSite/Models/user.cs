@@ -151,23 +151,36 @@ namespace CsharpSite.Models
             this.Publication_date = DateTimeOffset.Now;
         }
         public object Serialize() {
+            List<object> serializedCom = SerializeComments();
             return new {
                 Title = this.Title,
                 Contents = this.Contents,
-                Comments = this.Comments,
-                Publication_date = this.Publication_date,
-                User = this.User.Serialize()
+                Comments = serializedCom.ToArray(),
+                Publication_date = this.Publication_date.ToString(),
+                User = this.User.Serialize(),
+                Reactions = SerializeReactions()
             };
+        }
+        public List<object> SerializeComments() {
+            List<object> comm = new List<object>();
+            foreach(Comment c in Comments) {
+                comm.Add( c.Serialize() );
+            }
+            return comm;
+        }
+        public List<object> SerializeReactions() {
+            List<object> react = new List<object>();
+            using (DB db = new DB()) {
+                foreach (ReactionType p in db.ReactionTypes.ToList()) {
+                    react.Add( new { count = CountReactionsOfType( p.ReactionId ), icon = p.Icon, name = p.Name, reactiondid = p.ReactionId } );
+                }
+            }
+                
+            return react;
         }
 
         public int CountReactionsOfType(int typeId ) {
-            int c = 0;
-            foreach(var r in Reactions) {
-                if(r.Reaction.ReactionId == typeId) {
-                    c++;
-                }
-            }
-            return c;
+            return Reactions.Where( u => u.ReactionID == typeId ).ToArray().Count(); 
         }
     }
 
