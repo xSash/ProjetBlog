@@ -117,7 +117,9 @@ namespace CsharpSite.Controllers
                 reaction = db.PostReactions.Single( p => p.PostID == postid && p.UserID == user.UserId );
                 if (reaction.ReactionID == reactionid) {
                     db.PostReactions.Remove(reaction);
-                }else {
+                    db.SaveChanges();
+                    return Json( new { message = "unreacted", status = "success" } );
+                } else {
                     return Json( new { status = "error", message = "you already reacted to that post" } );
 
                 }
@@ -126,14 +128,53 @@ namespace CsharpSite.Controllers
                 reaction = new PostReaction() { ReactionID = reactionid, PostID = postid, UserID = user.UserId, PostReactionId = 0 };
                 //db.PostReactions.Attach( reaction );
                 db.PostReactions.Add( reaction );
-
+                db.SaveChanges();
+                
             }
-            db.SaveChanges();
+            db.Dispose();
+            db = new DB();
 
             string format = Request?["format"];
 
             //if (format == "json")
-                return Json( new { message = "success", status = "success" } );
+                return Json( new { message = "reacted", status = "success" } );
+
+            //return RedirectToAction("Details", new { id = reaction.PostID });
+        }
+        /*
+            REACT to a comment, if you clic on the reaction you already made, will remove it, if you clic on another reaction, will replace it
+         */
+        [HttpPost, ActionName( "ReactComment" )]
+        public ActionResult ReactComment( FormCollection collection ) {
+            User user = getAuthUser();
+            if (user == null)
+                return HttpNotFound();
+            int commentid = int.Parse( collection["CommentID"] ?? Request.Form["CommentID"] );
+            int reactionid = int.Parse( collection["ReactionId"] ?? Request.Form["ReactionId"] );
+            CommentReaction reaction = null;
+            if (db.CommentReactions.Any( p => p.CommentID == commentid && p.UserID == user.UserId )) {
+                reaction = db.CommentReactions.Single( p => p.CommentID == commentid && p.UserID == user.UserId );
+                if (reaction.ReactionID == reactionid) {
+                    db.CommentReactions.Remove( reaction );
+                    db.SaveChanges();
+                    return Json( new { message = "unreacted", status = "success" } );
+                } else {
+                    return Json( new { status = "error", message = "you already reacted to that post" } );
+
+                }
+            } else {
+                reaction = new CommentReaction() { ReactionID = reactionid, CommentID = commentid, UserID = user.UserId, CommentReactionId = 0 };
+                db.CommentReactions.Add( reaction );
+                db.SaveChanges();
+
+            }
+            db.Dispose();
+            db = new DB();
+
+            string format = Request?["format"];
+
+            //if (format == "json")
+            return Json( new { message = "reacted", status = "success" } );
 
             //return RedirectToAction("Details", new { id = reaction.PostID });
         }

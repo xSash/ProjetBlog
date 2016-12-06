@@ -53,6 +53,22 @@ function refreshActions() {
             }
         });
     });
+    $('.btn-react-comment').on('click', function (e) {
+        var reaction = $(this).data("reactionid");
+        var target = $(this).data("commentid");
+        $.ajax({
+            url: "/Posts/ReactComment",
+            method: "post",
+            format: 'text/json',
+            data: {
+                ReactionId: reaction,
+                CommentID: target
+            },
+            success: function (resp) {
+                feedAutoRefresh();
+            }
+        });
+    });
 }
 
 function feedAutoRefresh() {
@@ -122,6 +138,15 @@ function displayFeed(feedsjson) {
                             + '<strong>' + cusr["Username"] + ': </strong>'
                             + comment['Contents']
                         + '</div>'
+                        + '<div>';
+            for (var l = 0; l < comment['Reactions'].length; l++) {
+                var react = comment['Reactions'][l];
+                element += '<span style="margin-right: 0.5em;"><i class="btn-react-comment fa ' + react['icon'] + '" '
+                    + 'data-commentid="' + comment['CommentId'] + '" data-reactionid="' + react['reactionid'] + '" title="' + react['name']
+                    + '" style="color: gray; cursor: pointer;" aria-hidden="true"></i>' + react['count'] + '</span>';
+
+            }
+            element += '</div>'
                     + '</li>';
         }
 
