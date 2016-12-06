@@ -158,6 +158,7 @@ namespace CsharpSite.Models
                 Comments = serializedCom.ToArray(),
                 Publication_date = this.Publication_date.ToString(),
                 User = this.User.Serialize(),
+                PostId = this.PostId,
                 Reactions = SerializeReactions()
             };
         }
@@ -172,7 +173,7 @@ namespace CsharpSite.Models
             List<object> react = new List<object>();
             using (DB db = new DB()) {
                 foreach (ReactionType p in db.ReactionTypes.ToList()) {
-                    react.Add( new { count = CountReactionsOfType( p.ReactionId ), icon = p.Icon, name = p.Name, reactiondid = p.ReactionId } );
+                    react.Add( new { count = CountReactionsOfType( p.ReactionId ), icon = p.Icon, name = p.Name, reactionid = p.ReactionId } );
                 }
             }
                 

@@ -133,7 +133,7 @@ namespace CsharpSite.Controllers
             string format = Request?["format"];
 
             //if (format == "json")
-                return Json(reaction.Serialize());
+                return Json( new { message = "success", status = "success" } );
 
             //return RedirectToAction("Details", new { id = reaction.PostID });
         }
