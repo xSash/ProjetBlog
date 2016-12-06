@@ -101,6 +101,10 @@ namespace CsharpSite.Models
             }
         }
 
+        public bool Follows( int uid ) {
+            return Following.Any( u => u.UserId == uid );
+        }
+
         public object Serialize()
         {
             return new {
@@ -427,6 +431,7 @@ namespace CsharpSite.Models
                 return db.Users.Single( u => u.UserId == ReceiverID );
             }
         }
+
 
     }
 

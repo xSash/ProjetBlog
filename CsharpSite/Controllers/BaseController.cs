@@ -30,7 +30,9 @@ namespace CsharpSite.Controllers
             User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
             return user;
         }
-        
+        protected void setAuthUser(User user) {
+            Session[Auth.AUTH_USER_SESSION_NAME] = new Auth() { User = user };
+        }
 
         protected override void OnActionExecuting( ActionExecutingContext filterContext ) {
             User user = getAuthUser();

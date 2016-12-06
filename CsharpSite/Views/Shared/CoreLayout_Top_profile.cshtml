@@ -1,11 +1,11 @@
 ﻿@using CsharpSite.Models;
 @using CsharpSite.Controllers;
 @{
-    var connectedUser = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+    var targetUser = ViewBag.targetUser;
+    var connUser = ViewBag.connUser;
+
 }
-@if (connectedUser == null) {
-    connectedUser = new CsharpSite.Models.User() { Username = "Guest" };
-}
+
 <div class="box-wrapper-real">
     <div id="preloader">
         <div class="spinner">&nbsp;</div>
@@ -13,19 +13,90 @@
 
 
     @Html.Partial( "~/Views/Shared/NavBar.cshtml" )
+    }
+    <!--bio-->
+    <div class="ans dj"
+         style="background-image: url(/Content/images/@(targetUser.UserId)_background.jpg);">
+        <div class="by">
+            <div class="ant">
+                <img class="cu qh" src="~/Content/images/@(targetUser.UserId).jpg">
+                <h3 class="anv">Sasha Benjamin</h3>
+                <p class="anu">
+                    @(targetUser.Description))
+                </p>
+
+                <ul class="aoi" style="color: #fff;">
+                    <li class="aoj">
+                        <a href="#userModal" class="aku" data-toggle="modal">
+                            Firends
+                            <h5 class="ali">
+                                @{
+                                    var following = "";
+                                }
+                                @if (targetUser.Following.Count > 999) {
+                                    following = (targetUser.Following.Count / 1000) + "K";
+                                } else {
+                                    following = targetUser.Following.Count + "";
+                                }
+                                @(following)
+                            </h5>
+                        </a>
+                    </li>
+                    
+                    <li class="aoj">
+                        <a href="#userModal" class="aku" data-toggle="modal">
+                            Post
+                            <h5 class="ali">
+                                @{
+                                    var posts = "";
+                                }
+                                @if (targetUser.Posts.Count > 999) {
+                                    posts = (targetUser.Posts.Count / 1000) + "K";
+                                } else {
+                                    posts = targetUser.Posts.Count + "";
+                                }
+                                @(posts)
+
+                            </h5>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div style="margin-top: 2em;">
+                @if (connUser.Follows( targetUser.UserId )) {
+                    <a class="btn btn-unfollow" data-targetid="@targetUser.UserId" style="color: white">Unfollow</a>
+
+                } else {
+                    <a class="btn btn-follow" data-targetid="@targetUser.UserId" style="color: white">Follow</a>
+
+                }
+            </div>
+        </div>
+
+        <nav class="anw">
+            <ul class="nav ol">
+                <li class="active">
+                    <a href="#">Posts</a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+
 
     <div class="cd fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="d">
-                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Users</h4>
                 </div>
 
                 <div class="modal-body amf">
                     <div class="uq">
                         <ul class="qo cj ca">
-                            @foreach (var follower in connectedUser.Followers) {
+                            @foreach (var follower in connUser.Followers) {
                                 <li class="b">
                                     <div class="qf">
                                         <a class="qj" href="#">
@@ -41,7 +112,7 @@
                                     </div>
                                 </li>
                             }
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -52,31 +123,31 @@
         <div class="gc">
             <div class="gn">
                 <div class="qv rc aog alu">
-                    <div class="qx" style="background-image: url(~/Content/images/@(connectedUser.UserId)_profileback.jpg);"></div>
+                    <div class="qx" style="background-image: url(~/Content/images/@(connUser.UserId)_profileback.jpg);"></div>
                     <div class="qw dj">
                         <a href="profile/index.html">
                             <img class="aoh"
-                                 src="~/Content/images/@(connectedUser.Picture)">
+                                 src="~/Content/images/@(connUser.Picture)">
                         </a>
 
                         <h5 class="qy">
-                            <a class="aku" href="profile/index.html">@(connectedUser.First_name) @(connectedUser.Last_name)</a><img src="~/Content/images/verified.png">
+                            <a class="aku" href="profile/index.html">@(connUser.First_name) @(connUser.Last_name)</a><img src="~/Content/images/verified.png">
                         </h5>
 
-                        <p class="alu">@(connectedUser.Description)</p>
+                        <p class="alu">@(connUser.Description)</p>
 
-                        <ul class="aoi">                              
+                        <ul class="aoi">
                             <li class="aoj">
                                 <a href="#userModal" class="aku" data-toggle="modal">
                                     Firends
                                     <h5 class="ali">
                                         @{
-                                            var following = "";
+                                            following = "";
                                         }
-                                        @if (connectedUser.Following.Count() > 999) {
-                                            following = (connectedUser.Following.Count() / 1000) + "K";
+                                        @if (connUser.Following.Count > 999) {
+                                            following = (connUser.Following.Count / 1000) + "K";
                                         } else {
-                                            following = connectedUser.Following.Count() + "";
+                                            following = connUser.Following.Count + "";
                                         }
                                         @(following)
                                     </h5>
@@ -87,12 +158,12 @@
                                     Post
                                     <h5 class="ali">
                                         @{
-                                            var posts = "";
+                                            posts = "";
                                         }
-                                        @if (connectedUser.Posts.Count() > 999) {
-                                            posts = (connectedUser.Posts.Count() / 1000) + "K";
+                                        @if (connUser.Posts.Count > 999) {
+                                            posts = (connUser.Posts.Count / 1000) + "K";
                                         } else {
-                                            posts = connectedUser.Posts.Count() + "";
+                                            posts = connUser.Posts.Count + "";
                                         }
                                         @(posts)
 
@@ -107,10 +178,10 @@
                     <div class="qw">
                         <h5 class="ald">About <small>· <a href="#">Edit</a></small></h5>
                         <ul class="eb tb">
-                            @if (connectedUser.Following.Count() > 0) {
-                                <li><i class="fa fa-users dp all" aria-hidden="true"></i>Became friends with <a href="#">@(connectedUser.Following.Last().Username)</a></li>
+                            @if (connUser.Following.Count > 0) {
+                                <li><i class="fa fa-users dp all" aria-hidden="true"></i>Became friends with <a href="#">@(connUser.Following[connUser.Following.Count -1].Username)</a></li>
                             }
-                            <li><i class="fa fa-globe dp all" aria-hidden="true"></i>Lives in <a href="#">@(connectedUser.City.Name), @(connectedUser.Country.Name)</a></li>
+                            <li><i class="fa fa-globe dp all" aria-hidden="true"></i>Lives in <a href="#">@(connUser.City.Name), @(connUser.Country.Name)</a></li>
                         </ul>
                     </div>
                 </div>
@@ -133,5 +204,4 @@
             <!-- ========================================= END USERS INFO ================================================== -->
             <!-- ========================================= MIDDLE SECTION ================================================== -->
             <div class="gz" style="margin-top: -20px;">
-                
-            
+

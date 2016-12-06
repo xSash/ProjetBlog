@@ -11,10 +11,8 @@ namespace CsharpSite.Controllers
     public class FollowController : BaseController
     {
         // GET: Follow
-        public ActionResult Index()
-        {
+        public ActionResult Index(){
             User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
-
             ViewBag.followers = user.Followers;
             ViewBag.following = user.Following;
 
@@ -38,14 +36,12 @@ namespace CsharpSite.Controllers
             User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
             List<object> serializedFollowing = new List<object>();
             List<object> serializedFollower = new List<object>();
-
             foreach (var followed in user.Following) {
                 serializedFollowing.Add( followed.Serialize() );
             }
             foreach (var follower in user.Followers) {
                 serializedFollower.Add( follower.Serialize() );
             }
-
             return Json(new { following = serializedFollowing.ToArray(), followers = serializedFollower.ToArray() });
         }
 
@@ -54,22 +50,26 @@ namespace CsharpSite.Controllers
         [ActionName("Follow")]
         public ActionResult Follow(int userIdToFollow ) {
             Object json_string = new { state = "success", message = "user followed successfully" };
-            int uid = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User?.UserId ?? -1;
+            int uid = getAuthUser()?.UserId ?? -1;
             User user = db.Users.First( u => u.UserId == uid );
-            if(user == null) {
+            if (user == null) {
                 json_string = new { state = "error", message = "Not Logged in" };
-            }
-            User[] fTemp = db.Users.Where( u => u.UserId == userIdToFollow )?.ToArray();
-            User followed = fTemp.Count() == 0 ? null : fTemp[0];
-            if(followed == null) {
-                json_string = new { state = "error", message = "User to follow does not exist" };
-            }
+            } else {
+                User[] fTemp = db.Users.Where( u => u.UserId == userIdToFollow )?.ToArray();
+                User followed = fTemp.Count() == 0 ? null : fTemp[0];
+                if (followed == null) {
+                    json_string = new { state = "error", message = "User to follow does not exist" };
+                }else if (user.UserId == followed.UserId) {
+                    json_string = new { state = "error", message = "cant follow yourself, dumbass..." };
+                }else {
+                    user.Following.Add( followed );
+                    followed.Following.Add( user );
 
-            //db.Users.Attach( followed );
-            user.Following.Add( followed );
-
-            db.SaveChanges();
-            ((Auth)Session[Auth.AUTH_USER_SESSION_NAME]).User = user;
+                    db.SaveChanges();
+                    setAuthUser( user );
+                }
+            }
+           
             return Json(json_string); 
         }
 
@@ -77,24 +77,28 @@ namespace CsharpSite.Controllers
         [ActionName( "Unfollow" )]
         public ActionResult Unfollow( int userIdToUnFollow ) {
             Object json_string = new { state = "success", message = "user unfollowed successfully" };
-            int uid = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User?.UserId ?? -1;
+            int uid = getAuthUser()?.UserId ?? -1;
             User user = db.Users.First( u => u.UserId == uid );
             if (user == null) {
                 json_string = new { state = "error", message = "Not Logged in" };
                 return Json( json_string );
-            }
-            User[] fTemp = db.Users.Where( u => u.UserId == userIdToUnFollow )?.ToArray();
-            User followed = fTemp.Count() == 0 ? null : fTemp[0];
-            if (followed == null) {
-                json_string = new { state = "error", message = "User to follow does not exist" };
-                return Json( json_string );
+            }else {
+                User[] fTemp = db.Users.Where( u => u.UserId == userIdToUnFollow )?.ToArray();
+                User followed = fTemp.Count() == 0 ? null : fTemp[0];
+                if (followed == null) {
+                    json_string = new { state = "error", message = "User to follow does not exist" };
+                    return Json( json_string );
+                } else if (user.UserId == followed.UserId) {
+                    json_string = new { state = "error", message = "cant unfollow yourself, dumbass..." };
+                } else {
+                    user.Following.Remove( followed );
+                    followed.Following.Remove( user );
+
+                    db.SaveChanges();
+                    setAuthUser( user );
+                }
             }
             
-            //db.Users.Attach( followed );
-            user.Following.Remove(followed);
-
-            db.SaveChanges();
-            ((Auth)Session[Auth.AUTH_USER_SESSION_NAME]).User = user;
             return Json( json_string );
         }
 
