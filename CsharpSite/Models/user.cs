@@ -237,7 +237,22 @@ namespace CsharpSite.Models
                 UserId = this.UserID,
                 PostId = this.PostID,
                 User = User.Serialize(),
+                Reactions = SerializeReactions()
             };
+        }
+        public List<object> SerializeReactions() {
+            List<object> react = new List<object>();
+            using (DB db = new DB()) {
+                foreach (ReactionType p in db.ReactionTypes.ToList()) {
+                    react.Add( new { count = CountReactionsOfType( p.ReactionId ), icon = p.Icon, name = p.Name, reactionid = p.ReactionId } );
+                }
+            }
+
+            return react;
+        }
+
+        public int CountReactionsOfType( int typeId ) {
+            return Reactions.Where( u => u.ReactionID == typeId ).ToArray().Count();
         }
 
     }

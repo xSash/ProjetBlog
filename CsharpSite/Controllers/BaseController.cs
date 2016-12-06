@@ -28,6 +28,8 @@ namespace CsharpSite.Controllers
         protected User getAuthUser()
         {
             User user = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+            if(user != null)
+                user = db.Users.Single( u=> u.UserId == user.UserId ) ;
             return user;
         }
         protected void setAuthUser(User user) {
