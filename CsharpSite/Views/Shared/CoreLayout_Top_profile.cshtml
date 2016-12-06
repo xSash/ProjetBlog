@@ -92,30 +92,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Users</h4>
                 </div>
-
-                <div class="modal-body amf">
-                    <div class="uq">
-                        <ul class="qo cj ca">
-                            @foreach (var follower in connUser.Followers) {
-                                <li class="b">
-                                    <div class="qf">
-                                        <a class="qj" href="#">
-                                            <img class="qh cu" src="~/Content/images/@(follower.Picture)">
-                                        </a>
-                                        <div class="qg">
-                                            <button class="cg fm fx eg">
-                                                <span class="c aol"></span> Follow
-                                            </button>
-                                            <strong>@(follower.First_name) @(follower.Last_name)</strong>
-                                            <p>&#64;@(follower.Username) - @(follower.City.Name)</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-
-                        </ul>
-                    </div>
-                </div>
+                @Html.Partial( "~/Views/Shared/FirendsList.cshtml" );
             </div>
         </div>
     </div>

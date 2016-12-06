@@ -8,31 +8,6 @@
 
 
 
-<script>
-    $('.btn.btn-follow').on('click', function (e) {
-        var target = $(this).data("targetid");
-        $.ajax({
-            url: "/Follow/Follow/" + target,
-            method: "post",
-            success: function (resp) {
-                location.reload();
-            }
-        });
-    });
-    $('.btn.btn-unfollow').on('click', function (e) {
-        var target = $(this).data("targetid");
-        $.ajax({
-            url: "/Follow/Unfollow/" + target,
-            method: "post",
-            success: function (resp) {
-                location.reload();
-            }
-        });
-    });
-
-</script>
-
-
 @Html.Partial( "~/Views/Feed/FeedPartial.cshtml" );
 
 

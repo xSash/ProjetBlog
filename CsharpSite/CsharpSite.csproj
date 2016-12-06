@@ -519,6 +519,7 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\View.cshtml" />
     <Content Include="Views\Shared\CoreLayout_Top_profile.cshtml" />
+    <Content Include="Views\Shared\FirendsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
