@@ -1,11 +1,9 @@
 ﻿@using CsharpSite.Models;
 @using CsharpSite.Controllers;
 @{
-    var connectedUser = ((Auth)Session[Auth.AUTH_USER_SESSION_NAME])?.User;
+    var connUser = ViewBag.connUser;
 }
-@if (connectedUser == null) {
-    connectedUser = new CsharpSite.Models.User() { Username = "Guest" };
-}
+
 <!-- TOP MENU BAR -->
 <div class="box-container">
     <script type="text/javascript">UNCODE.initBox();</script>
@@ -33,8 +31,8 @@
                                 <div class="menu-horizontal-inner">
                                     <div class="nav navbar-nav navbar-main navbar-nav-first">
                                         <ul id="menu-menu-creative-artist" class="menu-primary-inner menu-smart sm">
-                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42967 menu-item-link"><a href="{% url 'CodeShareIo:index' %}">Home</a></li>
-                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42968 menu-item-link"><a href="index.html">Profile</a></li>
+                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42967 menu-item-link"><a href="/Feed/">Home</a></li>
+                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42968 menu-item-link"><a href="/Profile/">Profile</a></li>
                                             <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42969 menu-item-link"><a data-toggle="modal" href="#msgModal">Messages</a></li>
                                             @if (ViewBag.connUser.IsAdmin) {
                                                 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-42969 menu-item-link"><a href="#">Admin Panel</a></li>
@@ -49,13 +47,13 @@
                                             </li>
                                             <li class="uncode-cart menu-item-link menu-item menu-item-has-children dropdown" style="">
                                                 <button class="cg fm ox anl" data-toggle="popover">
-                                                    <img class="cu" src="~/Content/images/@(connectedUser.Picture)">
+                                                    <img class="cu" src="/Content/images/@(connUser.UserId).jpg">
                                                 </button>
                                             </li>
                                         </ul>
                                         <ul class="nav navbar-nav navbar-nav hidden">
-                                            <li><h6 style="text-align: center">@(connectedUser.First_name) @(connectedUser.Last_name)</h6></li>
-                                            <li><a href="#">Profile</a></li>
+                                            <li><h6 style="text-align: center">@(connUser.First_name) @(connUser.Last_name)</h6></li>
+                                            <li><a href="/Profile/">Profile</a></li>
                                             <li><a href="/Session/Logout">Logout</a></li>
                                         </ul>
                                     </div>

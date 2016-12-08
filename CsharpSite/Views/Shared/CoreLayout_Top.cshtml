@@ -30,7 +30,7 @@
         <div class="gc">
             <div class="gn">
                 <div class="qv rc aog alu">
-                    <div class="qx" style="background-image: url(~/Content/images/@(connUser.UserId)_profileback.jpg);"></div>
+                    <div class="qx" style="background-image: url(/Content/images/@(connUser.UserId)_background.jpg);"></div>
                     <div class="qw dj">
                         <a href="profile/index.html">
                             <img class="aoh"
@@ -38,7 +38,7 @@
                         </a>
 
                         <h5 class="qy">
-                            <a class="aku" href="profile/index.html">@(connUser.First_name) @(connUser.Last_name)</a><img src="~/Content/images/verified.png">
+                            <a class="aku" href="/Profile/">@(connUser.First_name) @(connUser.Last_name)</a>
                         </h5>
 
                         <p class="alu">@(connUser.Description)</p>
@@ -86,7 +86,7 @@
                         <h5 class="ald">About <small>· <a href="#">Edit</a></small></h5>
                         <ul class="eb tb">
                             @if (connUser.Following.Count > 0) {
-                                <li><i class="fa fa-users dp all" aria-hidden="true"></i>Became friends with <a href="#">@(connUser.Following[connUser.Following.Count -1].Username)</a></li>
+                                <li><i class="fa fa-users dp all" aria-hidden="true"></i>Became friends with <a href="/Profile/View/@(connUser.Following[connUser.Following.Count -1].UserId)">@(connUser.Following[connUser.Following.Count -1].Username)</a></li>
                             }
                             <li><i class="fa fa-globe dp all" aria-hidden="true"></i>Lives in <a href="#">@(connUser.City.Name), @(connUser.Country.Name)</a></li>
                         </ul>
@@ -97,12 +97,12 @@
                     <div class="qw">
                         <h5 class="ald">Trending <small>· <a href="#">Change</a></small></h5>
                         <ul class="eb tb">
-                            <li><a href="#">#CodeShare</a>
+                            <li><a href="#">#CodeCap</a>
                             <li><a href="#">TeamAhuntsic</a>
-                            <li><a href="#">#USA</a>
                             <li><a href="#">#Montreal</a>
                             <li><a href="#">#LearnToCode</a>
                             <li><a href="#">#Java</a>
+                            <li><a href="#">#FuckJava</a>
                             <li><a href="#">#2017</a>
                         </ul>
                     </div>

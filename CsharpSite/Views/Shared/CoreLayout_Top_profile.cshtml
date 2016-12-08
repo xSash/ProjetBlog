@@ -13,7 +13,8 @@
 
 
     @Html.Partial( "~/Views/Shared/NavBar.cshtml" )
-    }
+
+    
     <!--bio-->
     <div class="ans dj"
          style="background-image: url(/Content/images/@(targetUser.UserId)_background.jpg);">
@@ -22,7 +23,7 @@
                 <img class="cu qh" src="~/Content/images/@(targetUser.UserId).jpg">
                 <h3 class="anv">Sasha Benjamin</h3>
                 <p class="anu">
-                    @(targetUser.Description))
+                    @(targetUser.Description)
                 </p>
 
                 <ul class="aoi" style="color: #fff;">
@@ -63,21 +64,23 @@
 
                 </ul>
             </div>
-            <div style="margin-top: 2em;">
-                @if (connUser.Follows( targetUser.UserId )) {
-                    <a class="btn btn-unfollow" data-targetid="@targetUser.UserId" style="color: white">Unfollow</a>
+            @if (connUser.UserId != targetUser.UserId) {
+                <div style="margin-top: 2em;">
+                    @if (connUser.Follows( targetUser.UserId )) {
+                        <a class="btn btn-unfollow" data-targetid="@targetUser.UserId" style="color: white">Unfollow</a>
 
-                } else {
-                    <a class="btn btn-follow" data-targetid="@targetUser.UserId" style="color: white">Follow</a>
-
-                }
-            </div>
+                    } else {
+                        <a class="btn btn-follow" data-targetid="@targetUser.UserId" style="color: white">Follow</a>
+                    }
+                </div>
+            }
+            
         </div>
 
         <nav class="anw">
             <ul class="nav ol">
                 <li class="active">
-                    <a href="#">Posts</a>
+                    <a href="#feed">Posts</a>
                 </li>
 
             </ul>
@@ -100,7 +103,7 @@
         <div class="gc">
             <div class="gn">
                 <div class="qv rc aog alu">
-                    <div class="qx" style="background-image: url(~/Content/images/@(connUser.UserId)_profileback.jpg);"></div>
+                    <div class="qx" style="background-image: url(~/Content/images/@(connUser.UserId)_background.jpg);"></div>
                     <div class="qw dj">
                         <a href="profile/index.html">
                             <img class="aoh"
@@ -108,7 +111,7 @@
                         </a>
 
                         <h5 class="qy">
-                            <a class="aku" href="profile/index.html">@(connUser.First_name) @(connUser.Last_name)</a><img src="~/Content/images/verified.png">
+                            <a class="aku" href="/Profile/">@(connUser.First_name) @(connUser.Last_name)</a>
                         </h5>
 
                         <p class="alu">@(connUser.Description)</p>
@@ -156,7 +159,7 @@
                         <h5 class="ald">About <small>· <a href="#">Edit</a></small></h5>
                         <ul class="eb tb">
                             @if (connUser.Following.Count > 0) {
-                                <li><i class="fa fa-users dp all" aria-hidden="true"></i>Became friends with <a href="#">@(connUser.Following[connUser.Following.Count -1].Username)</a></li>
+                                <li><i class="fa fa-users dp all" aria-hidden="true"></i>Became friends with <a href="/Profile/View/@(connUser.Following[connUser.Following.Count -1].UserId)">@(connUser.Following[connUser.Following.Count -1].Username)</a></li>
                             }
                             <li><i class="fa fa-globe dp all" aria-hidden="true"></i>Lives in <a href="#">@(connUser.City.Name), @(connUser.Country.Name)</a></li>
                         </ul>
@@ -167,7 +170,7 @@
                     <div class="qw">
                         <h5 class="ald">Trending <small>· <a href="#">Change</a></small></h5>
                         <ul class="eb tb">
-                            <li><a href="#">#CodeShare</a>
+                            <li><a href="#">#CodeCap</a>
                             <li><a href="#">TeamAhuntsic</a>
                             <li><a href="#">#USA</a>
                             <li><a href="#">#Montreal</a>

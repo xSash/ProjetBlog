@@ -190,7 +190,7 @@ function displayFeed(feedsjson) {
         var usr = post['User'];
         element +=
         '<li class="qf b aml">'
-            + '<a class="qj" href="#">'
+            + '<a class="qj" href="/Profile/View/'+usr['UserId']+'">'
                 + '<img class="qh cu"'
                      + 'src="/Content/images/' + usr['UserId'] + '.jpg">'
             + '</a>'
@@ -218,7 +218,7 @@ function displayFeed(feedsjson) {
             var cusr = comment['User'];
 
             element += '<li class="qf">'
-                        + '<a class="qj" href="#">'
+                        + '<a class="qj" href="/Profile/View/'+cusr["UserId"]+'">'
                             + '<img class="qh cu" src="/Content/images/' + cusr["UserId"] + '.jpg">'
                         + '</a>'
                         + '<div class="qg">'
