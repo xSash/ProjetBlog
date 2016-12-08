@@ -3,7 +3,6 @@
 @{
     var targetUser = ViewBag.targetUser;
     var connUser = ViewBag.connUser;
-
 }
 
 <div class="box-wrapper-real">
@@ -20,8 +19,8 @@
          style="background-image: url(/Content/images/@(targetUser.UserId)_background.jpg);">
         <div class="by">
             <div class="ant">
-                <img class="cu qh" src="~/Content/images/@(targetUser.UserId).jpg">
-                <h3 class="anv">Sasha Benjamin</h3>
+                <img class="cu qh" src="/Content/images/@(targetUser.UserId).jpg">
+                <h3 class="anv">@(targetUser.First_name)&nbsp;@(targetUser.Last_name)</h3>
                 <p class="anu">
                     @(targetUser.Description)
                 </p>
@@ -103,11 +102,11 @@
         <div class="gc">
             <div class="gn">
                 <div class="qv rc aog alu">
-                    <div class="qx" style="background-image: url(~/Content/images/@(connUser.UserId)_background.jpg);"></div>
+                    <div class="qx" style="background-image: url(/Content/images/@(connUser.UserId)_background.jpg);"></div>
                     <div class="qw dj">
-                        <a href="profile/index.html">
+                        <a href="/Profile/View/@(connUser.UserId)">
                             <img class="aoh"
-                                 src="~/Content/images/@(connUser.Picture)">
+                                 src="/Content/images/@(connUser.UserId).jpg">
                         </a>
 
                         <h5 class="qy">

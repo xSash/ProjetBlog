@@ -17,6 +17,7 @@ namespace CsharpSite.Controllers
             posts.OrderByDescending( p => p.Publication_date );
 
             ViewBag.feed = posts;
+            ViewBag.targetUser = user;
 
             return View();
         }
