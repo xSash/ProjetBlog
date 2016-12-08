@@ -1136,6 +1136,7 @@ small,
 pre,
 code {
     font-size: 15px;
+    color : #F0F0F0;
 }
 h1:not([class*="fontsize-"]),
 .h1:not([class*="fontsize-"]) {
@@ -1148,6 +1149,7 @@ h2:not([class*="fontsize-"]),
 h3:not([class*="fontsize-"]),
 .h3:not([class*="fontsize-"]) {
     font-size: 24px;
+    color: #F0F0F0;
 }
 h4:not([class*="fontsize-"]),
 .h4:not([class*="fontsize-"]) {
@@ -1156,6 +1158,7 @@ h4:not([class*="fontsize-"]),
 h5:not([class*="fontsize-"]),
 .h5:not([class*="fontsize-"]) {
     font-size: 17px;
+    color: #F0F0F0;
 }
 h6:not([class*="fontsize-"]),
 .h6:not([class*="fontsize-"]) {
@@ -3141,7 +3144,7 @@ textarea,
     color: #ffffff;
 }
 .menu-dark .menu-smart a {
-    color: #f5f8fa;
+
 }
 .menu-dark .menu-smart a:hover,
 .menu-dark .menu-smart a:focus {
