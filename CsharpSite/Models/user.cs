@@ -396,8 +396,21 @@ namespace CsharpSite.Models
         }
 
         public object Serialize() {
-            return new { CountryId = CountryId, Name = Name };
+            return new { CountryId = CountryId, Name = Name, Cities = SerializeCities() };
         }
+
+        public object[] SerializeCities() {
+            List<object> cities = new List<object>();
+            using (DB db = new DB()) {
+                foreach (var c in Cities.ToArray()) {
+                    cities.Add( c.Serialize() );
+                }
+            }
+               
+
+            return cities.ToArray();
+        }
+
     }
 
     [Table("City")]
@@ -419,9 +432,8 @@ namespace CsharpSite.Models
         }
 
         public object Serialize() {
-            return new
-            {
-                Country = Country.Serialize(),
+            return new {
+                CityId = CityId,
                 CountryID = CountryID,
                 Name = Name,
             };

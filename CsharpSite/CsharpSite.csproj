@@ -379,7 +379,6 @@
     <Content Include="Sash_Views\login\css\toolkit.css" />
     <Content Include="Sash_Views\login\login.html" />
     <Content Include="Sash_Views\main.js" />
-    <Content Include="Sash_Views\player_api.js" />
     <Content Include="Sash_Views\userProfile.html" />
     <Content Include="Schemas\cleanTable.sql" />
     <Content Include="Content\bootstrap.min.css" />

@@ -8,7 +8,70 @@
 
 
 
-<a href="/Profile/Edit">Edit profile</a>
+<div class="fade" id="editprofilebox">
+    <div class="modl modal-content folded">
+        <h2>Edit your profile, @(connUser.Username)</h2>
+        <div style="">
+            <div>
+                <label for="firstname">First name*: </label><input type="text" name="firstname" placeholder="First name" value="@(connUser.First_name)" required />
+            </div>
+            <div>
+                <label for="lastname">Last name*: </label><input type="text" name="lastname" placeholder="Last name" value="@(connUser.Last_name)" required />
+            </div>
+            <div>
+                <label for="email">Email*: </label><input type="text" name="email" placeholder="Email" value="@(connUser.Email)" required />
+            </div>
+            <div>
+                <label for="password">New Password: </label><input type="password" name="password" placeholder="New password" value="" />
+            </div>
+            <div class="folded">
+                <label for="cpassword">Confirm Password: </label><input type="password" name="cpassword" placeholder="Confirm password" value="" />
+            </div>
+            <div>
+                <label for="country">Country: </label>
+                <select id="country" name="country">
+                    @{
+
+                        foreach (var country in ViewBag.Countries) {
+                            var t = country.CountryId == connUser.Country.CountryId? "selected": "";
+                            <option value="@(country.CountryId)"@(t)>@(country.Name)</option>
+                        }
+                    }
+
+                </select>
+            </div>
+            <div class="">
+                <label for="city">City: </label>
+                <select id="city" name="city">
+                    @{
+
+                        foreach (var city in connUser.Country.Cities) {
+                            var r = city.CityId == connUser.City.CityId? "selected" : "";
+                            <option value="@(city.CityId)" @(r)>@(city.Name)</option>
+                        }
+                    }
+
+
+                </select>
+            </div>
+            <form action="/Profile/UpdateImage" enctype="multipart/form-data" method="post" class="" id="imgupld">
+                <div>
+                    <label for="img">New Profile Image: </label><input type="file" name="img" accept="image/*" /><input type="submit" value="upload" />
+                </div>
+            </form>
+            <form action="/Profile/UpdateBGImage" enctype="multipart/form-data" method="post" id="bgimgupld">
+                <div>
+                    <label for="bimg">New Background Image: </label><input type="file" name="bimg" accept="image/*" /><input type="submit" value="upload" />
+                </div>
+            </form>
+            <div>
+                <input type="submit" value="Save" id="editprofilesubmit" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div href="" id="editprofile" style="color: deepskyblue; cursor: pointer;">Edit profile</div>
 
 @Html.Partial("~/Views/Feed/FeedPartial.cshtml");
 
@@ -16,3 +79,183 @@
 @Html.Partial( "~/Views/Shared/CoreLayout_Bottom.cshtml" )
 
 
+<style>
+    #editprofilebox{
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        position: fixed;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        justify-content: center;
+        z-index: 9999;
+        align-items: center;
+    }
+    #editprofilebox .modl{
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1em;
+        overflow-y: auto;
+        box-sizing: border-box;
+
+    }
+    #editprofilebox .modl div div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0.25em;
+        transition: 0.5s all;
+        height: 4em;
+        overflow: hidden;
+    }
+    #editprofilebox .modl div input, #editprofilebox .modl div select{
+        display: inline-block;
+        min-width: 200px;
+        margin: 0;
+        flex-grow: 1;
+
+    }
+    #editprofilebox .modl div label{
+        margin-right: 0.5em;
+    }
+    .folded {
+        height: 0em !important;
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    $("#bgimgupld input[type='submit']").on('click', function () {
+        var data = new FormData();
+        data.append("file0", $("#bgimgupld input[type='file']")[0].files[0]);
+        $.ajax({
+            url: $("#bgimgupld").prop("action"),
+            method: $("#bgimgupld").prop("method"),
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (resp) {
+                $("#bgimgupld input[type='submit']").addClass("btn-success").val("Updloaded");
+            }
+        });
+    });
+    $("#imgupld input[type='submit']").on('click', function () {
+        var data = new FormData();
+        data.append("file0", $("#imgupld input[type='file']")[0].files[0]);
+        $.ajax({
+            url: $("#imgupld").prop("action"),
+            method: $("#imgupld").prop("method"),
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (resp) {
+                $("#imgupld input[type='submit']").addClass("btn-success").val("Uploaded");
+            }
+        });
+    });
+    $("#imgupld input[type='file'], #bgimgupld input[type='file']").on('change', function (e) {
+        $(this).parent().find("input[type='submit']").removeClass("btn-success").val("Updload");
+        $(this).parent().find("input[type='submit']").removeClass("btn-success").val("Updload");
+    });
+    $("#editprofile").on("click", function () {
+        $("#editprofilebox").removeClass("fade");
+        $("#imgupld input[type='submit']").removeClass("btn-success").val("Updload");
+        $("#bgimgupld input[type='submit']").removeClass("btn-success").val("Updload");
+        $("#editprofilebox > .modl").removeClass("folded");
+        $("#editprofilebox").fadeIn();
+    });
+
+
+    $("#editprofilebox").on("click", function (e) {
+        $(this).fadeOut();
+        $("#editprofilebox > .modl").addClass("folded");
+
+    }).children().click(function () {
+        return false;
+    });
+
+    $("#editprofilebox input[name='password']").on("keyup", function () {
+        if ($(this).val().length > 0) {
+            $("#editprofilebox input[name='cpassword']").parent().removeClass("folded");
+        } else {
+            $("#editprofilebox input[name='cpassword']").parent().addClass("folded");
+        }
+        
+    });
+    $("#editprofilebox select[name='country']").on("change ready", function () {
+        var val = $(this).val();
+        $.ajax({
+            url: "/Profile/GetCitiesByCountry",
+            method: "post",
+            data: {
+                countryId: val
+            },
+            success: function (resp) {
+                if (resp["status"] == "success") {
+                    $("#editprofilebox select[name='city']").empty();
+                    var cities = resp["data"];
+                    for (var i = 0; i < cities.length; i++) {
+                        var c = cities[i];
+                        $("#editprofilebox select[name='city']").append("<option value='"+c["CityId"]+"'>"+c["Name"]+"</option>");
+                    }
+                }
+            }
+
+        });
+    });
+
+    $("#editprofilesubmit").on("click", function (e) {
+        $("#editprofilebox input").css("border-color", "");
+        var fname =     $("#editprofilebox input[name='firstname']").val();
+        var lname =     $("#editprofilebox input[name='lastname']").val();
+        var email =     $("#editprofilebox input[name='email']").val();
+        var pw =        $("#editprofilebox input[name='password']").val();
+        var cpw =       $("#editprofilebox input[name='cpassword']").val();
+        var country =   $("#editprofilebox #country option:selected")[0].value;
+        var city =      $("#editprofilebox #city    option:selected")[0].value;
+        console.log(country);
+        if (cpw != pw) {
+            $("#editprofilebox input[name='cpassword']").css("border-color", "red");
+            return false;
+        }
+
+        if (fname.length == 0) {
+            $("#editprofilebox input[name='firstname']").css("border-color", "red");
+            return false;
+        }
+        if (lname.length == 0) {
+            $("#editprofilebox input[name='lastname']").css("border-color", "red");
+            return false;
+        }
+        if (email.length == 0) {
+            $("#editprofilebox input[name='email']").css("border-color", "red");
+            return false;
+        }
+
+        $.ajax({
+            url: '/Profile/Edit',
+            method: 'post',
+            data: {
+                firstname: fname,
+                lastname: lname,
+                email: email,
+                pw: pw,
+                countryId: country+"",
+                cityId: city+""
+            },
+            success: function (resp) {
+                if (resp["status"] == "success") {
+                    location.reload();
+                }
+            }
+
+        });
+
+    });
+</script>

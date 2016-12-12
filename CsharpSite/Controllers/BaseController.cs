@@ -50,6 +50,7 @@ namespace CsharpSite.Controllers
             }
             ViewBag.connUser = getAuthUser();
             ViewBag.reactionTypes = db.ReactionTypes.ToArray();
+            ViewBag.Countries = db.Countries.ToArray();
 
         }
 
