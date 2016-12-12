@@ -69,10 +69,12 @@ namespace CsharpSite.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PostId,Title,Contents,Publication_date,UserID")] Post post)
+        public ActionResult Create([Bind(Include = "Title,Contents")] Post post)
         {
             if (ModelState.IsValid)
             {
+                post.UserID = getAuthUser().UserId;
+                post.Publication_date = new DateTimeOffset();
                 db.Posts.Add(post);
                 db.SaveChanges();
 
@@ -121,7 +123,6 @@ namespace CsharpSite.Controllers
                     return Json( new { message = "unreacted", status = "success" } );
                 } else {
                     return Json( new { status = "error", message = "you already reacted to that post" } );
-
                 }
             } else {
                 /*[Bind(Include = "ReactionId,PostID")] PostReaction reaction*/

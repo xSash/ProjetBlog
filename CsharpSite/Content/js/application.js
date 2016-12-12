@@ -157,6 +157,44 @@ function refreshActions() {
         });
     });
 }
+/**
+*  post_data : {Title,Contents,Publication_date}
+*/
+function createPost(post_data) {
+    return $.ajax({
+        url: '/Posts/Create',
+        method: 'post',
+        data: data,
+        success: function (resp) {
+            alert("Post created")
+        }
+    });
+}
+/**
+* reaction_data : {PostID, ReactioID}
+*/
+function createPostReaction(reaction_data) {
+    return $.ajax({
+        url: '/Posts/React',
+        method: 'post',
+        success: function (resp) {
+            alert("Post Reaction created")
+        }
+    });
+}
+
+/**
+* reaction_data : {CommentID,ReactionId}
+*/
+function createCommentReaction(reaction_data) {
+    $.ajax({
+        url: '/Posts/ReactComment',
+        method: 'post',
+        success: function (resp) {
+            alert("Comment Reaction created")
+        }
+    });
+}
 
 function feedAutoRefresh() {
     $.ajax({
@@ -172,8 +210,9 @@ function feedAutoRefresh() {
 function displayFeed(feedsjson) {
     $("#feed").empty();
     $("#feed").append('<li class="qf b aml">'
+        + '<form method=POST action="/Posts/Create" >'
         + '<div class="input-group">'
-            + '<input type="text" class="form-control" placeholder="Write a post">'
+            + '<input name="Contents" type="text" class="form-control" placeholder="Write a post">'
             + '<div class="fj">'
                 + '<button type="button" class="cg fm">'
                     + '<i class="fa fa-file-text" aria-hidden="true"></i>'
@@ -183,6 +222,7 @@ function displayFeed(feedsjson) {
                 + '</button>'
             + '</div>'
         + '</div>'
+        +'</form>'
     + '</li>');
     var element = "";
     for (var i = 0; i < feedsjson['data'].length; i++) {
@@ -206,7 +246,7 @@ function displayFeed(feedsjson) {
                     + '<div>';
         for (var k = 0; k < post['Reactions'].length; k++) {
             var react = post['Reactions'][k];
-            element += '<span style="margin-right: 0.5em;"><i class="btn-react fa ' + react['icon'] + '" '
+            element += '<span style="margin-right: 0.5em;" on-click="createPostReaction({PostID: ' + post['PostId'] + ', ReactionID: ' + react['reactionid'] + ' })"><i class="btn-react fa ' + react['icon'] + '" '
                 + 'data-postid="' + post['PostId'] + '" data-reactionid="' + react['reactionid'] + '" title="' + react['name']
                 + '" style="color: gray; cursor: pointer;" aria-hidden="true"></i>' + react['count'] + '</span>';
 
