@@ -22,7 +22,7 @@ namespace CsharpSite.Controllers
         [HttpPost]
         public ActionResult SearchUser() {
             string searchstring = Request.Form["search"];
-            List<User> match = db.Users.Where( u => u.Username.Contains( searchstring ) || u.Email.Contains( searchstring ) ).ToList();
+            List<User> match = db.Users.Where( u => u.Username.Contains( searchstring ) || u.Email.Contains( searchstring ) || u.First_name.Contains(searchstring) || u.Last_name.Contains(searchstring)).ToList();
             List<object> json = new List<object>();
             foreach(var u in match) {
                 json.Add( u.Serialize() );

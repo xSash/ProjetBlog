@@ -209,6 +209,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
@@ -303,6 +304,7 @@
     <Content Include="Content\css\toolkit.css" />
     <Content Include="Content\images\2_background.jpg" />
     <Content Include="Content\images\images.jpg" />
+    <Content Include="Content\images\teamahuntsic.svg" />
     <Content Include="Content\signup\css\application.css" />
     <Content Include="Content\signup\css\form-control.css" />
     <Content Include="Content\signup\css\test.css" />
@@ -519,6 +521,7 @@
     <Content Include="Views\Profile\View.cshtml" />
     <Content Include="Views\Shared\CoreLayout_Top_profile.cshtml" />
     <Content Include="Views\Shared\FirendsList.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

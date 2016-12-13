@@ -231,7 +231,7 @@ function displayFeed(feedsjson) {
         element +=
         '<li class="qf b aml">'
             + '<a class="qj" href="/Profile/View/'+usr['UserId']+'">'
-                + '<img class="qh cu"'
+                + '<img class="qh cu"' 
                      + 'src="/Content/images/' + usr['UserId'] + '.jpg">'
             + '</a>'
             + '<div class="qg">'

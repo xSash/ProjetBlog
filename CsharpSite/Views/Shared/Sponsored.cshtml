@@ -1,12 +1,39 @@
 ﻿<!-- ========================================= SPONSORED ================================================== -->
-<div class="qv rc alu ss">
-    <div class="qw">
-        <h5 class="ald">Sponsored</h5>
-        <div data-grid="images" data-target-height="150">
-            <img class="qh" data-width="1920" data-height="1080" data-action="zoom" src="images/intro.jpg">
-        </div>
-        <p><strong>Searching for a full-stack developer job?</strong> CodeCap is hiring iOS and Android developers. If your interested apply now!</p>
-        <button class="cg ts fx">Apply</button>
+<div class="qv rc alu ss qw" style="display: inline-flex; flex-direction: column; align-items: center; max-height: 60vh; height: 60vh; width: 100%;">
+    <input type="text" class="form-control" id="aac" placeholder="Search a user" />
+    <div style="flex-grow: 1; overflow-y: auto; margin-top: 1em;width: 100%">
+        <ul id="aab" style="width: 100%"></ul>
     </div>
+    
+    <script>
+        $("#aac").on("keyup", function () {
+            var v = $("#aac").val();
+
+            if (v.length > 0) {
+                $.ajax({
+                    method: "post",
+                    url: "/Follow/SearchUser",
+                    data: {
+                        search: v
+                    },
+                    success: function (resp) {
+                        $("#aab").empty();
+                        var r = resp;
+                        for (var i = 0; i < r["data"].length ; i++) {
+                            $("#aab").append("<li><a class='qj' href='/Profile/View/" + r["data"][i]["UserId"] + "'>"
+                                + '<img class="qh cu" style="display: inline-block; margin: 1em; width: 50px;"src="/Content/images/' + r["data"][i]['UserId'] + '.jpg">'
+                                + r["data"][i]["First_name"] + " " + r["data"][i]["Last_name"]
+                                + "</a> </li>");
+
+                        }
+                    }
+                });
+            } else {
+                $("#aab").empty();
+
+            }
+
+        });
+    </script>
 </div>
 <!-- ========================================= END SPONSORED ================================================== -->

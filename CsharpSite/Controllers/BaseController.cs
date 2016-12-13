@@ -11,6 +11,9 @@ namespace CsharpSite.Controllers
     public class BaseController : Controller
     {
         protected DB db = new DB();
+        private static string[] admin_restricted_controllers = new string[] {
+            "Admin"
+        };
         private static string[] restricted_controllers = new string[] {
             "Feed",
             "Posts",
@@ -38,16 +41,24 @@ namespace CsharpSite.Controllers
 
         protected override void OnActionExecuting( ActionExecutingContext filterContext ) {
             User user = getAuthUser();
-            if( (restricted_controllers.Contains( filterContext.ActionDescriptor.ControllerDescriptor.ControllerName )
-                || restricted_actions.Contains( filterContext.ActionDescriptor.ControllerDescriptor.ControllerName + "/" + filterContext.ActionDescriptor.ActionName ))
+            string controllername = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            string actionname = filterContext.ActionDescriptor.ActionName;
+            if ( (restricted_controllers.Contains( controllername )
+                || restricted_actions.Contains( controllername + "/" + actionname )
+                || admin_restricted_controllers.Contains( controllername ))
                 && ( user == null 
                 || !db.Users.Any(u => u.UserId == user.UserId 
-                    && u.Username == user.Username )) ) {
+                    && u.Username == user.Username ))
+                 ) {
 
                 filterContext.Result = RedirectToAction("Login", "Session");
                 return;
 
+            }else if (admin_restricted_controllers.Contains( controllername ) && !user.IsAdmin) {
+                filterContext.Result = new HttpStatusCodeResult(404);
+                return;
             }
+
             ViewBag.connUser = getAuthUser();
             ViewBag.reactionTypes = db.ReactionTypes.ToArray();
             ViewBag.Countries = db.Countries.ToArray();

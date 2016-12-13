@@ -1,36 +1,4 @@
 ﻿ <!-- ========================================= FEED ================================================== -->
-    <!-- search user test -->
-    <input type="text" id="aac" placeholder="Search a user"/>
-    <ul id="aab">
-
-    </ul>
-    <hr />
-    <script>
-        $("#aac").on("keyup", function () {
-            var v = $("#aac").val();
-            $("#aab").empty();
-
-            if (v.length > 0) {
-                $.ajax({
-                    method: "post",
-                    url: "/Follow/SearchUser",
-                    data: {
-                        search: v
-                    },
-                    success: function (resp) {
-                        var r = resp;//JSON.parse(resp);
-
-                        for (var i = 0; i < r["data"].length ; i++) {
-                            $("#aab").append("<li>" + r["data"][i]["Username"] + " <form method='POST' action='/Follow/Follow/" + r["data"][i]["UserId"] + "'><input type='submit' value='Follow'/> </form><form method='POST' action='/Follow/Unfollow/" + r["data"][i]["UserId"] + "'><input type='submit' value='Unfollow'/> </form></li>");
-
-                        }
-                    }
-                });
-            }
-            
-        });
-    </script>
-    <!-- end search user test -->
 
     <ul class="ca qo anx" id="feed">
 
