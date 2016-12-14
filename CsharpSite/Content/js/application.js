@@ -276,6 +276,20 @@ function displayFeed(feedsjson) {
             element += '</div>'
                     + '</li>';
         }
+        element += '<li><form method=POST id="form_create_comment" action="/Posts/Comment" >'
+        + '<div class="input-group">'
+            + '<input name=PostId value="' + post['PostId'] + '" />'
+            + '<input name="Contents" type="text" class="form-control" placeholder="Comment">'
+            + '<div class="fj">'
+                + '<button type="button" class="cg fm">'
+                    + '<i class="fa fa-file-text" aria-hidden="true"></i>'
+                + '</button>'
+                + '<button type="button" class="cg fm">'
+                    + '<i class="fa fa-camera" aria-hidden="true"></i>'
+                + '</button>'
+            + '</div>'
+        + '</div>'
+        + '</form></li>'
 
         element += '</ul>'
             + '</div>'
