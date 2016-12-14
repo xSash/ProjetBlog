@@ -68,13 +68,12 @@ namespace CsharpSite.Controllers
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Title,Contents")] Post post)
         {
             if (ModelState.IsValid)
             {
                 post.UserID = getAuthUser().UserId;
-                post.Publication_date = new DateTimeOffset();
+                post.Publication_date = DateTimeOffset.Now;
                 db.Posts.Add(post);
                 db.SaveChanges();
 
@@ -186,10 +185,10 @@ namespace CsharpSite.Controllers
             if (user == null)
                 return HttpNotFound();
 
-            Comment c = new Comment() { CommentId = 0, Contents = comment.Contents, PostID = comment.PostID, UserID = user.UserId };
+            Comment c = new Comment() { Contents = comment.Contents, PostID = comment.PostID, UserID = user.UserId };
             //db.Comments.Attach( comment );
 
-            comment.Publication_date = new DateTimeOffset();
+            comment.Publication_date = DateTimeOffset.Now;
             db.Comments.Add(c);
             db.SaveChanges();
 
@@ -205,7 +204,6 @@ namespace CsharpSite.Controllers
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PostId,Title,Contents,Publication_date,UserID")] Post post)
         {
             if (ModelState.IsValid)
@@ -255,7 +253,7 @@ namespace CsharpSite.Controllers
 
         // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult DeleteConfirmed(int id)
         {
             Post post = db.Posts.Find(id);
