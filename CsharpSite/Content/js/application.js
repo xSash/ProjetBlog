@@ -161,10 +161,11 @@ function refreshActions() {
 *  post_data : {Title,Contents,Publication_date}
 */
 function createPost(post_data) {
+    post_data["format"] = "json"
     return $.ajax({
         url: '/Posts/Create',
         method: 'post',
-        data: data,
+        data: post_data,
         success: function (resp) {
             alert("Post created")
         }
@@ -174,9 +175,11 @@ function createPost(post_data) {
 * reaction_data : {PostID, ReactioID}
 */
 function createPostReaction(reaction_data) {
+    reaction_data["format"] = "json"
     return $.ajax({
         url: '/Posts/React',
         method: 'post',
+        data: reaction_data,
         success: function (resp) {
             alert("Post Reaction created")
         }
@@ -186,10 +189,12 @@ function createPostReaction(reaction_data) {
 /**
 * reaction_data : {CommentID,ReactionId}
 */
-function createCommentReaction(reaction_data) {
-    $.ajax({
+function createCommentReaction(comment_reaction_data) {
+    comment_reaction_data["format"] = "json"
+    return $.ajax({
         url: '/Posts/ReactComment',
         method: 'post',
+        data: comment_reaction_data,
         success: function (resp) {
             alert("Comment Reaction created")
         }
@@ -210,9 +215,9 @@ function feedAutoRefresh() {
 function displayFeed(feedsjson) {
     $("#feed").empty();
     $("#feed").append('<li class="qf b aml">'
-        + '<form method=POST action="/Posts/Create" >'
+        + '<form method=POST action="/Posts/Create" id="create_post_form" name=create_post >'
         + '<div class="input-group">'
-            + '<input name="Contents" type="text" class="form-control" placeholder="Write a post">'
+            + '<input name="Contents" id="post_contents" type="text" class="form-control" placeholder="Write a post">'
             + '<div class="fj">'
                 + '<button type="button" class="cg fm">'
                     + '<i class="fa fa-file-text" aria-hidden="true"></i>'
@@ -231,7 +236,7 @@ function displayFeed(feedsjson) {
         element +=
         '<li class="qf b aml">'
             + '<a class="qj" href="/Profile/View/'+usr['UserId']+'">'
-                + '<img class="qh cu"'
+                + '<img class="qh cu"' 
                      + 'src="/Content/images/' + usr['UserId'] + '.jpg">'
             + '</a>'
             + '<div class="qg">'
@@ -276,20 +281,6 @@ function displayFeed(feedsjson) {
             element += '</div>'
                     + '</li>';
         }
-        element += '<li><form method=POST id="form_create_comment" action="/Posts/Comment" >'
-        + '<div class="input-group">'
-            + '<input name=PostId value="' + post['PostId'] + '" />'
-            + '<input name="Contents" type="text" class="form-control" placeholder="Comment">'
-            + '<div class="fj">'
-                + '<button type="button" class="cg fm">'
-                    + '<i class="fa fa-file-text" aria-hidden="true"></i>'
-                + '</button>'
-                + '<button type="button" class="cg fm">'
-                    + '<i class="fa fa-camera" aria-hidden="true"></i>'
-                + '</button>'
-            + '</div>'
-        + '</div>'
-        + '</form></li>'
 
         element += '</ul>'
             + '</div>'

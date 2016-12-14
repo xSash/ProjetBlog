@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CsharpSite.RouteConfig">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsharpSite.Controllers.AdminController">
+    <Position X="2.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\AdminController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsharpSite.Controllers.BaseController">
+    <Position X="6" Y="4.75" Width="1.5" />
+    <InheritanceLine Type="System.Web.Mvc.Controller" FixedFromPoint="true">
+      <Path>
+        <Point X="6.75" Y="2.941" />
+        <Point X="6.75" Y="4.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAASAAAQAQAAAgCAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\BaseController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsharpSite.Controllers.ChatController">
+    <Position X="11.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAACAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ChatController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsharpSite.Controllers.FeedController">
+    <Position X="13" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\FeedController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsharpSite.Controllers.FollowController">
+    <Position X="0.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQQAAAAgAAAAAAAAAAEAAAAAAAE=</HashCode>
+      <FileName>Controllers\FollowController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsharpSite.Controllers.IndexController">
+    <Position X="4.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\IndexController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsharpSite.Controllers.PostsController">
+    <Position X="6" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAEACABAQCAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\PostsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsharpSite.Controllers.ProfileController">
+    <Position X="7.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAABAAAAAAAAAABABACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ProfileController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsharpSite.Controllers.SessionController">
+    <Position X="9.5" Y="7.75" Width="1.5" />
+    <InheritanceLine Type="CsharpSite.Controllers.BaseController" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="7.396" />
+        <Point X="6.75" Y="7.558" />
+        <Point X="10.438" Y="7.558" />
+        <Point X="10.438" Y="7.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAIAAAAAAAAEAAAAAAAEAAAgAEEAAAAAAAA=</HashCode>
+      <FileName>Controllers\SessionController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsharpSite.Models.DB">
+    <Position X="23.5" Y="1.75" Width="1.5" />
+    <AssociationLine Name="Comments" Type="CsharpSite.Models.Comment" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="25" Y="2.85" />
+        <Point X="28" Y="2.85" />
+        <Point X="28" Y="3.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EAAAAGAAAAIAABAABAAAAQAAEAAAAAAACAAAAAAAIAA=</HashCode>
+      <FileName>Models\DB.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ChatMessages" />
+      <Property Name="Cities" />
+      <Property Name="CommentReactions" />
+      <Property Name="Comments" />
+      <Property Name="Countries" />
+      <Property Name="Groups" />
+      <Property Name="PostReactions" />
+      <Property Name="Posts" />
+      <Property Name="ReactionTypes" />
+      <Property Name="Users" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CsharpSite.Models.User">
+    <Position X="23.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEgEABACAgAACoDQEAAAoACCIYCAAGACBAAAAAAgA=</HashCode>
+      <FileName>Models\user.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Country" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CsharpSite.Models.Post">
+    <Position X="20" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAEEQAAAAAAgAACAAAAAAIQAAIABAYAA=</HashCode>
+      <FileName>Models\user.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CsharpSite.Models.Comment">
+    <Position X="27.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAEQAAAAAAgACCAAAAAgIQAAIABAAAA=</HashCode>
+      <FileName>Models\user.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Post" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Reactions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CsharpSite.Models.Group">
+    <Position X="34.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAgAAAAAAAAAAQAAAAAAAAAAAAkAAAAAAA=</HashCode>
+      <FileName>Models\user.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Members" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CsharpSite.Models.ReactionType">
+    <Position X="23.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAKAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Models\user.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CsharpSite.Models.PostReaction">
+    <Position X="17.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAEAAAAAgAgACCAAAAEAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\user.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Post" />
+      <Property Name="Reaction" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CsharpSite.Models.CommentReaction">
+    <Position X="30" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAEAACAAAAAAAAAgAgAACAAAAAgAAAAIAAAAAA=</HashCode>
+      <FileName>Models\user.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Reaction" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CsharpSite.Models.Country">
+    <Position X="32.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAQAAAAQAACAQAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Models\user.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Residents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CsharpSite.Models.City">
+    <Position X="30.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAQAAAAQAACIQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\user.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Country" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Residents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CsharpSite.Models.ChatMessage">
+    <Position X="16.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAEAAAAAIAAAAAAEAQAAIAAAAAQ=</HashCode>
+      <FileName>Models\user.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Data.Entity.DbContext" Collapsed="true">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Web.Mvc.Controller" Collapsed="true">
+    <Position X="6" Y="2.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

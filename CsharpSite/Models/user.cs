@@ -111,6 +111,8 @@ namespace CsharpSite.Models
                 UserId = this.UserId,
                 Username = this.Username,
                 Email = this.Email,
+                First_name = this.First_name,
+                Last_name = this.Last_name,
                 Registration_date = this.Registration_date.ToString(),
                 Country = this.Country.Serialize(),
                 City = this.City.Serialize(),
