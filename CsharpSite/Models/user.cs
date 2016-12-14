@@ -234,12 +234,12 @@ namespace CsharpSite.Models
         public object Serialize() {
             return new
             {
-                CommentId = CommentId,
+                CommentId = this.CommentId,
                 Contents = this.Contents,
                 UserId = this.UserID,
                 PostId = this.PostID,
-                User = User.Serialize(),
-                Reactions = SerializeReactions()
+                User = this?.User?.Serialize(),
+                Reactions = this.SerializeReactions()
             };
         }
         public List<object> SerializeReactions() {

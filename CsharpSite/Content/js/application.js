@@ -104,6 +104,30 @@ $(document).on("click", ".js-msgGroup a", function () {
 refreshActions();
 
 function refreshActions() {
+    $("form.form_create_comment").submit(function(ev) {
+        ev.preventDefault();
+        var Contents = $(this).find("input[name='Contents']").val()
+        var PostId = $(this).find("input[name='PostId']").val()
+
+        if (Contents != "") {
+            createComment({
+                Contents: Contents, 
+                PostId: PostId
+            }).then(function() {
+                feedAutoRefresh()
+                $(this).find("input.Contents").val("")
+            })
+            
+        }
+    })
+    $("form#create_post_form").submit(function (ev) {
+        ev.preventDefault();
+        var contents = $("#post_contents").val()
+        if (contents != "")
+            createPost({ "Contents": contents, title: contents }).then(feedAutoRefresh)
+        $("#post_contents").val("")
+
+    })
     $('.btn-follow').on('click', function (e) {
         var target = $(this).data("targetid");
         $.ajax({
@@ -166,9 +190,19 @@ function createPost(post_data) {
         url: '/Posts/Create',
         method: 'post',
         data: post_data,
-        success: function (resp) {
-            alert("Post created")
-        }
+        
+    });
+}
+/**
+* comment_data : {PostID, Contents}
+*/
+function createComment(comment_data) {
+    comment_data["format"] = "json"
+    return $.ajax({
+        url: '/Posts/Comment',
+        method: 'post',
+        data: comment_data,
+        
     });
 }
 /**
@@ -180,9 +214,7 @@ function createPostReaction(reaction_data) {
         url: '/Posts/React',
         method: 'post',
         data: reaction_data,
-        success: function (resp) {
-            alert("Post Reaction created")
-        }
+        
     });
 }
 
@@ -195,22 +227,33 @@ function createCommentReaction(comment_reaction_data) {
         url: '/Posts/ReactComment',
         method: 'post',
         data: comment_reaction_data,
-        success: function (resp) {
-            alert("Comment Reaction created")
-        }
+        
     });
 }
 
 function feedAutoRefresh() {
-    $.ajax({
-        url: '/Feed/GetFeed',
-        method: 'post',
-        success: function (resp) {
+    if (typeof feedUserId == "undefined") {
+        $.ajax({
+            url: '/Feed/GetFeed',
+            method: 'post',
+            success: function (resp) {
 
-            displayFeed(resp);
+                displayFeed(resp);
 
-        }
-    });
+            }
+        });
+    } else {
+        $.ajax({
+            url: '/Feed/GetFeed?UserId=' + feedUserId,
+            method: 'post',
+
+            success: function (resp) {
+
+                displayFeed(resp);
+
+            }
+        });
+    }
 }
 function displayFeed(feedsjson) {
     $("#feed").empty();
@@ -227,7 +270,7 @@ function displayFeed(feedsjson) {
                 + '</button>'
             + '</div>'
         + '</div>'
-        +'</form>'
+        + '</form>'
     + '</li>');
     var element = "";
     for (var i = 0; i < feedsjson['data'].length; i++) {
@@ -235,8 +278,8 @@ function displayFeed(feedsjson) {
         var usr = post['User'];
         element +=
         '<li class="qf b aml">'
-            + '<a class="qj" href="/Profile/View/'+usr['UserId']+'">'
-                + '<img class="qh cu"' 
+            + '<a class="qj" href="/Profile/View/' + usr['UserId'] + '">'
+                + '<img class="qh cu"'
                      + 'src="/Content/images/' + usr['UserId'] + '.jpg">'
             + '</a>'
             + '<div class="qg">'
@@ -263,7 +306,7 @@ function displayFeed(feedsjson) {
             var cusr = comment['User'];
 
             element += '<li class="qf">'
-                        + '<a class="qj" href="/Profile/View/'+cusr["UserId"]+'">'
+                        + '<a class="qj" href="/Profile/View/' + cusr["UserId"] + '">'
                             + '<img class="qh cu" src="/Content/images/' + cusr["UserId"] + '.jpg">'
                         + '</a>'
                         + '<div class="qg">'
@@ -281,7 +324,20 @@ function displayFeed(feedsjson) {
             element += '</div>'
                     + '</li>';
         }
-
+        element += '<li><form method=POST class="form_create_comment" action="/Posts/Comment" >'
+               + '<div class="input-group">'
+                   + '<input name="PostId" type=hidden class="form-control" value="' + post['PostId'] + '" />'
+                   + '<input name="Contents" class="form-control" type="text" class="form-control" placeholder="Comment">'
+                   + '<div class="fj">'
+                       + '<button type="button" class="cg fm">'
+                           + '<i class="fa fa-file-text" aria-hidden="true"></i>'
+                       + '</button>'
+                       + '<button type="button" class="cg fm">'
+                           + '<i class="fa fa-camera" aria-hidden="true"></i>'
+                       + '</button>'
+                   + '</div>'
+               + '</div>'
+               + '</form></li>'
         element += '</ul>'
             + '</div>'
         + '</div>'

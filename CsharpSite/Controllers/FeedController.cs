@@ -29,8 +29,11 @@ namespace CsharpSite.Controllers
         [HttpPost]
         public ActionResult GetFeed() {
             User user = getAuthUser();
+            if (Request["UserId"] == null)
+                user = db.Users.Find(int.Parse(Request["UserId"]));
             List<object> serializedfeed = new List<object>();
             List<Post> posts = user.Posts.ToList();
+
             foreach (var followed in user.Following) {
                 posts.AddRange( followed.Posts );
             }
